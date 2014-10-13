@@ -1,5 +1,7 @@
-Vienna
-======
+[![Build Status](https://travis-ci.org/josh64x2/vienna-rss.svg?branch=experimental)](https://travis-ci.org/josh64x2/vienna-rss)
+
+Vienna - Experimental
+=====================
 
 [Vienna](http://www.vienna-rss.org) is an RSS/Atom reader for Mac OS X.
 
