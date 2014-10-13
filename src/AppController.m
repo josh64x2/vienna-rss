@@ -2823,6 +2823,8 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 		[articleController markAllReadByArray:arrayOfFolders withUndo:YES withRefresh:YES];
 }
 
+#pragma mark - create new subscription
+
 /* createNewGoogleReaderSubscription
  * Create a new Open Reader subscription for the specified URL under the given parent folder.
  */
@@ -2913,6 +2915,8 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 		}
 	}
 }
+
+#pragma mark - Menu items
 
 /* newSubscription
  * Display the pane for a new RSS subscription.
