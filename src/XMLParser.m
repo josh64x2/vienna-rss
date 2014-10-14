@@ -38,7 +38,7 @@
 	CFXMLTreeRef newTree;
 
 	@try {
-		newTree = CFXMLTreeCreateFromDataWithError(kCFAllocatorDefault, (CFDataRef)data, NULL, kCFXMLParserNoOptions, kCFXMLNodeCurrentVersion, NULL);
+		newTree = CFXMLTreeCreateFromDataWithError(kCFAllocatorDefault, (__bridge CFDataRef)data, NULL, kCFXMLParserNoOptions, kCFXMLNodeCurrentVersion, NULL);
 	}
 	@catch (NSException *error) {
 		if (newTree != nil)
@@ -142,7 +142,7 @@
 	info.attributeOrder = NULL;
 	info.isEmpty = NO;
 
-	CFXMLNodeRef newTreeNode = CFXMLNodeCreate(kCFAllocatorDefault, kCFXMLNodeTypeElement, (CFStringRef)name, &info, kCFXMLNodeCurrentVersion);
+	CFXMLNodeRef newTreeNode = CFXMLNodeCreate(kCFAllocatorDefault, kCFXMLNodeTypeElement, (__bridge CFStringRef)name, &info, kCFXMLNodeCurrentVersion);
 	CFXMLTreeRef newTree = CFXMLTreeCreateWithNode(kCFAllocatorDefault, newTreeNode);
 	CFTreeAppendChild(tree, newTree);
 
@@ -168,7 +168,7 @@
  */
 -(void)addElement:(NSString *)value
 {
-	CFStringRef escapedString = CFXMLCreateStringByEscapingEntities(kCFAllocatorDefault, (CFStringRef)value, NULL);
+	CFStringRef escapedString = CFXMLCreateStringByEscapingEntities(kCFAllocatorDefault, (__bridge CFStringRef)value, NULL);
 	CFXMLNodeRef newNode = CFXMLNodeCreate(kCFAllocatorDefault, kCFXMLNodeTypeText, escapedString, NULL, kCFXMLNodeCurrentVersion);   
 	CFXMLTreeRef newTree = CFXMLTreeCreateWithNode(kCFAllocatorDefault, newNode);
 	CFTreeAppendChild(tree, newTree);
@@ -203,7 +203,7 @@
 	info.attributeOrder = (__bridge CFArrayRef)[attributesDict allKeys];
 	info.isEmpty = flag;
 
-	CFXMLNodeRef newNode = CFXMLNodeCreate (kCFAllocatorDefault, kCFXMLNodeTypeElement, (CFStringRef)name, &info, kCFXMLNodeCurrentVersion);   
+	CFXMLNodeRef newNode = CFXMLNodeCreate (kCFAllocatorDefault, kCFXMLNodeTypeElement, (__bridge CFStringRef)name, &info, kCFXMLNodeCurrentVersion);
 	CFXMLTreeRef newTree = CFXMLTreeCreateWithNode(kCFAllocatorDefault, newNode);
 	CFTreeAppendChild(tree, newTree);
 
@@ -262,7 +262,7 @@
 	{
 		CFXMLTreeRef subTree = CFTreeGetChildAtIndex(tree, index);
 		CFXMLNodeRef subNode = CFXMLTreeGetNode(subTree);
-		if ([name isEqualToString:(NSString *)CFXMLNodeGetString(subNode)])
+		if ([name isEqualToString:(__bridge NSString *)CFXMLNodeGetString(subNode)])
 			return [XMLParser treeWithCFXMLTreeRef:subTree];
 	}
 	return nil;
@@ -361,7 +361,7 @@
  */
 -(NSString *)nodeName
 {
-	return (NSString *)CFXMLNodeGetString(node);
+	return (__bridge NSString *)CFXMLNodeGetString(node);
 }
 
 /* valueOfElement
@@ -395,7 +395,7 @@
 		}
 		else //CDATA, string...
 		{
-			NSString * valueName = (NSString *)CFXMLNodeGetString(subNode);
+			NSString * valueName = (__bridge NSString *)CFXMLNodeGetString(subNode);
 			if (valueName != nil)
 			{
 				if (type == kCFXMLNodeTypeEntityReference)
