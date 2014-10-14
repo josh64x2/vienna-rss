@@ -283,7 +283,6 @@
 {
 	NSData * data = (NSData *)CFBridgingRelease(CFXMLTreeCreateXMLData(kCFAllocatorDefault, tree));
 	NSString * xmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	CFRelease((__bridge CFTypeRef)(data));
 	return xmlString;
 }
 
