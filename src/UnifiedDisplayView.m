@@ -115,7 +115,6 @@
 	[alternateItem setAlternate:YES];
 	[articleListMenu addItem:alternateItem];
 	[articleList setMenu:articleListMenu];
-	[articleListMenu release];
 
 	// Set the target for copy, drag...
 	[articleList setDelegate:self];
@@ -128,13 +127,9 @@
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[articleList setDelegate:nil];
-	[markReadTimer release];
 	markReadTimer=nil;
-	[guidOfArticleToSelect release];
 	guidOfArticleToSelect=nil;
-	[rowHeightArray release];
 	rowHeightArray=nil;
-	[super dealloc];
 }
 
 #pragma mark -
@@ -223,12 +218,11 @@
 	// If we still have some useful menu items (other than Webkit's Web Inspector)
 	// then use them for the new default menu
 	if ([newDefaultMenu count] > 0 && ![[newDefaultMenu objectAtIndex:0] isSeparatorItem])
-		defaultMenuItems = [newDefaultMenu autorelease];
+		defaultMenuItems = newDefaultMenu;
 	// otherwise set the default items to nil as we may have removed all the items.
 	else
 	{
 		defaultMenuItems = nil;
-		[newDefaultMenu release];
 	}
 
 	// Return the default menu items.
@@ -736,8 +730,7 @@
 		// so that after handleFolderSelection has been invoked, it will select the
 		// requisite article on our behalf.
 		currentSelectedRow = -1;
-		[guidOfArticleToSelect release];
-		guidOfArticleToSelect = [guid retain];
+		guidOfArticleToSelect = guid;
 		[foldersTree selectFolder:folderId];
 	}
 }
@@ -780,13 +773,12 @@
 	NSString * guid = nil;
 
 	[markReadTimer invalidate];
-	[markReadTimer release];
 	markReadTimer = nil;
 
 	if (refreshFlag == MA_Refresh_SortAndRedraw)
 		blockSelectionHandler = blockMarkRead = YES;
 	if ([articleList visibleRange].location < [allArticles count])
-		guid = [[[allArticles objectAtIndex:[articleList visibleRange].location] guid] retain];
+		guid = [[allArticles objectAtIndex:[articleList visibleRange].location] guid];
 	if (refreshFlag == MA_Refresh_ReloadFromDatabase)
 		[articleController reloadArrayOfArticles];
 	else if (refreshFlag == MA_Refresh_ReapplyFilter)
@@ -816,7 +808,6 @@
 		[[NSApp mainWindow] makeFirstResponder:[foldersTree mainView]];
 	else if (refreshFlag == MA_Refresh_SortAndRedraw)
 		blockSelectionHandler = blockMarkRead = NO;
-	[guid release];
 }
 
 /* selectArticleAfterReload
@@ -831,7 +822,6 @@
 		[self selectFirstUnreadInFolder];
 	else
 		[self scrollToArticle:guidOfArticleToSelect];
-	[guidOfArticleToSelect release];
 	guidOfArticleToSelect = nil;
 }
 
@@ -929,8 +919,8 @@
 
 	if (cellView == nil)
 	{
-		cellView = [[[ArticleCellView alloc] initWithReusableIdentifier:LISTVIEW_CELL_IDENTIFIER
-						inFrame:NSMakeRect(XPOS_IN_CELL, YPOS_IN_CELL, aListView.bounds.size.width - XPOS_IN_CELL, DEFAULT_CELL_HEIGHT)] autorelease];
+		cellView = [[ArticleCellView alloc] initWithReusableIdentifier:LISTVIEW_CELL_IDENTIFIER
+						inFrame:NSMakeRect(XPOS_IN_CELL, YPOS_IN_CELL, aListView.bounds.size.width - XPOS_IN_CELL, DEFAULT_CELL_HEIGHT)];
 	}
 
 	ArticleView * view = [cellView articleView];
@@ -1027,11 +1017,6 @@
 	[pboard setString:fullPlainText forType:NSStringPboardType];
 	[pboard setString:[fullHTMLText stringByEscapingExtendedCharacters] forType:NSHTMLPboardType];
 
-	[arrayOfArticles release];
-	[arrayOfURLs release];
-	[arrayOfTitles release];
-	[fullHTMLText release];
-	[fullPlainText release];
 	return YES;
 }
 

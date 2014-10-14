@@ -69,7 +69,7 @@
 {
 	XMLParser * parser = [[XMLParser alloc] init];
 	[parser setTreeRef:ref];
-	return [parser autorelease];
+	return parser;
 }
 
 /* setTreeRef
@@ -199,8 +199,8 @@
 -(XMLParser *)addTree:(NSString *)name withAttributes:(NSDictionary *)attributesDict closed:(BOOL)flag
 {
 	CFXMLElementInfo info;
-	info.attributes = (CFDictionaryRef)attributesDict;
-	info.attributeOrder = (CFArrayRef)[attributesDict allKeys];
+	info.attributes = (__bridge CFDictionaryRef)attributesDict;
+	info.attributeOrder = (__bridge CFArrayRef)[attributesDict allKeys];
 	info.isEmpty = flag;
 
 	CFXMLNodeRef newNode = CFXMLNodeCreate (kCFAllocatorDefault, kCFXMLNodeTypeElement, (CFStringRef)name, &info, kCFXMLNodeCurrentVersion);   
@@ -281,9 +281,9 @@
  */
 -(NSString *)xmlForTree
 {
-	NSData * data = (NSData *)CFXMLTreeCreateXMLData(kCFAllocatorDefault, tree);
-	NSString * xmlString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-	CFRelease(data);
+	NSData * data = (NSData *)CFBridgingRelease(CFXMLTreeCreateXMLData(kCFAllocatorDefault, tree));
+	NSString * xmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+	CFRelease((__bridge CFTypeRef)(data));
 	return xmlString;
 }
 
@@ -303,7 +303,7 @@
 	if (CFXMLNodeGetTypeCode(node) == kCFXMLNodeTypeElement )
 	{
 		CFXMLElementInfo eInfo = *(CFXMLElementInfo *)CFXMLNodeGetInfoPtr(node);
-		NSDictionary * dict = (NSDictionary *)eInfo.attributes;
+		NSDictionary * dict = (__bridge NSDictionary *)eInfo.attributes;
 		NSMutableDictionary * newDict = [[NSMutableDictionary alloc] init];
 
 		// Make a copy of the attributes dictionary but force the keys to
@@ -312,7 +312,7 @@
 		{
 			[newDict setObject:[dict objectForKey:keyName] forKey:[keyName lowercaseString]];
 		}
-		return [newDict autorelease];
+		return newDict;
 	}
 	return nil;
 }
@@ -331,13 +331,13 @@
 		CFXMLElementInfo eInfo = *(CFXMLElementInfo *)CFXMLNodeGetInfoPtr(node);
 		if (eInfo.attributes != nil)
 		{
-			return (NSString *)CFDictionaryGetValue(eInfo.attributes, attributeName);
+			return (NSString *)CFDictionaryGetValue(eInfo.attributes, (__bridge const void *)(attributeName));
 		}
 	}
 	else if (CFXMLNodeGetTypeCode(node) == kCFXMLNodeTypeProcessingInstruction)
 	{
 		CFXMLProcessingInstructionInfo eInfo = *(CFXMLProcessingInstructionInfo *)CFXMLNodeGetInfoPtr(node);
-		NSScanner * scanner = [NSScanner scannerWithString:(NSString *)eInfo.dataString];
+		NSScanner * scanner = [NSScanner scannerWithString:(__bridge NSString *)eInfo.dataString];
 		while (![scanner isAtEnd])
 		{
 			NSString * instructionName = nil;
@@ -391,7 +391,6 @@
 
 			NSString * nString = [[NSString alloc] initWithBytes:CFDataGetBytePtr(valueData) length:CFDataGetLength(valueData) encoding:NSUTF8StringEncoding];
 			[valueString appendString:nString];
-			[nString release];
 
 			CFRelease(valueData);
 		}
@@ -543,6 +542,5 @@
 		CFRelease(node);
 	if (tree != nil)
 		CFRelease(tree);
-	[super dealloc];
 }
 @end

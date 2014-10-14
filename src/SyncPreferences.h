@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface SyncPreferences : NSWindowController <NSTextFieldDelegate, NSWindowDelegate> {
-    NSButton * syncButton;
+    NSButton * __unsafe_unretained syncButton;
 	IBOutlet NSPopUpButton * openReaderSource; //List of known service providers
 	NSDictionary * sourcesDict;
     IBOutlet NSTextField * credentialsInfoText;
@@ -18,7 +18,7 @@
     IBOutlet NSSecureTextField * password;
 }
 
-@property (assign) IBOutlet NSButton *syncButton;
+@property (unsafe_unretained) IBOutlet NSButton *syncButton;
 
 -(IBAction)changeSyncGoogleReader:(id)sender;
 -(IBAction)changeSource:(id)sender;

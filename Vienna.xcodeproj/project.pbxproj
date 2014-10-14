@@ -149,31 +149,31 @@
 		435028B9165DE9E00018EDB7 /* ViennaApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 43502892165DE9DF0018EDB7 /* ViennaApp.m */; };
 		435028BA165DE9E00018EDB7 /* XMLSourceWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43502894165DE9DF0018EDB7 /* XMLSourceWindow.m */; };
 		43BA974E16642B1900B95F35 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 662468AF13C60A2800C85417 /* JSONKit.h */; };
-		43BA974F16642B1B00B95F35 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 662468B013C60A2800C85417 /* JSONKit.m */; };
+		43BA974F16642B1B00B95F35 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 662468B013C60A2800C85417 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43BA976116642B8300B95F35 /* DisclosableView.h in Headers */ = {isa = PBXBuildFile; fileRef = AAED83020A037A8200ED56E5 /* DisclosableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43BA976216642B8500B95F35 /* SNDisclosableView.h in Headers */ = {isa = PBXBuildFile; fileRef = AAED82FE0A037A6700ED56E5 /* SNDisclosableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43BA976316642B8600B95F35 /* SNDisclosableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAED82FF0A037A6700ED56E5 /* SNDisclosableView.m */; };
+		43BA976316642B8600B95F35 /* SNDisclosableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAED82FF0A037A6700ED56E5 /* SNDisclosableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43BA976416642B8800B95F35 /* SNDisclosureArrowDown.tiff in Resources */ = {isa = PBXBuildFile; fileRef = AAED82FB0A037A4E00ED56E5 /* SNDisclosureArrowDown.tiff */; };
 		43BA976516642B8900B95F35 /* SNDisclosureArrowRight.tiff in Resources */ = {isa = PBXBuildFile; fileRef = AAED82FA0A037A4E00ED56E5 /* SNDisclosureArrowRight.tiff */; };
 		43BA976616642B8B00B95F35 /* SNDisclosureButton.h in Headers */ = {isa = PBXBuildFile; fileRef = AAED82F70A037A2A00ED56E5 /* SNDisclosureButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43BA976716642B8C00B95F35 /* SNDisclosureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AAED82F60A037A2A00ED56E5 /* SNDisclosureButton.m */; };
+		43BA976716642B8C00B95F35 /* SNDisclosureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AAED82F60A037A2A00ED56E5 /* SNDisclosureButton.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43BA976816642B9700B95F35 /* ASICacheDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4BF67414B3161D008FCBE5 /* ASICacheDelegate.h */; };
 		43BA976916642B9800B95F35 /* ASIDataCompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4BF67514B3161D008FCBE5 /* ASIDataCompressor.h */; };
-		43BA976A16642B9900B95F35 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF67614B3161D008FCBE5 /* ASIDataCompressor.m */; };
+		43BA976A16642B9900B95F35 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF67614B3161D008FCBE5 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43BA976B16642B9B00B95F35 /* ASIDataDecompressor.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4BF67714B3161D008FCBE5 /* ASIDataDecompressor.h */; };
-		43BA976C16642B9C00B95F35 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF67814B3161D008FCBE5 /* ASIDataDecompressor.m */; };
+		43BA976C16642B9C00B95F35 /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF67814B3161D008FCBE5 /* ASIDataDecompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43BA976D16642B9E00B95F35 /* ASIDownloadCache.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4BF67914B3161D008FCBE5 /* ASIDownloadCache.h */; };
-		43BA976E16642B9F00B95F35 /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF67A14B3161D008FCBE5 /* ASIDownloadCache.m */; };
+		43BA976E16642B9F00B95F35 /* ASIDownloadCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF67A14B3161D008FCBE5 /* ASIDownloadCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43BA976F16642BA000B95F35 /* ASIFormDataRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4BF67B14B3161D008FCBE5 /* ASIFormDataRequest.h */; };
-		43BA977016642BA100B95F35 /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF67C14B3161D008FCBE5 /* ASIFormDataRequest.m */; };
+		43BA977016642BA100B95F35 /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF67C14B3161D008FCBE5 /* ASIFormDataRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43BA977116642BA300B95F35 /* ASIHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4BF67D14B3161D008FCBE5 /* ASIHTTPRequest.h */; };
-		43BA977216642BA400B95F35 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF67E14B3161D008FCBE5 /* ASIHTTPRequest.m */; };
+		43BA977216642BA400B95F35 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF67E14B3161D008FCBE5 /* ASIHTTPRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43BA977316642BA600B95F35 /* ASIHTTPRequestConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4BF67F14B3161D008FCBE5 /* ASIHTTPRequestConfig.h */; };
 		43BA977416642BA700B95F35 /* ASIHTTPRequestDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4BF68014B3161D008FCBE5 /* ASIHTTPRequestDelegate.h */; };
 		43BA977516642BA800B95F35 /* ASIInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4BF68114B3161D008FCBE5 /* ASIInputStream.h */; };
-		43BA977616642BA900B95F35 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF68214B3161D008FCBE5 /* ASIInputStream.m */; };
+		43BA977616642BA900B95F35 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF68214B3161D008FCBE5 /* ASIInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43BA977716642BAA00B95F35 /* ASINetworkQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4BF68314B3161D008FCBE5 /* ASINetworkQueue.h */; };
-		43BA977816642BAC00B95F35 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF68414B3161D008FCBE5 /* ASINetworkQueue.m */; };
+		43BA977816642BAC00B95F35 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BF68414B3161D008FCBE5 /* ASINetworkQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43BA977916642BAD00B95F35 /* ASIProgressDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = EA4BF68514B3161D008FCBE5 /* ASIProgressDelegate.h */; };
 		43BA979716644E4B00B95F35 /* libASIHTTPRequest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA973C16642A7E00B95F35 /* libASIHTTPRequest.a */; };
 		43BA97D2166475BC00B95F35 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 435021CF165DCB980018EDB7 /* Cocoa.framework */; };
@@ -8622,7 +8622,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -8672,7 +8672,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -8716,7 +8716,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -8833,6 +8833,7 @@
 			baseConfigurationReference = 432E5192165D65AF00A8640E /* Project-All.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -8855,6 +8856,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 43D4D6F9166FE0DB00BA9675 /* Vienna-StaticAnalyzer.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3rdparty",
@@ -8934,6 +8936,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 43501CFB165D73C70018EDB7 /* Vienna-Dev.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3rdparty",
@@ -8946,6 +8949,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 43501CFA165D73C70018EDB7 /* Vienna-Dep.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/3rdparty",
@@ -8960,6 +8964,7 @@
 			baseConfigurationReference = 432E5192165D65AF00A8640E /* Project-All.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -8983,6 +8988,7 @@
 			baseConfigurationReference = 432E5192165D65AF00A8640E /* Project-All.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;

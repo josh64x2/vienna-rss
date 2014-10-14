@@ -72,7 +72,7 @@
 	[nc addObserver:self selector:@selector(handleUseJavaScriptChange:) name:@"MA_Notify_UseJavaScriptChange" object:nil];
 	
 	// Handle minimum font size & using of JavaScript
-	defaultWebPrefs = [[self preferences] retain];
+	defaultWebPrefs = [self preferences];
 	[defaultWebPrefs setStandardFontFamily:@"Arial"];
 	[defaultWebPrefs setDefaultFontSize:12];
 	[defaultWebPrefs setPrivateBrowsingEnabled:NO];
@@ -86,8 +86,6 @@
  */
 -(void)setController:(AppController *)theController
 {
-	[theController retain];
-	[controller release];
 	controller = theController;
 	[self setPolicyDelegate:self];
 }
@@ -401,10 +399,7 @@
 	[self setPolicyDelegate:nil];
 	[self setDownloadDelegate:nil];
 	[self removeFromSuperviewWithoutNeedingDisplay];
-	[controller release];
 	controller=nil;
-	[defaultWebPrefs release];
 	defaultWebPrefs=nil;
-	[super dealloc];
 }
 @end

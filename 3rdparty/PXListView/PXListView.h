@@ -47,9 +47,9 @@
 	PXListViewDropHighlight	_dropHighlight;
 }
 
-@property (nonatomic, assign) IBOutlet id <PXListViewDelegate> delegate;
+@property (nonatomic, unsafe_unretained) IBOutlet id <PXListViewDelegate> delegate;
 
-@property (nonatomic, retain) NSIndexSet *selectedRows;
+@property (nonatomic, strong) NSIndexSet *selectedRows;
 @property (nonatomic, assign) NSUInteger selectedRow;
 
 @property (nonatomic, assign) BOOL allowsEmptySelection;

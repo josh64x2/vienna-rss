@@ -119,8 +119,6 @@
  */
 -(void)setField:(NSString *)newField
 {
-	[newField retain];
-	[field release];
 	field = newField;
 }
 
@@ -143,8 +141,6 @@
  */
 -(void)setValue:(NSString *)newValue
 {
-	[newValue retain];
-	[value release];
 	value = newValue;
 }
 
@@ -177,11 +173,8 @@
  */
 -(void)dealloc
 {
-	[value release];
 	value=nil;
-	[field release];
 	field=nil;
-	[super dealloc];
 }
 @end
 
@@ -232,11 +225,9 @@
 					[newCriteria setOperator:[operator intValue]];
 					[newCriteria setValue:value];
 					[self addCriteria:newCriteria];
-					[newCriteria release];
 					++index;
 				}
 		}
-		[xmlTree release];
 	}
 	return self;
 }
@@ -327,7 +318,6 @@
 	}
 	
 	NSString * criteriaString = [newTree xmlForTree];
-	[newTree release];
 	return criteriaString;
 }
 
@@ -336,8 +326,6 @@
  */
 -(void)dealloc
 {
-	[criteriaTree release];
 	criteriaTree=nil;
-	[super dealloc];
 }
 @end

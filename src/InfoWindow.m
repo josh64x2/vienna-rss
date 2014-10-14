@@ -70,37 +70,6 @@ static InfoWindowManager * _infoWindowManager = nil;
     return self;
 }
 
-/* retain
- * Override to return ourself.
- */
--(id)retain
-{
-    return self;
-}
-
-/* retainCount
- * Return NSUIntegerMax to denote an object that cannot be released.
- */
--(NSUInteger)retainCount
-{
-    return NSUIntegerMax;
-}
-
-/* release
- * Override to do nothing.
- */
--(oneway void)release
-{
-}
-
-/* autorelease
- * Override to return ourself
- */
--(id)autorelease
-{
-    return self;
-}
-
 /* init
  * Inits the single instance of the info window manager.
  */
@@ -125,7 +94,6 @@ static InfoWindowManager * _infoWindowManager = nil;
 -(void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
 }
 
 /* handleFolderDeleted
@@ -170,7 +138,7 @@ static InfoWindowManager * _infoWindowManager = nil;
 	NSNumber * folderNumber = [NSNumber numberWithInt:folderId];
 	InfoWindow * infoWindow;
 
-	infoWindow = [[controllerList objectForKey:folderNumber] retain];
+	infoWindow = [controllerList objectForKey:folderNumber];
 	if (infoWindow == nil)
 	{
 		infoWindow = [[InfoWindow alloc] initWithFolder:folderId];
@@ -178,7 +146,6 @@ static InfoWindowManager * _infoWindowManager = nil;
 	}
 	[infoWindow showWindow:[NSApp mainWindow]];
 
-	[infoWindow release];
 }
 @end
 
@@ -200,7 +167,6 @@ static InfoWindowManager * _infoWindowManager = nil;
 -(void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super dealloc];
 }
 
 /* awakeFromNib

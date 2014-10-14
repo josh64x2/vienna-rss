@@ -209,7 +209,7 @@ static BOOL _credentialsChanged;
 		NSString * pathToPList = [thisBundle pathForResource:@"KnownSyncServers" ofType:@"plist"];
 		if (pathToPList != nil)
 		{
-			sourcesDict = [[NSDictionary dictionaryWithContentsOfFile:pathToPList] retain];
+			sourcesDict = [NSDictionary dictionaryWithContentsOfFile:pathToPList];
 			[openReaderSource removeAllItems];
 			if (sourcesDict)
 			{
@@ -242,7 +242,7 @@ static BOOL _credentialsChanged;
 {    
     if ([[self window] isVisible])
     {
-        NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+        NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:@"OK"];
     	[alert setMessageText:NSLocalizedString(@"Open Reader Authentication Failed",nil)];
     	[alert setInformativeText:NSLocalizedString(@"Make sure the username and password needed to access the Open Reader server are correctly set in Vienna's preferences.\nAlso check your network access.",nil)];
@@ -254,11 +254,8 @@ static BOOL _credentialsChanged;
 
 -(void)dealloc
 {
-    [syncButton release];
     syncButton=nil;
-    [sourcesDict release];
     sourcesDict=nil;
-    [super dealloc];
 
 }
 

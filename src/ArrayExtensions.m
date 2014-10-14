@@ -54,7 +54,7 @@
 	id obj;
 	
 	va_start(arguments, id1);
-	while ((obj = (id)va_arg(arguments, NSUInteger)) != 0)
+    while ((obj = va_arg(arguments, id)) != 0)
 	{
 		if ([obj isKindOfClass:[NSArray class]])
 		{

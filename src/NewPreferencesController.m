@@ -65,8 +65,8 @@
 
 	// Load the dictionary and sort the keys by name to create the ordered
 	// identifiers for each pane.
-	prefsDict = [[NSDictionary dictionaryWithContentsOfFile:pathToPList] retain];
-	prefsIdentifiers = [[[prefsDict allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)] retain];
+	prefsDict = [NSDictionary dictionaryWithContentsOfFile:pathToPList];
+	prefsIdentifiers = [[prefsDict allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 	NSAssert([prefsIdentifiers count] > 0, @"Empty Preferences.plist file");
 
 	// Set the title
@@ -79,7 +79,6 @@
 	[toolbar setDisplayMode:NSToolbarDisplayModeIconAndLabel];
 	[toolbar setDelegate:self];
 	[prefWindow setToolbar:toolbar];
-	[toolbar release];
 
 	// Hide the toolbar pill button
 	[[prefWindow standardWindowButton:NSWindowToolbarButton] setFrame:NSZeroRect];
@@ -105,7 +104,7 @@
  */
 -(NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag
 {
-	NSToolbarItem * newItem = [[[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier] autorelease];
+	NSToolbarItem * newItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
 	NSDictionary * prefsItem = [prefsDict objectForKey:itemIdentifier];
 	[newItem setLabel:NSLocalizedString([prefsItem valueForKey:@"Title"], nil)];
 	[newItem setTarget:self];
@@ -161,7 +160,6 @@
 
 		// This is the only safe time to add the pane to the array
 		[prefPanes setObject:prefPane forKey:identifier];
-		[prefPane release];
 	}
 
 	// If we get this far, OK to select the new item. Otherwise we're staying
@@ -173,10 +171,9 @@
 	{
 		// Restore the pref pane to its original window
 		id oldPrefPane = [prefPanes objectForKey:selectedIdentifier];
-		NSView * oldView = [[prefWindow contentView] retain];
+		NSView * oldView = [prefWindow contentView];
 		[prefWindow setContentView:nil];
 		[[oldPrefPane window] setContentView:oldView];
-		[oldView release];
 	}
 	
 	// Now pull the new pane into view.
@@ -185,7 +182,7 @@
 
 	// retain here, release after setting contentView
 	NSWindow * prefPaneWindow = [prefPane window];
-	NSView * theView = [[prefPaneWindow contentView] retain];
+	NSView * theView = [prefPaneWindow contentView];
 	[prefPaneWindow setContentView:nil];
 
 	// Compute the new frame window height and width
@@ -199,11 +196,10 @@
 	[prefWindow setFrame:newWindowFrame display:YES animate:[prefWindow isVisible]];
 
 	[prefWindow setContentView:theView];
-	[theView release]; // balance the retain above
+	 // balance the retain above
 
 	// Remember this pane identifier.
-	[selectedIdentifier release];
-	selectedIdentifier = [identifier retain];
+	selectedIdentifier = identifier;
 }
 
 /* validateToolbarItem
@@ -243,16 +239,10 @@
  */
 -(void)dealloc
 {
-	[selectedIdentifier release];
 	selectedIdentifier=nil;
-	[blankView release];
 	blankView=nil;
-	[prefPanes release];
 	prefPanes=nil;
-	[prefsIdentifiers release];
 	prefsIdentifiers=nil;
-	[prefsDict release];
 	prefsDict=nil;
-	[super dealloc];
 }
 @end

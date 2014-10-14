@@ -53,7 +53,7 @@ static NSString * BitlyApiBaseUrl = @"http://api.bit.ly/%@?version=2.0.1&login=%
 	
 	// ... which is then finally sent to bit.ly's servers.
 	NSHTTPURLResponse* urlResponse = nil;  	
-	NSError *error = [[[NSError alloc] init] autorelease];  
+	NSError *error = [[NSError alloc] init];  
 	NSData * data = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&error];	
 	
 	// If the response is OK, use Vienna's XML parser stuff to get the data we need.
@@ -66,13 +66,9 @@ static NSString * BitlyApiBaseUrl = @"http://api.bit.ly/%@?version=2.0.1&login=%
 		XMLParser * subtree;
 		if ((subtree = [responseParser treeByPath:@"bitly/results/nodeKeyVal/shortUrl"]) != nil)
 		{
-			[responseParser release];
-            [request release];
 			return [subtree valueOfElement];
 		}
-		[responseParser release];
 	}
-    [request release];
 	// TODO: Present error-message to the user?
 	NSLog(@"URL shortening with bit.ly failed!");
 	NSBeep();

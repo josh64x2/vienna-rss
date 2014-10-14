@@ -45,8 +45,8 @@
 	Folder * searchFolder;
 }
 
-@property(nonatomic, retain) Folder * trashFolder;
-@property(nonatomic, retain) Folder * searchFolder;
+@property(nonatomic, strong) Folder * trashFolder;
+@property(nonatomic, strong) Folder * searchFolder;
 
 // General database functions
 +(Database *)sharedDatabase;

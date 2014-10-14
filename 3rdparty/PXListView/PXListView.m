@@ -75,13 +75,12 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 	[self setDelegate:nil]; // otherwise delegate is left observing notifications from deallocated PXListView
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
-	[_reusableCells release], _reusableCells = nil;
-	[_cellsInViewHierarchy release], _cellsInViewHierarchy = nil;
-	[_selectedRows release], _selectedRows = nil;
+	_reusableCells = nil;
+	_cellsInViewHierarchy = nil;
+	_selectedRows = nil;
 	
 	free(_cellYOffsets);
 
-	[super dealloc];
 }
 
 #pragma mark -
@@ -182,9 +181,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 		PXListViewCell *cell = [_reusableCells objectAtIndex:(i-1)];
 		
 		if([[cell reusableIdentifier] isEqualToString:identifier])
-		{
-			//Make sure it doesn't get dealloc'd early:
-			[[cell retain] autorelease];            
+		{         
 			[_reusableCells removeObjectAtIndex:(i-1)];
 			[cell prepareForReuse];
 			
@@ -745,7 +742,7 @@ NSString * const PXListViewSelectionDidChange = @"PXListViewSelectionDidChange";
 
 -(NSArray*)	accessibilityAttributeNames
 {
-	NSMutableArray*	attribs = [[[super accessibilityAttributeNames] mutableCopy] autorelease];
+	NSMutableArray*	attribs = [[super accessibilityAttributeNames] mutableCopy];
 	
 	[attribs addObject: NSAccessibilityRoleAttribute];
 	[attribs addObject: NSAccessibilityVisibleChildrenAttribute];

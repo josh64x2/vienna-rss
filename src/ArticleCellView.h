@@ -22,7 +22,7 @@
 	NSUInteger articleRow;
 }
 
-@property (assign,readonly)ArticleView *articleView;
+@property (readonly)ArticleView *articleView;
 @property BOOL inProgress;
 @property int folderId;
 @property NSUInteger articleRow;

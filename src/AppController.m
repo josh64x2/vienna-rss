@@ -219,8 +219,6 @@ static NSLocale * enUSLocale;
 	
 	// Retain views which might be removed from the toolbar and therefore released;
 	// we will need them if they are added back later.
-	[spinner retain];
-	[searchField retain];
 }
 
 /* applicationDidResignActive
@@ -380,7 +378,7 @@ static void MySleepCallBack(void * refCon, io_service_t service, natural_t messa
 	IONotificationPortRef notify;
 	io_object_t anIterator;
 	
-	root_port = IORegisterForSystemPower(self, &notify, MySleepCallBack, &anIterator);
+	root_port = IORegisterForSystemPower((__bridge void *)(self), &notify, MySleepCallBack, &anIterator);
 	if (root_port != 0)
 		CFRunLoopAddSource(CFRunLoopGetCurrent(), IONotificationPortGetRunLoopSource(notify), kCFRunLoopCommonModes);
 }
@@ -391,7 +389,7 @@ static void MySleepCallBack(void * refCon, io_service_t service, natural_t messa
  */
 static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, void * refcon, FNSubscriptionRef subscription)
 {
-	AppController * app = (AppController *)refcon;
+	AppController * app = (__bridge AppController *)refcon;
 	[app initScriptsMenu];
 }
 
@@ -403,7 +401,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 	NSString * path = [[Preferences standardPreferences] scriptsFolder];
 	FNSubscriptionRef refCode;
 	
-	FNSubscribeByPath((const UInt8 *)[path UTF8String], MyScriptsFolderWatcherCallBack, self, kNilOptions, &refCode);
+	FNSubscribeByPath((const UInt8 *)[path UTF8String], MyScriptsFolderWatcherCallBack, (__bridge void *)(self), kNilOptions, &refCode);
 }
 
 /* layoutManager
@@ -456,7 +454,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 	}
 	
 	// Create the toolbar.
-	NSToolbar * toolbar = [[[NSToolbar alloc] initWithIdentifier:@"MA_Toolbar"] autorelease];
+	NSToolbar * toolbar = [[NSToolbar alloc] initWithIdentifier:@"MA_Toolbar"];
 	
 	// Set the appropriate toolbar options. We are the delegate, customization is allowed,
 	// changes made by the user are automatically saved and we start in icon mode.
@@ -475,7 +473,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 	// Preload dictionary of standard URLs
 	NSString * pathToPList = [[NSBundle mainBundle] pathForResource:@"StandardURLs.plist" ofType:@""];
 	if (pathToPList != nil)
-		standardURLs = [[NSDictionary dictionaryWithContentsOfFile:pathToPList] retain];
+		standardURLs = [NSDictionary dictionaryWithContentsOfFile:pathToPList];
 	
 	// Initialize the Sort By and Columns menu
 	[self initSortMenu];
@@ -652,7 +650,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 				{
 					[db purgeDeletedArticles];
 				}
-				[emptyTrashWarning release];
 				emptyTrashWarning = nil;
 			}
 			break;
@@ -797,17 +794,14 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 	NSMenuItem * item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Recent Searches", nil) action:NULL keyEquivalent:@""];
 	[item setTag:NSSearchFieldRecentsTitleMenuItemTag];
 	[cellMenu insertItem:item atIndex:0];
-	[item release];
 	
 	item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Recents", nil) action:NULL keyEquivalent:@""];
 	[item setTag:NSSearchFieldRecentsMenuItemTag];
 	[cellMenu insertItem:item atIndex:1];
-	[item release];
 	
 	item = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Clear", nil) action:NULL keyEquivalent:@""];
 	[item setTag:NSSearchFieldClearRecentsMenuItemTag];
 	[cellMenu insertItem:item atIndex:2];
-	[item release];
 	
 	SearchMethod * searchMethod;
 	NSString * friendlyName;
@@ -826,7 +820,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 			[item setState:NSOnState];
 		
 		[cellMenu addItem:item];
-		[item release];
 	}
 	
 	// Add all available plugged-in search methods to the menu.
@@ -845,11 +838,10 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 			if ( [[searchMethod friendlyName] isEqualToString: [[[Preferences standardPreferences] searchMethod] friendlyName]] )
 				[item setState:NSOnState];
 			[cellMenu addItem:item];
-			[item release];
 		}
 	} 
 	[cellMenu setDelegate:self];
-	return [cellMenu autorelease];
+	return cellMenu;
 }
 
 /* setSearchMethod 
@@ -928,7 +920,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
  */
 -(NSMenu *)folderMenu
 {
-	NSMenu * folderMenu = [[[NSMenu alloc] init] autorelease];
+	NSMenu * folderMenu = [[NSMenu alloc] init];
 	[folderMenu addItem:copyOfMenuItemWithAction(@selector(refreshSelectedSubscriptions:))];
 	[folderMenu addItem:[NSMenuItem separatorItem]];
 	[folderMenu addItem:copyOfMenuItemWithAction(@selector(editFolder:))];
@@ -1045,7 +1037,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 
 	for (int i=0; i<kNumberOfDateFormatters; i++)
 	{
-		dateFormatterArray[i] = [[[NSDateFormatter alloc] init] retain];
+		dateFormatterArray[i] = [[NSDateFormatter alloc] init];
 		[dateFormatterArray[i] setLocale:enUSLocale];
 		[dateFormatterArray[i] setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
         [dateFormatterArray[i] setDateFormat:kDateFormats[i]];
@@ -1097,7 +1089,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
  */
 -(NSMenu *)applicationDockMenu:(NSApplication *)sender
 {
-	[appDockMenu release];
 	appDockMenu = [[NSMenu alloc] initWithTitle:@"DockMenu"];
 	[appDockMenu addItem:copyOfMenuItemWithAction(@selector(refreshAllSubscriptions:))];
 	[appDockMenu addItem:copyOfMenuItemWithAction(@selector(markAllSubscriptionsRead:))];
@@ -1135,7 +1126,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 					[menuItem setAction:@selector(openWebElementInNewTab:)];
 					[menuItem setRepresentedObject:imageURL];
 					[menuItem setTag:WebMenuItemTagOther];
-					newMenuItem = [[NSMenuItem new] autorelease];
+					newMenuItem = [NSMenuItem new];
 					if (newMenuItem != nil)
 					{
 						[newMenuItem setTitle:[NSString stringWithFormat:NSLocalizedString(@"Open Image in %@", nil), defaultBrowser]];
@@ -1168,7 +1159,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 					[newMenuItem setTag:WebMenuItemTagOther];
 					[newDefaultMenu insertObject:newMenuItem atIndex:index + 1];
 				}
-				[newMenuItem release];
 				break;
 				
 			case WebMenuItemTagCopyLinkToClipboard:
@@ -1183,7 +1173,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 		[newDefaultMenu addObject:[NSMenuItem separatorItem]];
 		
 		// Add command to open the current page in the external browser
-		newMenuItem = [[NSMenuItem new] autorelease];
+		newMenuItem = [NSMenuItem new];
 		if (newMenuItem != nil)
 		{
 			[newMenuItem setTitle:[NSString stringWithFormat:NSLocalizedString(@"Open Page in %@", nil), defaultBrowser]];
@@ -1194,7 +1184,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 		}
 		
 		// Add command to copy the URL of the current page to the clipboard
-		newMenuItem = [[NSMenuItem new] autorelease];
+		newMenuItem = [NSMenuItem new];
 		if (newMenuItem != nil)
 		{
 			[newMenuItem setTitle:NSLocalizedString(@"Copy Page Link to Clipboard", nil)];
@@ -1205,7 +1195,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 		}
 	}
 	
-	return [newDefaultMenu autorelease];
+	return newDefaultMenu;
 }
 
 /** openURLsInDefaultBrowser
@@ -1450,7 +1440,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 		else
 			[browserView setTabItemViewTitle:newBrowserPane title:NSLocalizedString(@"New Tab", nil)];
 		
-		[newBrowserTemplate release];
 	}
 	if (didCompleteInitialisation)
 			[browserView performSelector:@selector(saveOpenTabs) withObject:nil afterDelay:3];
@@ -1512,7 +1501,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 	else
 	{
 		NSAppleEventDescriptor * resultEvent = [appleScript executeAndReturnError:&errorDictionary];
-		[appleScript release];
 		if (resultEvent == nil)
 		{
 			NSString * baseScriptName = [[scriptName lastPathComponent] stringByDeletingPathExtension];
@@ -1535,7 +1523,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 -(void)handleGoogleAuthFailed:(NSNotification *)nc
 {
     if ([mainWindow isKeyWindow]) {
-	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:@"OK"];
     [alert setMessageText:NSLocalizedString(@"Open Reader Authentication Failed",nil)];
     [alert setInformativeText:NSLocalizedString(@"Make sure the username and password needed to access the Open Reader server are correctly set in Vienna's preferences.\nAlso check your network access.",nil)];
@@ -1724,7 +1712,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 							 notificationsWithDescriptions,	GROWL_NOTIFICATIONS_HUMAN_READABLE_NAMES,
 							 nil];
 
-	[defNotesArray release];
 
 	return regDict;
 }
@@ -1734,7 +1721,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
  */
 -(void)initSortMenu
 {
-	NSMenu * sortSubmenu = [[[NSMenu alloc] initWithTitle:@"Sort By"] autorelease];
+	NSMenu * sortSubmenu = [[NSMenu alloc] initWithTitle:@"Sort By"];
 	
 	// Add the fields which are sortable to the menu.
 	for (Field * field in [db arrayOfFields])
@@ -1755,7 +1742,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 			NSMenuItem * menuItem = [[NSMenuItem alloc] initWithTitle:[field displayName] action:@selector(doSortColumn:) keyEquivalent:@""];
 			[menuItem setRepresentedObject:field];
 			[sortSubmenu addItem:menuItem];
-			[menuItem release];
 		}
 	}
 	
@@ -1766,11 +1752,9 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 	NSMenuItem * menuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Ascending", nil) action:@selector(doSortDirection:) keyEquivalent:@""];
 	[menuItem setRepresentedObject:[NSNumber numberWithBool:YES]];
 	[sortSubmenu addItem:menuItem];
-	[menuItem release];
 	menuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Descending", nil) action:@selector(doSortDirection:) keyEquivalent:@""];
 	[menuItem setRepresentedObject:[NSNumber numberWithBool:NO]];
 	[sortSubmenu addItem:menuItem];
-	[menuItem release];
 	
 	// Set the submenu
 	[sortByMenu setSubmenu:sortSubmenu];
@@ -1781,7 +1765,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
  */
 -(void)initColumnsMenu
 {
-	NSMenu * columnsSubMenu = [[[NSMenu alloc] initWithTitle:@"Columns"] autorelease];
+	NSMenu * columnsSubMenu = [[NSMenu alloc] initWithTitle:@"Columns"];
 	
 	for (Field * field in [db arrayOfFields])
 	{
@@ -1798,7 +1782,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 			NSMenuItem * menuItem = [[NSMenuItem alloc] initWithTitle:[field displayName] action:@selector(doViewColumn:) keyEquivalent:@""];
 			[menuItem setRepresentedObject:field];
 			[columnsSubMenu addItem:menuItem];
-			[menuItem release];
 		}
 	}
 	[columnsMenu setSubmenu:columnsSubMenu];
@@ -1846,7 +1829,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 															   action:@selector(doSelectScript:)
 														keyEquivalent:@""];
 			[scriptsMenu addItem:menuItem];
-			[menuItem release];
 		}
 		
 		[scriptsMenu addItem:[NSMenuItem separatorItem]];
@@ -1854,18 +1836,15 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 		
 		menuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Open Scripts Folder", nil) action:@selector(doOpenScriptsFolder:) keyEquivalent:@""];
 		[scriptsMenu addItem:menuItem];
-		[menuItem release];
 		
 		menuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"More Scripts...", nil) action:@selector(moreScripts:) keyEquivalent:@""];
 		[scriptsMenu addItem:menuItem];
-		[menuItem release];
 		
 		// If this is the first call to initScriptsMenu, create the scripts menu. Otherwise we just
 		// update the one we have.
 		if (scriptsMenuItem != nil)
 		{
 			[[NSApp mainMenu] removeItem:scriptsMenuItem];
-			[scriptsMenuItem release];
 		}
 		
 		scriptsMenuItem = [[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:@"Scripts" action:NULL keyEquivalent:@""];
@@ -1875,7 +1854,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 		[[NSApp mainMenu] insertItem:scriptsMenuItem atIndex:helpMenuIndex];
 		[scriptsMenuItem setSubmenu:scriptsMenu];
 		
-		[scriptsMenu release];
 	}
 }
 
@@ -1886,7 +1864,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
  */
 -(NSMenu *)getStylesMenu
 {
-	NSMenu * stylesSubMenu = [[[NSMenu alloc] initWithTitle:@"Style"] autorelease];
+	NSMenu * stylesSubMenu = [[NSMenu alloc] initWithTitle:@"Style"];
 	
 	// Reinitialise the styles map
 	NSDictionary * stylesMap = [ArticleView loadStylesMap];
@@ -1900,14 +1878,12 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 	{
 		NSMenuItem * menuItem = [[NSMenuItem alloc] initWithTitle:[sortedMenuItems objectAtIndex:index] action:@selector(doSelectStyle:) keyEquivalent:@""];
 		[stylesSubMenu addItem:menuItem];
-		[menuItem release];
 	}
 	
 	// Append a link to More Styles...
 	[stylesSubMenu addItem:[NSMenuItem separatorItem]];
 	NSMenuItem * menuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"More Styles...", nil) action:@selector(moreStyles:) keyEquivalent:@""];
 	[stylesSubMenu addItem:menuItem];
-	[menuItem release];
 	return stylesSubMenu;
 }
 
@@ -1918,8 +1894,8 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
  */
 -(void)initFiltersMenu
 {
-	NSMenu * filterSubMenu = [[[NSMenu alloc] initWithTitle:@"Filter By"] autorelease];
-	NSMenu * filterPopupMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+	NSMenu * filterSubMenu = [[NSMenu alloc] initWithTitle:@"Filter By"];
+	NSMenu * filterPopupMenu = [[NSMenu alloc] initWithTitle:@""];
 	
 	NSArray * filtersArray = [ArticleFilter arrayOfFilters];
 	int count = [filtersArray count];
@@ -1932,12 +1908,10 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 		NSMenuItem * menuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString([filter name], nil) action:@selector(changeFiltering:) keyEquivalent:@""];
 		[menuItem setTag:[filter tag]];
 		[filterSubMenu addItem:menuItem];
-		[menuItem release];
 		
 		menuItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString([filter name], nil) action:@selector(changeFiltering:) keyEquivalent:@""];
 		[menuItem setTag:[filter tag]];
 		[filterPopupMenu addItem:menuItem];
-		[menuItem release];
 	}
 	
 	// Add it to the Filters menu
@@ -2147,7 +2121,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 	Preferences * prefs = [Preferences standardPreferences];
 	if ([prefs showAppInStatusBar] && appStatusItem == nil)
 	{
-		appStatusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
+		appStatusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
 		[self setAppStatusBarIcon];
 		[appStatusItem setHighlightMode:YES];
 		
@@ -2162,12 +2136,10 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 		[statusBarMenu addItem:[NSMenuItem separatorItem]];
 		[statusBarMenu addItem:copyOfMenuItemWithAction(@selector(exitVienna:))];
 		[appStatusItem setMenu:statusBarMenu];
-		[statusBarMenu release];
 	}
 	else if (![prefs showAppInStatusBar] && appStatusItem != nil)
 	{
 		[[NSStatusBar systemStatusBar] removeStatusItem:appStatusItem];
-		[appStatusItem release];
 		appStatusItem = nil;
 	}
 }
@@ -2302,15 +2274,14 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 	int newFrequency = [[Preferences standardPreferences] refreshFrequency];
 	
 	[checkTimer invalidate];
-	[checkTimer release];
 	checkTimer = nil;
 	if (newFrequency > 0)
 	{
-		checkTimer = [[NSTimer scheduledTimerWithTimeInterval:newFrequency
+		checkTimer = [NSTimer scheduledTimerWithTimeInterval:newFrequency
 													   target:self
 													 selector:@selector(refreshOnTimer:)
 													 userInfo:nil
-													  repeats:NO] retain];
+													  repeats:NO];
 	}
 }
 
@@ -3012,7 +2983,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 -(void)sourceWindowWillClose:(NSNotification *)notification
 {
 	XMLSourceWindow * sourceWindow = [notification object];
-	[[sourceWindow retain] autorelease]; // Don't deallocate the object immediately
 	[sourceWindows removeObject:sourceWindow];
 }
 
@@ -3027,7 +2997,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 	{
 		if ([folder isRSSFolder])
 		{
-			XMLSourceWindow * sourceWindow = [[[XMLSourceWindow alloc] initWithFolder:folder] autorelease];
+			XMLSourceWindow * sourceWindow = [[XMLSourceWindow alloc] initWithFolder:folder];
 			
 			if (sourceWindow != nil)
 			{
@@ -3635,8 +3605,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
  */
 -(void)setSearchString:(NSString *)newSearchString
 {
-	[newSearchString retain];
-	[searchString release];
 	searchString = newSearchString;
 }
 
@@ -3645,7 +3613,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
  */
 -(NSString *)searchString
 {
-	return [[searchString retain] autorelease];
+	return searchString;
 }
 
 
@@ -4085,8 +4053,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 	@synchronized(persistedStatusText){
 		if (persistenceFlag)
 		{
-			[newStatusText retain];
-			[persistedStatusText release];
 			persistedStatusText = newStatusText;
 		}
 		if (newStatusText == nil || [newStatusText isBlank])
@@ -4644,7 +4610,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 			[customizationPaletteSpinner setStyle:[spinner style]];
 			
 			[item setView:customizationPaletteSpinner];
-			[customizationPaletteSpinner release];
 		}
 		
 		[item setMinSize:NSMakeSize(NSWidth([spinner frame]), NSHeight([spinner frame]))];
@@ -4668,7 +4633,7 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 	{
 		[pluginManager toolbarItem:item withIdentifier:itemIdentifier];
 	}
-	return [item autorelease];
+	return item;
 }
 
 /* toolbarDefaultItemIdentifiers
@@ -4740,7 +4705,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
         default:
             break;
     }
-    [alert release];
 }
 
 
@@ -4752,26 +4716,6 @@ static void MyScriptsFolderWatcherCallBack(FNMessage message, OptionBits flags, 
 	[mainWindow setDelegate:nil];
 	[splitView1 setDelegate:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[pluginManager release];
-	[scriptsMenuItem release];
-	[standardURLs release];
-	[downloadWindow release];
-	[persistedStatusText release];
-	[scriptPathMappings release];
-	[smartFolder release];
-	[rssFeed release];
-	[groupFolder release];
-	[preferenceController release];
-	[activityViewer release];
-	[checkTimer release];
-	[appDockMenu release];
-	[appStatusItem release];
-	[db release];
-	[spinner release];
-	[searchField release];
-	[sourceWindows release];
-	[searchString release];
 
-	[super dealloc];
 }
 @end

@@ -105,12 +105,12 @@ static Preferences * _standardPreferences = nil;
 			[userPrefs registerDefaults:defaults];
 			
 			// Application-specific folder locations
-			defaultDatabase = [[userPrefs valueForKey:MAPref_DefaultDatabase] retain];
-			imagesFolder = [[[MA_ApplicationSupportFolder stringByAppendingPathComponent:MA_ImagesFolder_Name] stringByExpandingTildeInPath] retain];
-			stylesFolder = [[[MA_ApplicationSupportFolder stringByAppendingPathComponent:MA_StylesFolder_Name] stringByExpandingTildeInPath] retain];
-			pluginsFolder = [[[MA_ApplicationSupportFolder stringByAppendingPathComponent:MA_PluginsFolder_Name] stringByExpandingTildeInPath] retain];
-			scriptsFolder = [[MA_ScriptsFolder stringByExpandingTildeInPath] retain];
-			feedSourcesFolder = [[[MA_ApplicationSupportFolder stringByAppendingPathComponent:MA_FeedSourcesFolder_Name] stringByExpandingTildeInPath] retain];
+			defaultDatabase = [userPrefs valueForKey:MAPref_DefaultDatabase];
+			imagesFolder = [[MA_ApplicationSupportFolder stringByAppendingPathComponent:MA_ImagesFolder_Name] stringByExpandingTildeInPath];
+			stylesFolder = [[MA_ApplicationSupportFolder stringByAppendingPathComponent:MA_StylesFolder_Name] stringByExpandingTildeInPath];
+			pluginsFolder = [[MA_ApplicationSupportFolder stringByAppendingPathComponent:MA_PluginsFolder_Name] stringByExpandingTildeInPath];
+			scriptsFolder = [MA_ScriptsFolder stringByExpandingTildeInPath];
+			feedSourcesFolder = [[MA_ApplicationSupportFolder stringByAppendingPathComponent:MA_FeedSourcesFolder_Name] stringByExpandingTildeInPath];
 		}
 		else
 		{
@@ -125,7 +125,6 @@ static Preferences * _standardPreferences = nil;
 				if (![fileManager createDirectoryAtPath:profilePath withIntermediateDirectories:YES attributes:NULL error:&error])
 				{
 					NSLog(@"Cannot create profile folder %@: %@", profilePath, error);
-					[error release];
 					profilePath = nil;
 				}
 			}
@@ -134,29 +133,27 @@ static Preferences * _standardPreferences = nil;
 			// name plus the .plist extension. (This is the same convention used by NSUserDefaults.)
 			if (profilePath != nil)
 			{
-				[profilePath retain];
 				NSDictionary * fileAttributes = [[NSBundle mainBundle] infoDictionary];
 				preferencesPath = [profilePath stringByAppendingPathComponent:[fileAttributes objectForKey:@"CFBundleIdentifier"]];
-				preferencesPath = [[preferencesPath stringByAppendingString:@".plist"] retain];
+				preferencesPath = [preferencesPath stringByAppendingString:@".plist"];
 			}
 			userPrefs = [[NSMutableDictionary alloc] initWithDictionary:defaults];
 			if (preferencesPath != nil)
 				[userPrefs addEntriesFromDictionary:[NSDictionary dictionaryWithContentsOfFile:preferencesPath]];
             
 			// Other folders are local to the profilePath
-			defaultDatabase = [[profilePath stringByAppendingPathComponent:MA_Database_Name] retain];
-			imagesFolder = [[[profilePath stringByAppendingPathComponent:MA_ImagesFolder_Name] stringByExpandingTildeInPath] retain];
-			stylesFolder = [[[profilePath stringByAppendingPathComponent:MA_StylesFolder_Name] stringByExpandingTildeInPath] retain];
-			scriptsFolder = [[[profilePath stringByAppendingPathComponent:MA_ScriptsFolder_Name] stringByExpandingTildeInPath] retain];
-			pluginsFolder = [[[profilePath stringByAppendingPathComponent:MA_PluginsFolder_Name] stringByExpandingTildeInPath] retain];
-			feedSourcesFolder = [[[profilePath stringByAppendingPathComponent:MA_FeedSourcesFolder_Name] stringByExpandingTildeInPath] retain];
+			defaultDatabase = [profilePath stringByAppendingPathComponent:MA_Database_Name];
+			imagesFolder = [[profilePath stringByAppendingPathComponent:MA_ImagesFolder_Name] stringByExpandingTildeInPath];
+			stylesFolder = [[profilePath stringByAppendingPathComponent:MA_StylesFolder_Name] stringByExpandingTildeInPath];
+			scriptsFolder = [[profilePath stringByAppendingPathComponent:MA_ScriptsFolder_Name] stringByExpandingTildeInPath];
+			pluginsFolder = [[profilePath stringByAppendingPathComponent:MA_PluginsFolder_Name] stringByExpandingTildeInPath];
+			feedSourcesFolder = [[profilePath stringByAppendingPathComponent:MA_FeedSourcesFolder_Name] stringByExpandingTildeInPath];
 		}
         
-		[defaults release];
 		
 		// Load those settings that we cache.
 		foldersTreeSortMethod = [self integerForKey:MAPref_AutoSortFoldersTree];
-		articleSortDescriptors = [[NSUnarchiver unarchiveObjectWithData:[userPrefs valueForKey:MAPref_ArticleSortDescriptors]] retain];
+		articleSortDescriptors = [NSUnarchiver unarchiveObjectWithData:[userPrefs valueForKey:MAPref_ArticleSortDescriptors]];
 		refreshFrequency = [self integerForKey:MAPref_CheckFrequency];
 		filterMode = [self integerForKey:MAPref_FilterMode];
 		layout = [self integerForKey:MAPref_Layout];
@@ -169,25 +166,25 @@ static Preferences * _standardPreferences = nil;
 		autoExpireDuration = [self integerForKey:MAPref_AutoExpireDuration];
 		openLinksInVienna = [self boolForKey:MAPref_OpenLinksInVienna];
 		openLinksInBackground = [self boolForKey:MAPref_OpenLinksInBackground];
-		displayStyle = [[userPrefs valueForKey:MAPref_ActiveStyleName] retain];
+		displayStyle = [userPrefs valueForKey:MAPref_ActiveStyleName];
 		textSizeMultiplier = [[userPrefs valueForKey:MAPref_ActiveTextSizeMultiplier] floatValue];
 		showFolderImages = [self boolForKey:MAPref_ShowFolderImages];
 		showStatusBar = [self boolForKey:MAPref_ShowStatusBar];
 		showFilterBar = [self boolForKey:MAPref_ShowFilterBar];
 		useJavaScript = [self boolForKey:MAPref_UseJavaScript];
 		showAppInStatusBar = [self boolForKey:MAPref_ShowAppInStatusBar];
-		folderFont = [[NSUnarchiver unarchiveObjectWithData:[userPrefs objectForKey:MAPref_FolderFont]] retain];
-		articleFont = [[NSUnarchiver unarchiveObjectWithData:[userPrefs objectForKey:MAPref_ArticleListFont]] retain];
-		downloadFolder = [[userPrefs valueForKey:MAPref_DownloadsFolder] retain];
+		folderFont = [NSUnarchiver unarchiveObjectWithData:[userPrefs objectForKey:MAPref_FolderFont]];
+		articleFont = [NSUnarchiver unarchiveObjectWithData:[userPrefs objectForKey:MAPref_ArticleListFont]];
+		downloadFolder = [userPrefs valueForKey:MAPref_DownloadsFolder];
 		shouldSaveFeedSource = [self boolForKey:MAPref_ShouldSaveFeedSource];
-		searchMethod = [[NSKeyedUnarchiver unarchiveObjectWithData:[userPrefs objectForKey:MAPref_SearchMethod]] retain];
+		searchMethod = [NSKeyedUnarchiver unarchiveObjectWithData:[userPrefs objectForKey:MAPref_SearchMethod]];
 		concurrentDownloads = [self integerForKey:MAPref_ConcurrentDownloads];
         
         // Open Reader sync
         syncGoogleReader = [self boolForKey:MAPref_SyncGoogleReader];
         prefersGoogleNewSubscription = [self boolForKey:MAPref_GoogleNewSubscription];
-		syncServer = [[userPrefs valueForKey:MAPref_SyncServer] retain];
-		syncingUser = [[userPrefs valueForKey:MAPref_SyncingUser] retain];
+		syncServer = [userPrefs valueForKey:MAPref_SyncServer];
+		syncingUser = [userPrefs valueForKey:MAPref_SyncingUser];
 				
 		//Sparkle autoupdate
 		checkForNewOnStartup = [[SUUpdater sharedUpdater] automaticallyChecksForUpdates];
@@ -222,33 +219,19 @@ static Preferences * _standardPreferences = nil;
 -(void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[defaultDatabase release];
 	defaultDatabase=nil;
-	[imagesFolder release];
 	imagesFolder=nil;
-	[downloadFolder release];
 	downloadFolder=nil;
-	[folderFont release];
 	folderFont=nil;
-	[articleFont release];
 	articleFont=nil;
-	[displayStyle release];
 	displayStyle=nil;
-	[preferencesPath release];
 	preferencesPath=nil;
-	[articleSortDescriptors release];
 	articleSortDescriptors=nil;
-	[profilePath release];
 	profilePath=nil;
-	[feedSourcesFolder release];
 	feedSourcesFolder=nil;
-	[searchMethod release];
 	searchMethod=nil;
-	[syncServer release];
 	syncServer=nil;
-	[syncingUser release];
 	syncingUser=nil;
-	[super dealloc];
 }
 
 /* allocFactoryDefaults
@@ -452,8 +435,7 @@ static Preferences * _standardPreferences = nil;
 {
 	if (defaultDatabase != newDatabase)
 	{
-		[defaultDatabase release];
-		defaultDatabase = [newDatabase retain];
+		defaultDatabase = newDatabase;
 		[userPrefs setValue:newDatabase forKey:MAPref_DefaultDatabase];
 	}
 }
@@ -603,8 +585,6 @@ static Preferences * _standardPreferences = nil;
 {
 	if (![newFolder isEqualToString:downloadFolder])
 	{
-		[newFolder retain];
-		[downloadFolder release];
 		downloadFolder = newFolder;
 		[self setObject:downloadFolder forKey:MAPref_DownloadsFolder];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"MA_Notify_PreferenceChange" object:nil];
@@ -637,8 +617,6 @@ static Preferences * _standardPreferences = nil;
  */
 -(void)setSearchMethod:(SearchMethod *)newMethod
 {
-	[searchMethod release];
-	[newMethod retain];
 	searchMethod = newMethod;
 	[self setObject:[NSKeyedArchiver archivedDataWithRootObject:newMethod] forKey:MAPref_SearchMethod];
 }
@@ -850,8 +828,6 @@ static Preferences * _standardPreferences = nil;
 {
 	if (![displayStyle isEqualToString:newStyleName])
 	{
-		[newStyleName retain];
-		[displayStyle release];
 		displayStyle = newStyleName;
 		[self setString:displayStyle forKey:MAPref_ActiveStyleName];
 		if (flag)
@@ -901,8 +877,7 @@ static Preferences * _standardPreferences = nil;
  */
 -(void)setFolderListFont:(NSString *)newFontName
 {
-	[folderFont release];
-	folderFont = [[NSFont fontWithName:newFontName size:[self folderListFontSize]] retain];
+	folderFont = [NSFont fontWithName:newFontName size:[self folderListFontSize]];
 	[self setObject:[NSArchiver archivedDataWithRootObject:folderFont] forKey:MAPref_FolderFont];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"MA_Notify_FolderFontChange" object:folderFont];
 }
@@ -912,8 +887,7 @@ static Preferences * _standardPreferences = nil;
  */
 -(void)setFolderListFontSize:(int)newFontSize
 {
-	[folderFont release];
-	folderFont = [[NSFont fontWithName:[self folderListFont] size:newFontSize] retain];
+	folderFont = [NSFont fontWithName:[self folderListFont] size:newFontSize];
 	[self setObject:[NSArchiver archivedDataWithRootObject:folderFont] forKey:MAPref_FolderFont];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"MA_Notify_FolderFontChange" object:folderFont];
 }
@@ -939,8 +913,7 @@ static Preferences * _standardPreferences = nil;
  */
 -(void)setArticleListFont:(NSString *)newFontName
 {
-	[articleFont release];
-	articleFont = [[NSFont fontWithName:newFontName size:[self articleListFontSize]] retain];
+	articleFont = [NSFont fontWithName:newFontName size:[self articleListFontSize]];
 	[self setObject:[NSArchiver archivedDataWithRootObject:articleFont] forKey:MAPref_ArticleListFont];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"MA_Notify_ArticleListFontChange" object:articleFont];
 }
@@ -950,8 +923,7 @@ static Preferences * _standardPreferences = nil;
  */
 -(void)setArticleListFontSize:(int)newFontSize
 {
-	[articleFont release];
-	articleFont = [[NSFont fontWithName:[self articleListFont] size:newFontSize] retain];
+	articleFont = [NSFont fontWithName:[self articleListFont] size:newFontSize];
 	[self setObject:[NSArchiver archivedDataWithRootObject:articleFont] forKey:MAPref_ArticleListFont];
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"MA_Notify_ArticleListFontChange" object:articleFont];
 }
@@ -972,7 +944,6 @@ static Preferences * _standardPreferences = nil;
 	if (![articleSortDescriptors isEqualToArray:newSortDescriptors])
 	{
 		NSArray * descriptors = [[NSArray alloc] initWithArray:newSortDescriptors];
-		[articleSortDescriptors release];
 		articleSortDescriptors = descriptors;
 		[self setObject:[NSArchiver archivedDataWithRootObject:descriptors] forKey:MAPref_ArticleSortDescriptors];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"MA_Notify_PreferenceChange" object:nil];
@@ -1212,8 +1183,6 @@ static Preferences * _standardPreferences = nil;
 {
 	if (![syncServer isEqualToString:newServer])
 	{
-		[newServer retain];
-		[syncServer release];
 		syncServer = newServer;
 		[self setString:syncServer forKey:MAPref_SyncServer];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"MA_Notify_SyncGoogleReaderChange" object:nil];
@@ -1232,8 +1201,6 @@ static Preferences * _standardPreferences = nil;
 {
 	if (![syncingUser isEqualToString:newUser])
 	{
-		[newUser retain];
-		[syncingUser release];
 		syncingUser = newUser;
 		[self setString:syncingUser forKey:MAPref_SyncingUser];
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"MA_Notify_SyncGoogleReaderChange" object:nil];

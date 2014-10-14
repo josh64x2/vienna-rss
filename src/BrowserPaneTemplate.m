@@ -35,9 +35,7 @@
 
 -(void)dealloc
 {
-	[browserPane release];
 	browserPane=nil;
-	[super dealloc];
 }
 
 @end

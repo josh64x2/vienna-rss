@@ -61,8 +61,8 @@ enum GoogleReaderStatus {
 @property (nonatomic, copy) NSMutableArray * localFeeds;
 @property (atomic, copy) NSString *token;
 @property (atomic, copy) NSString *clientAuthToken;
-@property (nonatomic, retain) NSTimer * tokenTimer;
-@property (nonatomic, retain) NSTimer * authTimer;
+@property (nonatomic, strong) NSTimer * tokenTimer;
+@property (nonatomic, strong) NSTimer * authTimer;
 @end
 
 @implementation GoogleReader
@@ -87,7 +87,7 @@ JSONDecoder * jsonDecoder;
     if (self) {
         // Initialization code here.
 		localFeeds = [[NSMutableArray alloc] init];
-		jsonDecoder = [[JSONDecoder decoder] retain];
+		jsonDecoder = [JSONDecoder decoder];
 		googleReaderStatus = notAuthenticated;
 		countOfNewArticles = 0;
 		clientAuthToken= nil;
@@ -127,13 +127,13 @@ JSONDecoder * jsonDecoder;
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
 	LLog(@"HTTP response status code: %d -- URL: %@", [request responseStatusCode], [[request originalURL] absoluteString]);
-	NSString *requestResponse = [[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding] autorelease];
+	NSString *requestResponse = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
 	if (![requestResponse isEqualToString:@"OK"]) {
 		LLog(@"Error on request");
 		LOG_EXPR([request error]);
 		LOG_EXPR([request originalURL]);
 		LOG_EXPR([request requestHeaders]);
-		LOG_EXPR([[[NSString alloc] initWithData:[request postBody] encoding:NSUTF8StringEncoding] autorelease]);
+		LOG_EXPR([[NSString alloc] initWithData:[request postBody] encoding:NSUTF8StringEncoding]);
 		LOG_EXPR([request responseHeaders]);
 		LOG_EXPR(requestResponse);
 		[self clearAuthentication];
@@ -225,7 +225,7 @@ JSONDecoder * jsonDecoder;
 			NSLog(@"Last update: %@",folderLastUpdateString);
 			NSLog(@"Found %lu items", (unsigned long)[[dict objectForKey:@"items"] count]);
 			LOG_EXPR(dict);
-			LOG_EXPR([[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+			LOG_EXPR([[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 			ALog(@"Error !!! Incoherent data !");
 			//keep the previously recorded one
 			folderLastUpdateString = [[request userInfo] objectForKey:@"lastupdatestring"];
@@ -241,7 +241,7 @@ JSONDecoder * jsonDecoder;
 			
 			NSDate * articleDate = [NSDate dateWithTimeIntervalSince1970:[[newsItem objectForKey:@"published"] doubleValue]];
 			NSString * articleGuid = [newsItem objectForKey:@"id"];
-			Article *article = [[[Article alloc] initWithGuid:articleGuid] autorelease];
+			Article *article = [[Article alloc] initWithGuid:articleGuid];
 			[article setFolderId:[refreshedFolder itemId]];
 		
 			if ([newsItem objectForKey:@"author"] != nil) {
@@ -349,7 +349,6 @@ JSONDecoder * jsonDecoder;
 			}
 		});
 		
-		[dict release];
 
 		NSString* feedIdentifier;
 		if( hostRequiresLastPathOnly )
@@ -378,9 +377,9 @@ JSONDecoder * jsonDecoder;
 		[aItem appendDetail:[NSString stringWithFormat:NSLocalizedString(@"HTTP code %d reported from server", nil), [request responseStatusCode]]];
 		LOG_EXPR([request originalURL]);
 		LOG_EXPR([request requestHeaders]);
-		LOG_EXPR([[[NSString alloc] initWithData:[request postBody] encoding:NSUTF8StringEncoding] autorelease]);
+		LOG_EXPR([[NSString alloc] initWithData:[request postBody] encoding:NSUTF8StringEncoding]);
 		LOG_EXPR([request responseHeaders]);
-		LOG_EXPR([[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding] autorelease]);
+		LOG_EXPR([[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding]);
 		[aItem setStatus:NSLocalizedString(@"Error", nil)];
 		[refreshedFolder clearNonPersistedFlag:MA_FFlag_Updating];
 		[refreshedFolder setNonPersistedFlag:MA_FFlag_Error];
@@ -550,10 +549,8 @@ JSONDecoder * jsonDecoder;
 	}
 	
     // restore from Preferences and from keychain
-    [username release];
-	username = [[prefs syncingUser] retain];
-	[openReaderHost release];
-	openReaderHost = [[prefs syncServer] retain];
+	username = [prefs syncingUser];
+	openReaderHost = [prefs syncServer];
 	// set server-specific particularities
 	hostSupportsLongId=NO;
 	hostRequiresSParameter=NO;
@@ -564,10 +561,10 @@ JSONDecoder * jsonDecoder;
 		hostRequiresLastPathOnly=YES;
 	}
 
-	[password release];
-	password = [[KeyChain getGenericPasswordFromKeychain:username serviceName:@"Vienna sync"] retain];
-	[APIBaseURL release];
-	APIBaseURL = [[NSString stringWithFormat:@"https://%@/reader/api/0/", openReaderHost] retain];
+
+	password = [KeyChain getGenericPasswordFromKeychain:username serviceName:@"Vienna sync"];
+
+	APIBaseURL = [NSString stringWithFormat:@"https://%@/reader/api/0/", openReaderHost];
 
 	NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:LoginBaseURL, openReaderHost]];
 	ASIFormDataRequest *myRequest = [ASIFormDataRequest requestWithURL:url];
@@ -619,9 +616,9 @@ JSONDecoder * jsonDecoder;
     {
 		LOG_EXPR([request originalURL]);
 		LOG_EXPR([request requestHeaders]);
-		LOG_EXPR([[[NSString alloc] initWithData:[request postBody] encoding:NSUTF8StringEncoding] autorelease]);
+		LOG_EXPR([[NSString alloc] initWithData:[request postBody] encoding:NSUTF8StringEncoding]);
 		LOG_EXPR([request responseHeaders]);
-		LOG_EXPR([[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding] autorelease]);
+		LOG_EXPR([[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding]);
 		[self resetAuthentication];
 		[request clearDelegatesAndCancel];
 		return;
@@ -706,7 +703,7 @@ JSONDecoder * jsonDecoder;
 				folderName = [folderNames lastObject];
 				// NNW nested folder char: — 
 				
-				NSMutableArray * params = [NSMutableArray arrayWithObjects:[[folderNames mutableCopy] autorelease], [NSNumber numberWithInt:MA_Root_Folder], nil];
+				NSMutableArray * params = [NSMutableArray arrayWithObjects:[folderNames mutableCopy], [NSNumber numberWithInt:MA_Root_Folder], nil];
 				[self createFolders:params];
 				break; //In case of multiple labels, we retain only the first one
 			} 
@@ -755,7 +752,6 @@ JSONDecoder * jsonDecoder;
 	// Unread count may have changed
 	[controller setStatusMessage:nil persist:NO];
 	
-	[googleFeeds release];
 	
 }
 
@@ -865,7 +861,7 @@ JSONDecoder * jsonDecoder;
 // callback
 - (void)keptUnreadDone:(ASIFormDataRequest *)request
 {
-	NSString *requestResponse = [[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding] autorelease];
+	NSString *requestResponse = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
 	if (![requestResponse isEqualToString:@"OK"]) {
 		LLog(@"Error on request");
 		LOG_EXPR([request error]);
@@ -916,27 +912,11 @@ JSONDecoder * jsonDecoder;
 
 -(void)dealloc 
 {
-	[localFeeds release];
-	localFeeds=nil;
-	[jsonDecoder release];
 	jsonDecoder=nil;
-    [username release];
     username=nil;
-	[openReaderHost release];
 	openReaderHost=nil;
-	[password release];
 	password=nil;
-	[APIBaseURL release];
 	APIBaseURL=nil;
-	[clientAuthToken release];
-	clientAuthToken=nil;
-	[token release];
-	token=nil;
-	[tokenTimer release];
-	tokenTimer=nil;
-	[authTimer release];
-	authTimer=nil;
-	[super dealloc];
 }
 
 /* sharedManager

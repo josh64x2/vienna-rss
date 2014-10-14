@@ -92,7 +92,6 @@ static Database * _sharedDatabase = nil;
 		_sharedDatabase = [[Database alloc] init];
 		if (![_sharedDatabase initDatabase:[[Preferences standardPreferences] defaultDatabase]])
 		{
-			[_sharedDatabase release];
 			_sharedDatabase = nil;
 		}
 	}
@@ -159,7 +158,6 @@ static Database * _sharedDatabase = nil;
 							[NSString stringWithFormat:NSLocalizedString(@"Cannot create database folder text: %@", nil), error],
 							NSLocalizedString(@"Close", nil), @"", @"",
 							databaseFolder);
-			[error release];
 			return NO;
 		}
 	}
@@ -172,7 +170,6 @@ static Database * _sharedDatabase = nil;
 						NSLocalizedString(@"Cannot open database text", nil),
 						NSLocalizedString(@"Close", nil), @"", @"",
 						qualifiedDatabaseFileName);
-		[sqlDatabase release];
 		return NO;
 	}
 
@@ -229,17 +226,14 @@ static Database * _sharedDatabase = nil;
 		// Create a criteria to find all marked articles
 		Criteria * markedCriteria = [[Criteria alloc] initWithField:MA_Field_Flagged withOperator:MA_CritOper_Is withValue:@"Yes"];
 		[self createInitialSmartFolder:NSLocalizedString(@"Marked Articles", nil) withCriteria:markedCriteria];
-		[markedCriteria release];
 
 		// Create a criteria to show all unread articles
 		Criteria * unreadCriteria = [[Criteria alloc] initWithField:MA_Field_Read withOperator:MA_CritOper_Is withValue:@"No"];
 		[self createInitialSmartFolder:NSLocalizedString(@"Unread Articles", nil) withCriteria:unreadCriteria];
-		[unreadCriteria release];
 		
 		// Create a criteria to show all articles received today
 		Criteria * todayCriteria = [[Criteria alloc] initWithField:MA_Field_Date withOperator:MA_CritOper_Is withValue:@"today"];
 		[self createInitialSmartFolder:NSLocalizedString(@"Today's Articles", nil) withCriteria:todayCriteria];
-		[todayCriteria release];
 
 		// Create the trash folder
 		[self executeSQLWithFormat:@"insert into folders (parent_id, foldername, unread_count, last_update, type, flags, next_sibling, first_child) values (-1, '%@', 0, 0, %d, 0, 0, 0)",
@@ -297,7 +291,6 @@ static Database * _sharedDatabase = nil;
 		[alert addButtonWithTitle:NSLocalizedString(@"Upgrade Database", nil)];
 		[alert addButtonWithTitle:NSLocalizedString(@"Quit Vienna", nil)];
 		NSInteger modalReturn = [alert runModal];
-		[alert release];
 		if (modalReturn == NSAlertSecondButtonReturn)
 		{
 			return NO;
@@ -483,7 +476,6 @@ static Database * _sharedDatabase = nil;
 		if (sqlDatabase != nil)
 		{
 			[sqlDatabase close];
-			[sqlDatabase release];
 			sqlDatabase = nil;
 			[[NSFileManager defaultManager] removeItemAtPath:path error:nil];
 		}
@@ -507,7 +499,6 @@ static Database * _sharedDatabase = nil;
 							NSLocalizedString(@"Cannot open database text", nil),
 							NSLocalizedString(@"Close", nil), @"", @"",
 							newPath);
-            [sqlDatabase release];
             sqlDatabase = nil;
 			return nil;
 		}
@@ -534,7 +525,6 @@ static Database * _sharedDatabase = nil;
 		
 		NSString * preparedCriteriaString = [Database prepareStringForQuery:[criteriaTree string]];
 		[self executeSQLWithFormat:@"insert into smart_folders (folder_id, search_string) values (%lld, '%@')", [sqlDatabase lastInsertRowId], preparedCriteriaString];
-		[criteriaTree release];
 	}
 }
 
@@ -573,7 +563,6 @@ static Database * _sharedDatabase = nil;
 	int errorCode;
 	NSString * query = [[NSString alloc] initWithFormat:sqlStatement arguments:arguments];
 	errorCode = [self executeSQL:query];
-	[query release];
 	va_end(arguments);
 	return errorCode;
 }
@@ -603,7 +592,7 @@ static Database * _sharedDatabase = nil;
  */
 -(void)addField:(NSString *)name type:(NSInteger)type tag:(NSInteger)tag sqlField:(NSString *)sqlField visible:(BOOL)visible width:(NSInteger)width
 {
-	Field * field = [[Field new] autorelease];
+	Field * field = [Field new];
 	if (field != nil)
 	{
 		[field setName:name];
@@ -953,7 +942,7 @@ static Database * _sharedDatabase = nil;
 		// Add this new folder to our internal cache. If this is an RSS or Open Reader
 		// folder, mark it so that somewhere down the line we'll request the
 		// image for the folder.
-		folder = [[[Folder alloc] initWithId:newItemId parentId:parentId name:name type:type] autorelease];
+		folder = [[Folder alloc] initWithId:newItemId parentId:parentId name:name type:type];
 		if ((type == MA_RSS_Folder)||(type == MA_GoogleReader_Folder))
 			[folder setFlag:MA_FFlag_CheckForImage];
 		[foldersDict setObject:folder forKey:[NSNumber numberWithInt:newItemId]];
@@ -1748,7 +1737,6 @@ static Database * _sharedDatabase = nil;
 				
 				CriteriaTree * criteriaTree = [[CriteriaTree alloc] initWithString:search_string];
 				[smartfoldersDict setObject:criteriaTree forKey:[NSNumber numberWithInt:folderId]];
-				[criteriaTree release];
 			}
 			[results close];
 		});
@@ -1837,7 +1825,7 @@ static Database * _sharedDatabase = nil;
 				NSInteger nextSibling = [[results stringForColumnIndex:7] intValue];
 				NSInteger firstChild = [[results stringForColumnIndex:8] intValue];
 				
-				Folder * folder = [[[Folder alloc] initWithId:newItemId parentId:newParentId name:name type:type] autorelease];
+				Folder * folder = [[Folder alloc] initWithId:newItemId parentId:newParentId name:name type:type];
 				[folder setNextSiblingId:nextSibling];
 				[folder setFirstChildId:firstChild];
 				if (!IsRSSFolder(folder) && !IsGoogleReaderFolder(folder))
@@ -1995,7 +1983,7 @@ static Database * _sharedDatabase = nil;
 				if (!read_flag)
 					++unread_count;
 				
-				Article * article = [[[Article alloc] initWithGuid:guid] autorelease];
+				Article * article = [[Article alloc] initWithGuid:guid];
 				[article markRead:read_flag];
 				[article markFlagged:marked_flag];
 				[article markRevised:revised_flag];
@@ -2029,8 +2017,6 @@ static Database * _sharedDatabase = nil;
  */
 -(void)setSearchString:(NSString *)newSearchString
 {
-	[newSearchString retain];
-	[searchString release];
 	searchString = newSearchString;
 }
 
@@ -2084,7 +2070,7 @@ static Database * _sharedDatabase = nil;
 	}
 	if (count > 1)
 		[sqlString appendString:@")"];
-	return [sqlString autorelease];
+	return sqlString;
 }
 
 /* criteriaToSQL
@@ -2221,7 +2207,7 @@ static Database * _sharedDatabase = nil;
 			[sqlString appendFormat:operatorString, valueString];
 		}
 	}
-	return [sqlString autorelease];
+	return sqlString;
 }
 
 /* criteriaForFolder
@@ -2241,8 +2227,7 @@ static Database * _sharedDatabase = nil;
 		CriteriaTree * tree = [[CriteriaTree alloc] init];
 		Criteria * clause = [[Criteria alloc] initWithField:MA_Field_Deleted withOperator:MA_CritOper_Is withValue:@"Yes"];
 		[tree addCriteria:clause];
-		[clause release];
-		return [tree autorelease];
+		return tree;
 	}
 
 	if (IsSmartFolder(folder))
@@ -2254,8 +2239,7 @@ static Database * _sharedDatabase = nil;
 	CriteriaTree * tree = [[CriteriaTree alloc] init];
 	Criteria * clause = [[Criteria alloc] initWithField:MA_Field_Folder withOperator:MA_CritOper_Under withValue:[folder name]];
 	[tree addCriteria:clause];
-	[clause release];
-	return [tree autorelease];
+	return tree;
 }
 
 /* arrayOfUnreadArticlesRefs
@@ -2346,7 +2330,7 @@ static Database * _sharedDatabase = nil;
 		FMResultSet * results = [sqlDatabase executeQuery:queryString];
 		while ([results next])
 		{
-			Article * article = [[[Article alloc] initWithGuid:[results stringForColumnIndex:0]] autorelease];
+			Article * article = [[Article alloc] initWithGuid:[results stringForColumnIndex:0]];
 			[article setFolderId:[[results stringForColumnIndex:1] intValue]];
 			[article setParentId:[[results stringForColumnIndex:2] intValue]];
 			[article markRead:[[results stringForColumnIndex:3] intValue]];
@@ -2622,8 +2606,6 @@ static Database * _sharedDatabase = nil;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[foldersDict removeAllObjects];
 	[smartfoldersDict removeAllObjects];
-	[fieldsOrdered release];
-	[fieldsByName release];
 	[self setTrashFolder:nil];
 	[self setSearchFolder:nil];
 	[sqlDatabase close];
@@ -2638,22 +2620,13 @@ static Database * _sharedDatabase = nil;
  */
 -(void)dealloc
 {
-	[trashFolder release];
-	trashFolder=nil;
-	[searchFolder release];
-	searchFolder=nil;
-	[searchString release];
 	searchString=nil;
-	[foldersDict release];
 	foldersDict=nil;
-	[smartfoldersDict release];
 	smartfoldersDict=nil;
 	dispatch_release(_execQueue);
 	dispatch_release(_transactionQueue);
 	if (sqlDatabase)
 		[self close];
-	[sqlDatabase release];
 	sqlDatabase=nil;
-	[super dealloc];
 }
 @end

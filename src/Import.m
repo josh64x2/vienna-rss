@@ -132,7 +132,6 @@
 			countImported = [self importSubscriptionGroup:bodyTree underParent:MA_Root_Folder];
 			}]; //end transaction block
 		}
-		[tree release];
 	}
 
 	// Announce how many we successfully imported

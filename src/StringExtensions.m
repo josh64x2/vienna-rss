@@ -518,7 +518,6 @@ static NSMutableDictionary * entityMap = nil;
 	}
 	
 	NSString * returnString = [processedString trim];
-	[processedString release];
 	return returnString;
 }
 
@@ -529,7 +528,7 @@ static NSMutableDictionary * entityMap = nil;
 {
 	if (entityMap == nil)
 	{
-		entityMap = [[NSMutableDictionary dictionaryWithObjectsAndKeys:
+		entityMap = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 			@"<",	@"lt",
 			@">",	@"gt",
 			@"\"",	@"quot",
@@ -539,7 +538,7 @@ static NSMutableDictionary * entityMap = nil;
 			@"'",	@"apos",
 			@"...", @"hellip",
 			@" ",	@"nbsp",
-			nil,	nil] retain];
+			nil,	nil];
 		
 		// Add entities that map to non-ASCII characters
 		[entityMap setValue:[NSString stringWithFormat:@"%C", (unsigned short)0xA1] forKey:@"iexcl"];

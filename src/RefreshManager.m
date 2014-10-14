@@ -568,7 +568,6 @@ static RefreshManager * _refreshManager = nil;
 			[aItem appendDetail:[NSString stringWithFormat:NSLocalizedString(@"Folder image retrieved from %@", nil), [request url]]];
 			[aItem appendDetail:[NSString stringWithFormat:NSLocalizedString(@"%ld bytes received", nil), [[request responseData] length]]];
 		}
-		[iconImage release];
 	} else {
 		[aItem appendDetail:[NSString stringWithFormat:NSLocalizedString(@"HTTP code %d reported from server", nil), [request responseStatusCode]]];
 	}
@@ -792,7 +791,6 @@ static RefreshManager * _refreshManager = nil;
 				// Mark the feed as failed
 				[self setFolderErrorFlag:folder flag:YES];
 				[connectorItem setStatus:NSLocalizedString(@"Error parsing XML data in feed", nil)];
-				[newFeed release];
 				return;
 			}
             
@@ -849,7 +847,7 @@ static RefreshManager * _refreshManager = nil;
 				if (articleDate == nil)
 					articleDate = [NSDate date];
 				
-				Article * article = [[[Article alloc] initWithGuid:articleGuid] autorelease];
+				Article * article = [[Article alloc] initWithGuid:articleGuid];
 				[article setFolderId:folderId];
 				[article setAuthor:[newsItem author]];
 				[article setBody:[newsItem description]];
@@ -937,7 +935,6 @@ static RefreshManager * _refreshManager = nil;
 		}
 		
 		// Done with this connection
-		[newFeed release];
         
 		// Add to count of new articles so far
 		countOfNewArticles += newArticlesFromFeed;
@@ -1019,7 +1016,7 @@ static RefreshManager * _refreshManager = nil;
 								++urlEnd;
 							if (urlEnd == scanPtrEnd)
 								return nil;
-							return [[[NSString alloc] initWithBytes:urlStart length:(urlEnd - urlStart) encoding:NSASCIIStringEncoding] autorelease];
+							return [[NSString alloc] initWithBytes:urlStart length:(urlEnd - urlStart) encoding:NSASCIIStringEncoding];
 						}
 						++scanPtr;
 					}
@@ -1080,13 +1077,9 @@ static RefreshManager * _refreshManager = nil;
 -(void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[pumpTimer release];
 	pumpTimer=nil;
-	[authQueue release];
 	authQueue=nil;
-	[networkQueue release];
 	networkQueue=nil;
 	dispatch_release(_queue);
-	[super dealloc];
 }
 @end

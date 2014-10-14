@@ -117,7 +117,7 @@
 			[xmlTree addClosedTree:@"outline" withAttributes:itemDict];
 			++countExported;
 		}
-		[itemDict autorelease];
+
 	}
 	return countExported;
 }
@@ -148,7 +148,6 @@
 	NSString * fqFilename = [exportFileName stringByExpandingTildeInPath];
 	if (![[NSFileManager defaultManager] createFileAtPath:fqFilename contents:nil attributes:nil])
 	{
-		[newTree release];
 		return -1; // Indicate an error condition (impossible number of exports)
 	}
 
@@ -158,11 +157,9 @@
 	[xmlString appendString:@"\n"];
 
     NSData *xmlData = [xmlString dataUsingEncoding:NSUTF8StringEncoding]; // [xmlString writeToFile:atomically:] will write xmlString in other encoding than UTF-8
-	[xmlString release];
     [xmlData writeToFile:fqFilename atomically:YES];
 	
 	// Clean up at the end
-	[newTree release];
 	return countExported;
 }
 @end

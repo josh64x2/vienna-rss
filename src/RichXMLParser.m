@@ -74,8 +74,6 @@
  */
 -(void)setEnclosure:(NSString *)newEnclosure
 {
-	[newEnclosure retain];
-	[enclosure release];
 	enclosure = newEnclosure;
 }
 
@@ -84,8 +82,6 @@
  */
 -(void)setTitle:(NSString *)newTitle
 {
-	[newTitle retain];
-	[title release];
 	title = newTitle;
 }
 
@@ -94,8 +90,6 @@
  */
 -(void)setDescription:(NSString *)newDescription
 {
-	[newDescription retain];
-	[description release];
 	description = newDescription;
 }
 
@@ -104,8 +98,6 @@
  */
 -(void)setAuthor:(NSString *)newAuthor
 {
-	[newAuthor retain];
-	[author release];
 	author = newAuthor;
 }
 
@@ -114,8 +106,6 @@
  */
 -(void)setDate:(NSDate *)newDate
 {
-	[newDate retain];
-	[date release];
 	date = newDate;
 }
 
@@ -124,8 +114,6 @@
  */
 -(void)setGuid:(NSString *)newGuid
 {
-	[newGuid retain];
-	[guid release];
 	guid = newGuid;
 }
 
@@ -134,8 +122,6 @@
  */
 -(void)setLink:(NSString *)newLink
 {
-	[newLink retain];
-	[link release];
 	link = newLink;
 }
 
@@ -200,21 +186,13 @@
  */
 -(void)dealloc
 {
-	[guid release];
 	guid=nil;
-	[title release];
 	title=nil;
-	[description release];
 	description=nil;
-	[author release];
 	author=nil;
-	[date release];
 	date=nil;
-	[link release];
 	link=nil;
-	[enclosure release];
 	enclosure=nil;
-	[super dealloc];
 }
 @end
 
@@ -242,11 +220,6 @@
  */
 -(void)reset
 {
-	[title release];
-	[description release];
-	[lastModified release];
-	[link release];
-	[items release];
 	title = nil;
 	description = nil;
 	lastModified = nil;
@@ -624,7 +597,6 @@
 	CFIndex count = [seqTree countOfChildren];
 	CFIndex index;
 
-	[orderArray release];
 	orderArray = [[NSMutableArray alloc] initWithCapacity:count];
 	for (index = 0; index < count; ++index)
 	{
@@ -664,7 +636,7 @@
 		// the items array we maintain.
 		if ([nodeName isEqualToString:@"item"])
 		{
-			FeedItem * newItem = [[FeedItem new] autorelease];
+			FeedItem * newItem = [FeedItem new];
 			CFIndex itemCount = [subTree countOfChildren];
 			NSMutableString * articleBody = nil;
 			BOOL hasDetailedContent = NO;
@@ -689,7 +661,7 @@
 				// Parse item description
 				if ([itemNodeName isEqualToString:@"description"] && !hasDetailedContent)
 				{
-					articleBody = [[[NSMutableString alloc] initWithString:[subItemTree valueOfElement]] autorelease];
+					articleBody = [[NSMutableString alloc] initWithString:[subItemTree valueOfElement]];
 					continue;
 				}
 				
@@ -709,7 +681,7 @@
 				// description for this item.
 				if ([itemNodeName isEqualToString:@"content:encoded"])
 				{
-					articleBody = [[[NSMutableString alloc] initWithString:[subItemTree valueOfElement]] autorelease];
+					articleBody = [[NSMutableString alloc] initWithString:[subItemTree valueOfElement]];
 					hasDetailedContent = YES;
 					continue;
 				}
@@ -925,7 +897,7 @@
 		// the items array we maintain.
 		if ([nodeName isEqualToString:@"entry"])
 		{
-			FeedItem * newItem = [[FeedItem new] autorelease];
+			FeedItem * newItem = [FeedItem new];
 			CFIndex itemCount = [subTree countOfChildren];
 			NSMutableString * articleBody = nil;
 			CFIndex itemIndex;
@@ -957,14 +929,14 @@
 				// Parse item description
 				if ([itemNodeName isEqualToString:@"content"])
 				{
-					articleBody = [[[NSMutableString alloc] initWithString:[subItemTree valueOfElement]] autorelease];
+					articleBody = [[NSMutableString alloc] initWithString:[subItemTree valueOfElement]];
 					continue;
 				}
 				
 				// Parse item description
 				if ([itemNodeName isEqualToString:@"summary"])
 				{
-					articleBody = [[[NSMutableString alloc] initWithString:[subItemTree valueOfElement]] autorelease];
+					articleBody = [[NSMutableString alloc] initWithString:[subItemTree valueOfElement]];
 					continue;
 				}
 				
@@ -1088,8 +1060,6 @@
  */
 -(void)setTitle:(NSString *)newTitle
 {
-	[newTitle retain];
-	[title release];
 	title = newTitle;
 }
 
@@ -1098,8 +1068,6 @@
  */
 -(void)setDescription:(NSString *)newDescription
 {
-	[newDescription retain];
-	[description release];
 	description = newDescription;
 }
 
@@ -1108,8 +1076,6 @@
  */
 -(void)setLink:(NSString *)newLink
 {
-	[newLink retain];
-	[link release];
 	link = newLink;
 }
 
@@ -1118,8 +1084,6 @@
  */
 -(void)setLastModified:(NSDate *)newDate
 {
-	[newDate retain];
-	[lastModified release];
 	lastModified = newDate;
 }
 
@@ -1182,18 +1146,11 @@
  */
 -(void)dealloc
 {
-	[orderArray release];
 	orderArray=nil;
-	[title release];
 	title=nil;
-	[description release];
 	description=nil;
-	[lastModified release];
 	lastModified=nil;
-	[link release];
 	link=nil;
-	[items release];
 	items=nil;
-	[super dealloc];
 }
 @end
