@@ -11,9 +11,9 @@ release:
 	xcodebuild -project $(PROJECT) -target "Archive and Prep for Upload" -configuration Deployment
 
 development:
-	xcodebuild -workspace $(WORKSPACE)  -scheme $(SCHEME) -configuration Development
+	xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) -configuration Development
 
 clean:
-	xcodebuild -scheme $(SCHEME) -configuration Development clean
-	xcodebuild -target $(TARGET) -configuration Deployment clean
+	xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) -configuration Development clean
+	xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) -configuration Deployment clean
 	rm -fr build
