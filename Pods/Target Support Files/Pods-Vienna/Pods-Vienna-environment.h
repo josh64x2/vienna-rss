@@ -6,6 +6,12 @@
 // project.
 
 
+// AFNetworking
+#define COCOAPODS_POD_AVAILABLE_AFNetworking
+#define COCOAPODS_VERSION_MAJOR_AFNetworking 0
+#define COCOAPODS_VERSION_MINOR_AFNetworking 10
+#define COCOAPODS_VERSION_PATCH_AFNetworking 1
+
 // ASIHTTPRequest
 #define COCOAPODS_POD_AVAILABLE_ASIHTTPRequest
 #define COCOAPODS_VERSION_MAJOR_ASIHTTPRequest 1
