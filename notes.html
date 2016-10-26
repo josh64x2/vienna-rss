@@ -1,125 +1,1452 @@
-<!DOCTYPE html>
-<html>
+<h1 id="vienna_changelog_file">Vienna ChangeLog File</h1>
 
-<head>
+<p>As you release new builds, update this file with details of the changes in each build. The
+most recent build should be at the top of this file.</p>
 
-<meta charset="utf-8">
+<p>** The notes.html file should reflect the same infos, but only for recent updates : it is displayed when a new version is detected.</p>
 
+<p>Thanks!</p>
 
+<h2 id="316_release_candidate_3">3.1.6 Release Candidate 3</h2>
 
-<style type="text/css">
-*{margin:0;padding:0;}
-body {
-	font:13.34px helvetica,arial,freesans,clean,sans-serif;
-	color:black;
-	line-height:1.4em;
-	background-color: #F8F8F8;
-	padding: 0.7em;
-}
-p {
-	margin:1em 0;
-	line-height:1.5em;
-}
-table {
-	font-size:inherit;
-	font:100%;
-	margin:1em;
-}
-table th{border-bottom:1px solid #bbb;padding:.2em 1em;}
-table td{border-bottom:1px solid #ddd;padding:.2em 1em;}
-input[type=text],input[type=password],input[type=image],textarea{font:99% helvetica,arial,freesans,sans-serif;}
-select,option{padding:0 .25em;}
-optgroup{margin-top:.5em;}
-pre,code{font:12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;}
-pre {
-	margin:1em 0;
-	font-size:12px;
-	background-color:#eee;
-	border:1px solid #ddd;
-	padding:5px;
-	line-height:1.5em;
-	color:#444;
-	overflow:auto;
-	-webkit-box-shadow:rgba(0,0,0,0.07) 0 1px 2px inset;
-	-webkit-border-radius:3px;
-	-moz-border-radius:3px;border-radius:3px;
-}
-pre code {
-	padding:0;
-	font-size:12px;
-	background-color:#eee;
-	border:none;
-}
-code {
-	font-size:12px;
-	background-color:#f8f8ff;
-	color:#444;
-	padding:0 .2em;
-	border:1px solid #dedede;
-}
-img{border:0;max-width:100%;}
-abbr{border-bottom:none;}
-a{color:#4183c4;text-decoration:none;}
-a:hover{text-decoration:underline;}
-a code,a:link code,a:visited code{color:#4183c4;}
-h2,h3{margin:1em 0;}
-h1,h2,h3,h4,h5,h6{border:0;}
-h1{font-size:170%;border-top:4px solid #aaa;padding-top:.5em;margin-top:1.5em;}
-h1:first-child{margin-top:0;padding-top:.25em;border-top:none;}
-h2{font-size:150%;margin-top:1.5em;border-top:4px solid #e0e0e0;padding-top:.5em;}
-h3{margin-top:1em;}
-hr{border:1px solid #ddd;}
-ul{margin:1em 0 1em 2em;}
-ol{margin:1em 0 1em 2em;}
-ul li,ol li{margin-top:.5em;margin-bottom:.5em;}
-ul ul,ul ol,ol ol,ol ul{margin-top:0;margin-bottom:0;}
-blockquote{margin:1em 0;border-left:5px solid #ddd;padding-left:.6em;color:#555;}
-dt{font-weight:bold;margin-left:1em;}
-dd{margin-left:2em;margin-bottom:1em;}
-sup {
-    font-size: 0.83em;
-    vertical-align: super;
-    line-height: 0;
-}
-* {
-	-webkit-print-color-adjust: exact;
-}
-@media screen and (min-width: 914px) {
-    body {
-        width: 854px;
-        margin:0 auto;
-    }
-}
-@media print {
-	table, pre {
-		page-break-inside: avoid;
-	}
-	pre {
-		word-wrap: break-word;
-	}
-}
-</style>
+<ul>
+<li>Fixed graphics issues on some dialog boxes on macOS Sierra</li>
+</ul>
 
-
-</head>
-
-<body>
-
-<h1 id="toc_0">Version Notes</h1>
-
-<h2 id="toc_1">3.1.6 Release Candidate 2</h2>
+<h2 id="316_release_candidate_2">3.1.6 Release Candidate 2</h2>
 
 <ul>
 <li>New set of default feeds, thanks to Jesse Claven and Ricky Morse</li>
 <li>Fix infinite loop on ‘Skip Folder’ command when no unread articles were left</li>
-<li>Fix relative URLs, like in images&rsquo;s <code>srcset</code> attributes</li>
+<li>Fix relative URLs, like in images&#8217;s <code>srcset</code> attributes</li>
 <li>New developer tests, thanks to György Tóth</li>
 <li>Code refactoring / cleanup</li>
 </ul>
 
+<h2 id="316_release_candidate_1">3.1.6 Release Candidate 1</h2>
 
+<ul>
+<li>When the user selects a folder, loading articles from database occurs on a separate thread</li>
+<li>Fix again the &#8216;N&#8217; key not selecting last unread article or not wrapping to the first unread article</li>
+<li>Keep currently selected article on refresh of a group or smart folder</li>
+<li>Fix article selection in Unified layout</li>
+<li>Fix &#8220;Last Refresh filter&#8221;</li>
+<li>Fix an exception on opening the General preferences window</li>
+<li>Fix an assertion failure</li>
+<li>Code refactoring</li>
+<li>Reorganized tests</li>
+</ul>
 
+<h2 id="315">3.1.5</h2>
 
-</body>
+<ul>
+<li>Fix syncing with FeedHQ</li>
+<li>Avoid unwanted eviction from cache</li>
+<li>Fix enclosure “Open” button when the enclosure URL has a query part</li>
+<li>Ensures the article pane displays selected article when switching from Unified to Horizontal or Vertical layout</li>
+</ul>
 
-</html>
+<h2 id="315_release_candidate_2">3.1.5 Release Candidate 2</h2>
+
+<ul>
+<li>Fix &#8216;N&#8217; key breakage when a single unread article remained below current folder selection</li>
+<li>Fix &#8216;N&#8217; key not wrapping to the first unread article under certain circumstances</li>
+<li>Force images to scale correctly</li>
+<li>Try to fix an assertion failure on balancing start/stop animations</li>
+</ul>
+
+<h2 id="315_release_candidate_1">3.1.5 Release Candidate 1</h2>
+
+<ul>
+<li>Fix visual issue on marking read all articles in a group folder</li>
+<li>Fix deleting articles from a group folder</li>
+<li>Fix restoring Open Reader article from Trash</li>
+<li>Fix back and forward in Horizontal and Vertical layouts (invoked by &lt; and > keys)</li>
+<li>Fix sort indicator in Horizontal and Vertical layouts</li>
+<li>Scrolls to top of list when selecting a folder</li>
+<li>Fix a rare occurence of crash in Preferences folder</li>
+</ul>
+
+<h2 id="314">3.1.4</h2>
+
+<ul>
+<li>Fix extreme slowness on marking a series of articles deleted</li>
+<li>Improve selection of next unread article and article list update</li>
+<li>Fix selection of default RSS reader application in preferences window</li>
+<li>In General preferences, use localized names for download folder and RSS readers&#8217; app names</li>
+<li>Fixed a problem preventing window from appearing at launch in certain settings</li>
+</ul>
+
+<h2 id="314_release_candidate_2">3.1.4 Release Candidate 2</h2>
+
+<ul>
+<li>Improved detection of feeds URL</li>
+<li>Align selection behavior on selecting or skipping folders with 3.0.9&#8217;s</li>
+<li>Fix handling of some addresses in internal browser&#8217;s address field</li>
+<li>Improved German translation</li>
+</ul>
+
+<h2 id="314_release_candidate_1">3.1.4 Release Candidate 1</h2>
+
+<ul>
+<li>Refactored code</li>
+<li>Make sure that unread / starred statuses are in sync between Vienna and the Open Reader server[^314-1]</li>
+<li>When opening current article in browser, respect what is set in user&#8217;s preferences on marking it read</li>
+<li>Fix validation button of “New Group Folder…” dialog</li>
+<li>Fix features in Downloads and Activity windows</li>
+<li>Handle images directly embedded in HTML code</li>
+<li>Make sure we have a keyboard responder after switching layout</li>
+<li>Default folder sorting is manual</li>
+<li>Fix various crashes</li>
+<li>Other bugfixes</li>
+</ul>
+
+<p>[^314-1]: If you have deleted articles, you might have to reset the unread / starred statuses of these older articles from the web interface of your Open Reader server.</p>
+
+<h2 id="313">3.1.3</h2>
+
+<ul>
+<li>Fix some crashes</li>
+<li>Fix empty article list displayed by some feeds</li>
+<li>Prevent unwanted updates of user interface while refreshing Open Reader feeds</li>
+<li>E-mailing a link now occurs in foreground</li>
+</ul>
+
+<h2 id="312">3.1.2</h2>
+
+<ul>
+<li>More crash fixes</li>
+<li>Fix Vienna forgetting current folder/feed after termination and relaunch</li>
+<li>Restore mechanism required by some plugins, especially &#8220;Add to Safari reading list&#8221; </li>
+<li>Conversion to modern Ojective-C</li>
+</ul>
+
+<h2 id="311">3.1.1</h2>
+
+<ul>
+<li>Fix some crashes</li>
+<li>Fix deadlocks on OS X 10.8</li>
+<li>Fix the sort functionality in Activity Window</li>
+</ul>
+
+<h2 id="310">3.1.0</h2>
+
+<ul>
+<li>Add search field in subscriptions tree</li>
+<li>In Atom feeds, prefer the ‘content’ item over the ’summary’ one</li>
+<li>Fix articles reappearing in a feed after being marked for deletion</li>
+<li>Improved memory management</li>
+<li>Fix broken Download window features</li>
+<li>Security : update Sparkle autoupdate framework with latest version and use a secure URL</li>
+<li>Fix some crashes</li>
+</ul>
+
+<h2 id="310_beta_5">3.1.0 Beta 5</h2>
+
+<ul>
+<li>Fix problem w/ subscribing to some feeds</li>
+<li>Better handling of legal/illegal characters in URL strings</li>
+<li>Fix enclosure download when the URL string contains a query</li>
+<li>If adding existing feed, focus it</li>
+<li>Keep order of folders and groups on OPML export</li>
+<li>Fix some styles to limit maximum image size</li>
+<li>Improve the ad blocking feature of the Feedlight styles</li>
+<li>Recognize a few more file extensions to be directly downloaded</li>
+<li>Fix some crashes</li>
+</ul>
+
+<h2 id="310_beta_4">3.1.0 Beta 4</h2>
+
+<ul>
+<li>Fix a crash</li>
+<li>Ensure current article remains visible when changing layout</li>
+<li>Display articles of any newly added folder</li>
+<li>Some code refactoring</li>
+</ul>
+
+<h2 id="310_beta_3">3.1.0 Beta 3</h2>
+
+<ul>
+<li>Improved handling of feeds having duplicate GUIDs</li>
+<li>Fixed rendering of feeds having XHTML bodies</li>
+<li>Handle feeds having illegal characters</li>
+<li>Allow concurrent drawings in unified layout</li>
+<li>Converted code to use Automatic Reference Count</li>
+<li>Improved cache mechanism for articles (using NSCache)</li>
+<li>Compiled with XCode 7 GM under OS X El Capitan GM</li>
+</ul>
+
+<h2 id="310_beta_2">3.1.0 Beta 2</h2>
+
+<ul>
+<li>Fix unwanted scrolls in Unified layout</li>
+</ul>
+
+<h2 id="310_beta_1">3.1.0 Beta 1</h2>
+
+<h3 id="_os_x_108_or_better_only_">! OS X 10.8 or better only !</h3>
+
+<ul>
+<li>Replace our &#8220;in house&#8221; database queue with FMDatabaseQueue and reorganize access</li>
+<li>Use view based NSTableView for unified layout (instead of PXListView)</li>
+<li>Replace JSONKit with NSJSONSerialization</li>
+<li>Replace XMLParser with NSXMLDocument/NSXMLNode</li>
+<li>Replace other deprecated functions / Miscellaneous refactoring</li>
+</ul>
+
+<h2 id="307">3.0.7</h2>
+
+<ul>
+<li>More consistent response to keyboard shortcuts when the user switches to primary tab</li>
+<li>Add support for handling http/https (allows dragging links into Vienna&#8217;s Dock icon)</li>
+<li>Change internal browser’s user agent string to be more Safari like</li>
+<li>Fix indexation problems in help files</li>
+</ul>
+
+<h2 id="306">3.0.6</h2>
+
+<ul>
+<li>Fix a problem with duplicate folders when starting with a fresh database</li>
+<li>Removed macosxhints.com from the list of default feeds when starting with a fresh database</li>
+<li>Distribution of Vienna binaries is now done mainly through bintray.com instead of sourceforge.net</li>
+</ul>
+
+<h2 id="305">3.0.5</h2>
+
+<ul>
+<li>Add identification of the application as required by Inoreader</li>
+<li>When encountering a 301 HTTP response code, check if the permanent character of the redirection is OK before updating the database</li>
+<li>Handle Enter or Return keys in Articles tab by opening the current article</li>
+<li>Add an option in Preferences to follow beta versions of Vienna updates</li>
+</ul>
+
+<h2 id="304">3.0.4</h2>
+
+<ul>
+<li>Add option to enable/disable Webkit plugins (including Flash)</li>
+<li>Code reorganization : use of Cocoapod for dependancies</li>
+</ul>
+
+<h2 id="303">3.0.3</h2>
+
+<ul>
+<li>Fix problems with preferences dialog on OS X &lt; 10.10</li>
+<li>Fix small localization issues</li>
+</ul>
+
+<h2 id="302">3.0.2</h2>
+
+<ul>
+<li>Handles dragging and dropping of .webloc files</li>
+<li>More accessible Preferences window</li>
+<li>Fix a synchronization issue with InoReader</li>
+<li>Various adaptations in development/building environment</li>
+<li>Fix various localization issues</li>
+</ul>
+
+<h2 id="301">3.0.1</h2>
+
+<ul>
+<li>Fix a crash</li>
+<li>Parse RSS feeds having <code>rss:title</code>, <code>rss:link</code>, <code>rss:description</code>, <code>rss:items</code> and <code>rss:item</code> tags instead of the standard <code>title</code>, <code>link</code>, <code>description</code>, <code>items</code> and <code>item</code></li>
+<li>Fix diverse localization issues</li>
+</ul>
+
+<h2 id="300">3.0.0</h2>
+
+<ul>
+<li>New style : Classy (contributed by user PMP on cocoaforge)</li>
+<li>Fix some crashes when sharing a link on Google+</li>
+<li>Improved management of animations in folders list</li>
+</ul>
+
+<h2 id="300_rc_9">3.0.0 rc 9</h2>
+
+<ul>
+<li>Fix repeating articles problem on some feeds with repeating GUIDs (notably Netflix)</li>
+<li>Fix some overly aggressive URL escaping</li>
+<li>Fix column order and dimensions not being remembered in article list</li>
+<li>Fix visual glitches with some feeds in article list</li>
+</ul>
+
+<h2 id="300_rc_8">3.0.0 rc 8</h2>
+
+<ul>
+<li>Follow-up on crash : disable assertions for deployment config</li>
+</ul>
+
+<h2 id="300_rc_7">3.0.0 rc 7</h2>
+
+<ul>
+<li>Fix a crash</li>
+</ul>
+
+<h2 id="300_rc_6">3.0.0 rc 6</h2>
+
+<ul>
+<li>Handles multiple authors</li>
+<li>Adaptations for OS X Yosemite (10.10)</li>
+<li>Fixed some crashes</li>
+<li>Ask the user if she/he wants to send (anonymous) system configuration informations to Vienna developers</li>
+<li>Localization and help files improvements (English, French, Danish)</li>
+<li>Fixed a problem with video sounds still playing after the tab was closed</li>
+<li>Fixed panes dimensions inside the main window</li>
+<li>Changed code for subscribing, especially for subscription to local files</li>
+<li>Start implementing a test suite</li>
+<li>Built on OS X Yosemite SDK (for running, requirements are limited to OS X Snow Leopard or better)</li>
+</ul>
+
+<h2 id="300_rc_5">3.0.0 rc 5</h2>
+
+<ul>
+<li>Improved stability</li>
+<li>Solves a bug where articles&#8217; read/unread situation was not currently reflected in the article list</li>
+</ul>
+
+<h2 id="300_rc_4">3.0.0 rc 4</h2>
+
+<ul>
+<li>Fix another crash</li>
+<li>Improve localizations (including Spanish, thanks to Juan Pablo Atienza Martinez)</li>
+<li>Improved Unified layout</li>
+</ul>
+
+<h2 id="300_rc_3">3.0.0 rc 3</h2>
+
+<ul>
+<li>Fix some crashes</li>
+<li>Remember chosen text size in article view</li>
+<li>Fix text vertical centering</li>
+<li>Add a &#8220;Share with Hootsuite&#8221; plugin</li>
+<li>Handle enclosures with filenames containing spaces or special characters</li>
+<li>Improved build process</li>
+</ul>
+
+<h2 id="300_rc_2">3.0.0 rc 2</h2>
+
+<ul>
+<li>Background fetching and database writing of feeds (yes, such an important change is not expected between two release candidates versions, but the risk has been thoroughly pondered)</li>
+<li>Separated &#8220;Mark Read&#8221; and &#8220;Mark Unread&#8221; menu items for articles</li>
+<li>Rudimentary support of OPDS feeds (ebooks), like those provided by Calibre</li>
+<li>Fix an issue with number of unread articles caused by user deleting articles stored in OpenReader before having read them</li>
+<li>Spanish localization improvements, thanks to Juan Pablo Atienza Martinez</li>
+<li>Another fix for file:// URLs</li>
+<li>Fix relative links to enclosures</li>
+<li>Handle embedded images <code>&lt;img src="data:..." ...&gt;</code></li>
+<li>Multiple improvements and fixes on memory management</li>
+<li>Other cosmetic or UI fixes</li>
+</ul>
+
+<h2 id="300_rc_1">3.0.0 rc 1</h2>
+
+<ul>
+<li>Add The Old Reader (<a href="https://theoldreader.com">https://theoldreader.com</a>) as a supported OpenReader provider</li>
+<li>Improved InoReader support (handles homepage and icons)</li>
+<li>Improved Unified layout</li>
+<li>Improved accessibility</li>
+<li>Improved German translation</li>
+<li>Fix credentials input for feeds requiring authentication</li>
+<li>Handle dates with a two-digit date formatter</li>
+<li>Fix some plugins
+Thanks to Emiliano Necciari, Boris Dušek, bavarious and biphuhn for their contributions !</li>
+</ul>
+
+<h2 id="300_beta_20">3.0.0 Beta 20</h2>
+
+<ul>
+<li>Largely improved Unified layout</li>
+<li>Added InoReader (<a href="http://www.inoreader.com">http://www.inoreader.com</a>) as a supported OpenReader provider, fix some OpenReader behaviors.</li>
+<li>Fix &#8216;Feed->Unsubscribe&#8217; command with OpenReader feeds</li>
+<li>Handle requests by scripts/plugins to open new windows</li>
+<li>Fix problems with feeds from some servers</li>
+<li>Fix Vertical layout in situations where there is only a line per cell</li>
+</ul>
+
+<h2 id="300_beta_19">3.0.0 Beta 19</h2>
+
+<ul>
+<li>Fix a crash which occured when deleting multiple articles under OS X Mavericks</li>
+<li>Improved Unified display view</li>
+<li>Triggers gzip compression with servers using Google Servlet Engine (ie Blogspot)</li>
+<li>Various Open Reader improvements</li>
+<li>The list of open tabs was sometimes lost after a crash</li>
+<li>Fix memory management problems</li>
+<li>Other bug fixes and code modernization</li>
+</ul>
+
+<h2 id="300_beta_18">3.0.0 Beta 18</h2>
+
+<ul>
+<li>Improvement on Beta 17</li>
+</ul>
+
+<h2 id="300_beta_17">3.0.0 Beta 17</h2>
+
+<ul>
+<li>Fix a serious problem with using the &#8220;Mark updated articles as new&#8221; preference</li>
+</ul>
+
+<h2 id="300_beta_16">3.0.0 Beta 16</h2>
+
+<p><strong>Mac OS Snow Leopard (10.6) or later only !!!</strong>
+- Improved speed thanks to a new database wrapper (contributed by echelon9 and barijaona)
+- Fix many Unified display view problems
+- Fix for some iframes/videos which did not show
+- Improved string to date conversion routine (solves problems with some feeds which wrongly showed as updated)
+- Fix some problems reported by analyser</p>
+
+<h2 id="300_beta_14">3.0.0 Beta 14</h2>
+
+<ul>
+<li>Fixed a bug in sync password management (<strong>Note</strong> : if you had connection problems with your Open Reader server, open Keychain Access and delete all Vienna-related elements. Then, reenter your credentials in Vienna).</li>
+<li>Added a Google Plus plugin</li>
+<li>Better handling of feeds containing linefeeds</li>
+<li>Better handling of feeds reusing the same GUID</li>
+<li>Changed handling of read/starred status for Open Reader feeds</li>
+<li>Changed handling of Unified layout</li>
+</ul>
+
+<h2 id="300_beta_13">3.0.0 Beta 13</h2>
+
+<p>Bugfixes :
+- Open Reader server settings were often uncorrectly saved
+- count of unread articles on Open Reader feeds was often incorrect
+- fixed Undo for &#8220;mark all read/unread&#8221; and Open Reader feeds
+- author names containing linefeeds weren&#8217;t correctly displayed</p>
+
+<h2 id="300_beta_12">3.0.0 Beta 12</h2>
+
+<ul>
+<li>Replaced Google Reader support with support of BazQux and FeedHQ (other services might work too, just give them a try !)</li>
+<li>Renamed our layouts : Horizontal, Vertical and Unified</li>
+<li>The Unified layout has been completely rewritten. It now allows selection of an article (right click or click in the left margin)) for sharing it or marking it.</li>
+<li>Vienna&#8217;s integrated browser is now able to present the user a file selection dialog (for instance for uploading a file)</li>
+<li>Added a &#8220;Reindex Database&#8221; menu item</li>
+<li>Fix problems with icons in Leopard and Snow Leopard</li>
+<li>Visual tweaks and improvements</li>
+<li>Translation improvements (Brazilian Portuguese, Dutch, German, French, Korean)</li>
+<li>Many bugfixes</li>
+</ul>
+
+<h2 id="300_beta_11">3.0.0 Beta 11</h2>
+
+<ul>
+<li>Fix a bug on preserving article currently being read on refreshes</li>
+<li>Updated Dutch translation</li>
+<li>Reviewed the localized versions of the &#8220;Get Info&#8230;&#8221; window, which were often mangled</li>
+</ul>
+
+<h2 id="300_beta_10">3.0.0 Beta 10</h2>
+
+<ul>
+<li>New icons (thanks to Nick Dazé and romiq !)</li>
+<li>New themes (thanks to Nick Dazé and Carles Bellver)</li>
+<li>New plugin : Add to Safari reading list</li>
+<li>Two new filters : &#8220;Last 48 hours&#8221; and &#8220;Unread or flagged&#8221;</li>
+<li>New option to treat updated articles as new</li>
+<li>Updated Danish and German translations</li>
+<li>Bugfixes</li>
+</ul>
+
+<h2 id="300_beta_9">3.0.0 Beta 9</h2>
+
+<ul>
+<li>Refreshes should be quicker now (especially for Google Reader feeds)</li>
+<li>Better handling of some ill-formed feeds</li>
+<li>Videos aren&#8217;t reset anymore when a feed refresh occurs</li>
+<li>Fix an issue related to opening articles&#8217; original webpages</li>
+<li>When defining a smart folder criteria, it is now possible to specify a Google Reader feed</li>
+<li>Code signature modified to be compatible with OS X 10.5</li>
+<li>Fix an error in German translation</li>
+<li>Small visual improvements</li>
+<li>Avoid warnings related to date string formats</li>
+<li>Improvements to the build process</li>
+</ul>
+
+<h2 id="300_beta_8_8220happy_new_year8221_edition">3.0.0 Beta 8 (&#8220;Happy New Year&#8221; edition)</h2>
+
+<ul>
+<li>Fixes to the build process</li>
+<li>Fix date parsing</li>
+<li>Fix cookies issue with some feeds</li>
+</ul>
+
+<h2 id="300_beta_7">3.0.0 Beta 7</h2>
+
+<ul>
+<li>Reorganized on disk layout</li>
+<li>Reorganized build system and version numbering (thanks to dak180)</li>
+<li>Revised documentation (English and French)</li>
+<li>Revised German translation (thanks to biphuhn)</li>
+<li>Should be more safe for the database</li>
+<li>Fix issues with dates</li>
+<li>Fix some problems with layouts</li>
+<li>Fix problems with certain feeds</li>
+</ul>
+
+<h2 id="30b2821">3.0b.2821</h2>
+
+<ul>
+<li>Refreshes do not interfere anymore with user&#8217;s reading experience</li>
+<li>Remember columns positions between relaunches</li>
+<li>New default style</li>
+<li>Add Instapaper and Pocket (ReadItLater) plugins</li>
+<li>Supports Apple&#8217;s notification center (in addition to Growl for OS&#8217;s prior to 10.8)</li>
+<li>Fix a problem with Google subscription list synchronization</li>
+<li>Ensures we get a Google token before performing some actions</li>
+<li>Correctly handle permanent redirects (HTTP response codes 301)</li>
+<li>404 HTTP response status weren&#8217;t correctly reported to the user</li>
+<li>Better handling of feeds containing HTML tags and/or entities and newlines</li>
+<li>Fix relative links in articles</li>
+<li>Greatly improved memory handling</li>
+<li>OPML export now includes Google Reader feeds</li>
+<li>When clicking a RSS link or the RSS button, take into account user&#8217;s preference for subscribing (locally or on Google Reader)</li>
+<li>Other miscellaneous fixes</li>
+</ul>
+
+<h2 id="30b2820">3.0b.2820</h2>
+
+<ul>
+<li>When closing a tab, close its content</li>
+<li>Fix the &#8220;last refreshed&#8221; filter</li>
+<li>Fix parsing some date strings</li>
+<li>Enable commands &#8220;Get Info&#8221;, &#8220;Unsubscribe&#8221;, &#8220;Resubscribe&#8221; with Google Reader feeds</li>
+<li>If a feed is submitted through a button or a link, guess if it should be subscribed locally or on Google Reader</li>
+</ul>
+
+<h2 id="30b2819">3.0b.2819</h2>
+
+<ul>
+<li>Fix other nasty crashes on Mountain Lion</li>
+</ul>
+
+<h2 id="30b2818">3.0b.2818</h2>
+
+<ul>
+<li>Fix some nasty crashes on Mountain Lion which occurred when closing tabs</li>
+<li>Fix the &#8220;Check for newer versions of Vienna at startup&#8221; preference</li>
+<li>Make the knob of the vertical scrollbar more visible when reading long lists on Lion/Mountain Lion</li>
+<li>Other minor bugfixes and code cleaning</li>
+</ul>
+
+<h2 id="30b2817">3.0b.2817</h2>
+
+<ul>
+<li>Fix fetching of icons associated to feeds.
+<em>Note</em> : users of previous versions are invited to use the &#8220;Refresh Folder Images&#8221; menu item</li>
+<li>Better accessibility for people with visual impairment through VoiceOver</li>
+<li>Completely logout from Google Reader when the &#8220;Sync with Google Reader&#8221; preference is unchecked</li>
+<li>Builds are now signed with Developer IDs delivered by Apple, to meet Mountain Lion&#8217;s Gatekeeper default requirements.</li>
+</ul>
+
+<h2 id="30b2816">3.0b.2816</h2>
+
+<ul>
+<li>Google Reader support ! Each feed can either be local (especially authenticated feeds, which are not handled by Google Reader), or hosted on Google Reader</li>
+<li>64 bit support</li>
+<li>Full Screen support on Mac OSX Lion and Mountain Lion</li>
+<li>Fixes running on Leopard and on PowerPC</li>
+<li>Fixes feeds whose titles are XHTML or contain linefeeds/carriage returns</li>
+<li>Fixes Atom feeds with relative links</li>
+<li>Stay on Discrete Graphics mode on Macs having dual graphics cards</li>
+<li>Improved web browser experience (persistent cookies)</li>
+<li>Some functions which were only available on Report or Condensed layout are now available on Unified layout</li>
+<li>Increased timeout for feeds refresh</li>
+<li>Larger use of multi-threading</li>
+<li>Compiled with LLVM</li>
+<li>Binaries are now signed to avoid blockade by Mountain Lion&#8217;s gatekeeper default settings (for first run, you&#8217;ll have to right click and select &#8216;Open&#8217;)</li>
+<li>Many other bugfixes</li>
+</ul>
+
+<h2 id="2602601">2.6.0.2601</h2>
+
+<ul>
+<li>Added Buffer plugin</li>
+</ul>
+
+<h2 id="2602600">2.6.0.2600</h2>
+
+<ul>
+<li>Added Ascending and Descending items to the View > Sort By menu.</li>
+<li>Added support for &#8216;,&#8217; duplicating &#8216;&lt;&#8217; and &#8216;.&#8217; duplicating &#8216;>&#8217; since they appear below them on many country&#8217;s keyboard layouts and this helps avoid having to hit the shift key since most of the other keyboard shortcuts handle both upper and lower case.</li>
+<li>Added a feature to load the web page corresponding to a feed article instead of the text from the RSS feed. </li>
+<li>Added a checkbox to the InfoWindow for the feeds to turn this feature on and off.</li>
+<li>Added a new class ProgressTextCell to draw a progress indicator while the web page is loading since this will no longer be instantaneous.</li>
+<li>Added menu items for Use Current Style for Articles and Use Web Page for Articles to make the new web page article feature more discoverable.</li>
+<li>Moved the folder-specific Get Info&#8230; and Unsubscribe to Feed menu items to the folder menu with the other folder-specific items.</li>
+<li>Fixed a bug where a folder&#8217;s InfoWindow was not updating if you changed a flag via the menu item via the Unsubscribe or Use Web Page for Articles menu items.</li>
+<li>Added support for Open Page in Safari (Preferred Browser) and Copy Page Link to Clipboard context menu items for the new web-page based articles.</li>
+<li>Added a new single-key keyboard shortcut for the letter &#8216;b&#8217; or &#8216;B&#8217; that takes you to the beginning of the unread articles.</li>
+<li>Fixed a bug where the activity window detail text always listed a spurious HTTP Redirect for every single URL.</li>
+<li>Updated the Activity Window redirect logging to include the HTTP code for the redirect.</li>
+<li>Fixed bug where changes to the subscription in the InfoWindow were not saved when the window was closed.</li>
+<li>Fixed bug where edits to the subscription from the Folder menu were not reflected in open InfoWindows.</li>
+<li>Open Article Page now handles multiple selections both in the built-in browser and in the external browser. Articles opened are also automatically marked as read. Thanks to Jan for the code contribution.</li>
+</ul>
+
+<h2 id="2512502">2.5.1.2502</h2>
+
+<ul>
+<li>Fix issue where styles fail to render under Mac OSX Lion.</li>
+<li>Fix Share With Twitter plugin.</li>
+</ul>
+
+<h2 id="2502500">2.5.0.2500</h2>
+
+<ul>
+<li>Added support for plugins.</li>
+<li>Added &#8220;Share With Facebook&#8221; button.</li>
+<li>Added &#8220;Share With Evernote&#8221; button.</li>
+<li>Added &#8220;Share With Twitter&#8221; button.</li>
+<li>Added user contributed &#8220;Share with Delicious&#8221; plugin to the core distribution. Thanks to forum user czanderna.</li>
+<li>Update to the current version of Sparkle, which prevents auto-updating to a version of Vienna which will not run on the user&#8217;s system.</li>
+<li>Fix bug where deleting a feed in Unified view mode would cause Vienna to stop working correctly.</li>
+<li>Fix bug where changing the article font size would crash Vienna.</li>
+</ul>
+
+<h2 id="2402401">2.4.0.2401</h2>
+
+<ul>
+<li>Fix the filter field article selection problem reported at http://forums.cocoaforge.com/viewtopic.php?f=18&amp;t=21665</li>
+<li>Enable navigating the built-in browser&#8217;s back/forward-list via  left/right three-finger swipes.</li>
+<li>Enable navigating feeds via left/right three-finger swipes: Left for &#8220;Go Back&#8221; and right for &#8220;View Next Unread&#8221;.</li>
+<li>Enable as scrolling to the top/bottom of web pages and the article list via upwards/downwards three-finger swipes.</li>
+<li>Change &#8220;currentSelection&#8221; to &#8220;currentTextSelection&#8221; in Viennas Applescript terminology.</li>
+</ul>
+
+<h2 id="2402400">2.4.0.2400</h2>
+
+<ul>
+<li>Remove command-shift-g as keyboard shortcut for creating group folder. This is now used for Find Previous.</li>
+<li>Show an alert when upgrading the database version, because it can take a while.</li>
+<li>Turn off animation of tab resizing. It was slow, superfluous and apparently sometimes caused drawing errors in the tab bar background.</li>
+<li>Fix crash when sorting articles by enclosure URL.</li>
+<li>Update SQLite to version 3.6.18.</li>
+<li>Add ability to &#8220;Show XML Source&#8221; for feeds, which is now cached locally.</li>
+<li>Add support for IDN (internationlized domain names) in the browser.</li>
+<li>Add new supported blog editor (Blogo).</li>
+<li>Increase the standard number of simultaneous refresh downloads to 20.</li>
+<li>Redo browser and filter bar UI. Slimmer look, new buttons.</li>
+<li>Vienna&#8217;s UI now correctly dims when the application is the background.</li>
+<li>Enable printing of web-pages from the built-in browser.</li>
+<li>Vienna now shows an error page with useful information when the browser fails to load a resource.</li>
+<li>Fix bug where changing the layout would hide the tab bar until relaunch.</li>
+<li>Fix bug that prevented the user from searching for text within a web-page.</li>
+<li>Fix drawing errors and artifacts in the grey title bars.</li>
+<li>Check for https:// as well as http:// on the pasteboard when adding a new subscription.</li>
+<li>Fix background drawing errors in main window and remove custom window background.</li>
+<li>Fix drawing error in Downloads window and remove custom background.</li>
+<li>Fix bug and exception where clicking on a feed link launched Vienna but failed to subscribe to the feed.</li>
+<li>Add workaround for feeds that contain more than one item with the same guid. (For example, the WordPress Trac, to name the guilty.)</li>
+<li>Fix long standing bug where deleted articles would reappear after emptying the trash.</li>
+<li>Fix &#8220;Help -> Keyboard shortcuts&#8221;, which didn&#8217;t work at all.</li>
+<li>Numerous fixes to localization of help pages and other strings in German, French, and other languages.</li>
+<li>General code and build-phase cleanup, as well as minor speed improvements for some operations.</li>
+<li>Drop Mac OS X 10.4 Tiger support. Vienna 2.4 needs 10.5 Leopard or greater to launch.</li>
+<li>Prevent an infinite redirect loop. This was happening with http://feeds.feedburner.com/factcheck/Rdqt</li>
+<li>Fix the article view scrolling problem reported at http://forums.cocoaforge.com/viewtopic.php?f=18&amp;t=20814</li>
+<li>Fix the mark all read bug on Snow Leopard reported at http://forums.cocoaforge.com/viewtopic.php?f=18&amp;t=20877</li>
+<li>Eliminate deprecated method warnings on Snow Leopard.</li>
+<li>Eliminate drawing artifacts in Folders and Articles headers. (Patch from Dan Crosta)</li>
+<li>Fix a crash reported at http://forums.cocoaforge.com/viewtopic.php?f=18&amp;t=21303</li>
+</ul>
+
+<h2 id="2342305">2.3.4.2305</h2>
+
+<ul>
+<li>Fix General Preferences pane crash when trying to set default RSS reader or Download folder. Sigh.</li>
+</ul>
+
+<h2 id="2332304">2.3.3.2304</h2>
+
+<ul>
+<li>Fix Preferences pane crash introduced in Vienna 2.3.2.</li>
+</ul>
+
+<h2 id="2322303">2.3.2.2303</h2>
+
+<ul>
+<li>SECURITY: fix potential vulnerability when deleting a maliciously crafted subscription. (Reported by Julien Bachmann)</li>
+<li>Fix for bug 2724576: If network is down, URL tab information is lost. (Patch from Benedict Cohen).</li>
+<li>Fix for bug 2381168: Keychain issues with https.</li>
+<li>When switching back and forth from a tab, maintain the selected user interface item in the tab.</li>
+</ul>
+
+<h2 id="2312302">2.3.1.2302</h2>
+
+<ul>
+<li>Fix crash on Tiger when customizing toolbar.</li>
+</ul>
+
+<h2 id="2302301">2.3.0.2301</h2>
+
+<ul>
+<li>Drop Mac OS X 10.3 Panther support. Vienna 2.3 needs 10.4 or greater to launch.</li>
+<li>Leopard fix: allow option-left-arrow and option-right-arrow as keyboard shortcuts for closing and opening group folders.</li>
+<li>Bug fix: when validating a URL, escape any special query characters.</li>
+<li>Fix assertion failure when the user enters an invalid URL string in the address bar.</li>
+<li>Fix bug with smart folders and German umlauts.</li>
+</ul>
+
+<h2 id="2302300">2.3.0.2300</h2>
+
+<p>WARNING: MAC OS X 10.3 PANTHER USERS SHOULD NOT DOWNLOAD THIS! IT WON&#8217;T RUN.</p>
+
+<ul>
+<li>Drop Mac OS X 10.3 Panther support. Vienna 2.3 needs 10.4 or greater to launch.</li>
+<li>Add folder ordering option (manually or by name).</li>
+<li>Improvement to Send Link for multiple links and escaped characters. (Patch from Anmol Khirbat).</li>
+<li>Change standard product URLs to the new www.vienna-rss.org web site.</li>
+<li>Bug fix: Truncated Headings in LA Times Feeds</li>
+<li>Bug fix: Unescaped HTML in titles.</li>
+<li>Bug fix: Incorrect document URL shown after downloads.</li>
+<li>Bug fix: Option-clicking the close tab widget closed the main Articles tab.</li>
+<li>Add Kaku http://ppmweb.lolipop.jp/apps/kaku to the list of supported blog editors.</li>
+</ul>
+
+<h2 id="2232213">2.2.3.2213</h2>
+
+<ul>
+<li>Change standard product URLs to the new www.vienna-rss.org web site.</li>
+<li>Improvement to Send Link for multiple links and escaped characters. (Patch from Anmol Khirbat).</li>
+</ul>
+
+<h2 id="2222212">2.2.2.2212</h2>
+
+<ul>
+<li>Fix cookie handling on Leopard. (This could cause crashes.)</li>
+<li>Fix error in Spanish translation. (Thanks to Ramon.)</li>
+</ul>
+
+<h2 id="2222211">2.2.2.2211</h2>
+
+<ul>
+<li>Fix crash when web page attempts to open pop-under window.</li>
+</ul>
+
+<h2 id="2212210">2.2.1.2210</h2>
+
+<ul>
+<li>Fix appearance of search field in toolbar when using small size.</li>
+<li>Fix the visual glitch in which the unread count and progress indicator were slightly overlapping
+with the scroll bar if present.</li>
+<li>Update the styles menu in the toolbar when adding a style.</li>
+<li>Added Portuguese localisation. (Thanks to Rui Carlos A. Gon√ßalves).</li>
+<li>Added Turkish localisation. (Thanks to Emrah Omuris).</li>
+<li>Updated German, Italian, Traditional Chinese, and Ukranian localisations.</li>
+<li>Updated Spanish localisation (Thanks to Dani Carril).</li>
+<li>Fix feed parsing crash on PowerPC machines (Patch from Paul Livesey).</li>
+<li>Possible fix for crashes in ArticleController.</li>
+<li>Fix the truncated right pane in Leopard.</li>
+<li>Fix long-standing issue with many messages in console.log while downloading (Patch from Martin H√§cker).</li>
+<li>Add support for blogging with MarsEdit 2.</li>
+</ul>
+
+<h2 id="2202209">2.2.0.2209</h2>
+
+<ul>
+<li>More minor toolbar bug fixes.</li>
+<li>Updated toolbar button bitmaps.</li>
+</ul>
+
+<h2 id="2202208">2.2.0.2208</h2>
+
+<ul>
+<li>Fixed bug: ampersand in folder name broke smart folder criteria.</li>
+<li>Fix shrinking toolbar button bug.</li>
+<li>Fix problem where Vienna failed to launch under 10.3.9.</li>
+</ul>
+
+<h2 id="2202207">2.2.0.2207</h2>
+
+<ul>
+<li>Add patch to pass selected text to blogging clients. (Contributed by Pukka author Justin R. Miller).</li>
+<li>Fix exception caused by misparsing author field in some Atom feed items.</li>
+<li>Fix &#8220;CGContextRestoreGState: invalid context&#8221; errors reported to the console log.</li>
+</ul>
+
+<h2 id="2202206">2.2.0.2206</h2>
+
+<ul>
+<li>Updated German localisation.</li>
+<li>Fixed overpainting bug in Download window.</li>
+</ul>
+
+<h2 id="2202205">2.2.0.2205</h2>
+
+<ul>
+<li>Allow the Search Results folder to be deleted.</li>
+<li>Fix memory leak.</li>
+<li>Minor toolbar button cleanup.</li>
+</ul>
+
+<h2 id="2202204">2.2.0.2204</h2>
+
+<ul>
+<li>Fixed bug: on launch, filter popup didn&#8217;t reflect filter setting.</li>
+<li>Make Refresh toolbar button toggle between refresh and cancel.</li>
+<li>Add Search panel for when the toolbar is turned off or the Search field is removed from the toolbar.</li>
+<li>Fix feed autodiscovery for servers that gzip content.</li>
+</ul>
+
+<h2 id="2202203">2.2.0.2203</h2>
+
+<ul>
+<li>Updated all built-in styles to add enclosure field.</li>
+<li>Improved toolbar styles.</li>
+<li>Added Ukrainian localisation. (Thanks to Andrew Kachalo).</li>
+<li>Fixed toolbar UI corruption bug.</li>
+<li>Updated keyboard shortcuts in help file.</li>
+<li>Added Get Info and Style toolbar buttons.</li>
+</ul>
+
+<h2 id="2202202">2.2.0.2202</h2>
+
+<ul>
+<li>Fix bug in 2201 which broke saving a new smart folder.</li>
+<li>Fix CGContext errors in the system console log caused by the Vienna tab control gradient background.</li>
+<li>Add Growl events for file download success and failure.</li>
+<li>Add filter bar to more easily filter the article list.</li>
+<li>Add global search bar.</li>
+</ul>
+
+<h2 id="2202201">2.2.0.2201</h2>
+
+<ul>
+<li>UI improvements contributed by Philipp Antoni.</li>
+<li>Switched to polished metal style.</li>
+<li>Added Russian localization. (Thanks to Taras &#8220;sacrat&#8221; Brizitsky).</li>
+<li>Show refresh indicator in folder list next to feed currently being refreshed.</li>
+<li>Add unsubscribe/resubscribe command to File menu.</li>
+<li>Show enclosure pane below article for articles that contain enclosures.</li>
+</ul>
+
+<h2 id="2202200">2.2.0.2200</h2>
+
+<ul>
+<li>Added ability to drop OPML files onto Vienna&#8217;s dock icon.</li>
+<li>Added support for RSS/Atom enclosures.</li>
+<li>Add conditional support in templates.</li>
+<li>Overhauled UI.</li>
+<li>Added new standard style.</li>
+<li>Added more built-in styles.</li>
+<li>Command + T now opens new tab.</li>
+<li>Accept web pages as subscription URLs and parse to extract the feed.</li>
+<li>Show RSS button in browser if the web page links to an RSS feed. Clicking the button subscribes to that feed.</li>
+<li>New tab bar control. (Thanks to Evan Schoenberg).</li>
+<li>Add option to add Vienna to the system status bar.</li>
+<li>Added Basque localization. (Thanks to Aitor Zubizarreta).</li>
+<li>If Vienna doesn&#8217;t handle the URL scheme (e.g., itms), open the URL with the default application for its scheme.</li>
+<li>Allow refreshing of unsubscribed feeds if they are specifically selected. (Thanks to ytrewq1 for submitting a patch.)</li>
+<li>Updated to SQLite 3.3.17.</li>
+<li>Change exported file format to UTF8. (Thanks to Kiyu Horiuti).</li>
+<li>Added toolbar and moved buttons to toolbar. (Thanks to David Kocher for the prototyping).</li>
+<li>Added support for toggle status bar and moved progress indicator to toolbar.</li>
+<li>Add toolbar button to empty the trash.</li>
+<li>Added flagged article filter.</li>
+<li>Refresh all subscriptions now refreshes in the folder list sorted order.</li>
+</ul>
+
+<h2 id="2122110">2.1.2.2110</h2>
+
+<ul>
+<li>Fixed bug: empty trash warning did not reappear after unhiding Vienna.</li>
+<li>Changed button tooltip to match behavior.</li>
+<li>New and nicer toolbar icons made by Davide Casali (Folletto).</li>
+<li>Fixed bug: move articles to Trash preference was counting back to beginning of day rather than by 24 hours.</li>
+<li>Fixed bug: change in JavaScript preference didn&#8217;t take effect until relaunching.</li>
+</ul>
+
+<h2 id="2112109">2.1.1.2109</h2>
+
+<ul>
+<li>Added Danish localisation. (Thanks to David Munch).</li>
+<li>Added Czech localisation. (Thanks to Jakub Formanek).</li>
+<li>If folder manual sort order is corrupt, automatically reset.</li>
+<li>Fix date parsing for fractional seconds.</li>
+<li>The -profile switch is now propagated to a new instance of Vienna if Vienna is restarted.</li>
+<li>Added more built-in styles.</li>
+<li>Add Advanced preferences page and help file page to match.</li>
+<li>Fixed bug where folder passwords were not being properly saved and loaded.</li>
+<li>Save open tabs with unloaded URLs.</li>
+<li>Fix bug: when selecting articles list via right-click, menu items were disabled.</li>
+<li>When manually refreshing all subscriptions, reset the automatic refresh timer.</li>
+<li>Article title appears when article is dragged to iChat (and probably other to apps).</li>
+<li>If a feed item lacks a guid, identify the item by full title and link rather than by a hash.</li>
+<li>Added Applescript command: &#8220;mark all subscriptions read&#8221;.</li>
+<li>Single-key shortcut &#8216;n&#8217; for Next Unread command.</li>
+<li>Empty trash automatically on quitting. (Thanks to Hwang Hi.)</li>
+<li>Fix bug: subscriptions duplicated when exporting by AppleScript. (Thanks to Darren Kulp.)</li>
+<li>Support blogging with Pukka.</li>
+<li>Email page link from browser tab.</li>
+<li>Don&#8217;t show dialog when exporting subscriptions by AppleScript.  (Thanks to Darren Kulp.)</li>
+<li>Added iTunes-like behaviour for add-button. Holding down Option will toggle to &#8220;New Smart Folder&#8221;.</li>
+<li>Added BlogThing to list of supported blog editors.</li>
+<li>Help localized to German.</li>
+<li>Enable JavaScript for styles using the file &#8220;script.js&#8221;, if it exists. (Thanks to Les Orchard).</li>
+<li>Fix bug: article pane failed to display articles for subscriptions with feed: URL.</li>
+<li>Don&#8217;t unnecessarily refresh article pane after folder refresh.</li>
+<li>Fix DefaultDatabase preference.</li>
+</ul>
+
+<h2 id="2102108">2.1.0.2108</h2>
+
+<ul>
+<li>Convert InfoPlist.strings files to UTF-16.</li>
+<li>Fix bug with marking all subscriptions read from group or smart folder.</li>
+</ul>
+
+<h2 id="2102107">2.1.0.2107</h2>
+
+<ul>
+<li>Fix article selection after deleting or restoring.</li>
+<li>Fix bug: deleted article wasn&#8217;t removed from trash when using filter.</li>
+</ul>
+
+<h2 id="2102106">2.1.0.2106</h2>
+
+<ul>
+<li>Only allow the active web view to set the status bar text.</li>
+<li>Added Simplified Chinese localisation. (Thanks to Arsen Liang).</li>
+<li>Don&#8217;t create a new article if the only difference is the article link.</li>
+<li>Fix bug: article list rows were too small for text.</li>
+<li>Fix bug: next unread command didn&#8217;t respect folder unexpanded state.</li>
+<li>Fix bug: articles with date but no time were sometimes missed because of midnight timestamp.</li>
+<li>Turn off article updating by default.</li>
+<li>Speed up folder loading by only parsing visible summaries.</li>
+<li>Fix folder refreshing for mark read/unread and undo.</li>
+</ul>
+
+<h2 id="2102105">2.1.0.2105</h2>
+
+<ul>
+<li>Add Blog With feature.</li>
+<li>Fix bug where mouse was tracking wrong browser tab.</li>
+<li>Fix bug: searching in &#8216;any&#8217; smart folders wasn&#8217;t done correctly.</li>
+<li>Updated all localisation except Traditional Chinese.</li>
+<li>Added Brazilian Portuguese localisation (thanks to Helvécio Mafra).</li>
+<li>Change URL with feed:// to http:// during refresh.</li>
+<li>Fix bug with expanding file:// path.</li>
+<li>Compare article titles case insensitively when looking for updates.</li>
+<li>Fix warning message for missing style.</li>
+<li>Add hidden preference to disable checking for updated articles.</li>
+<li>After clicking link in article pane to open in foreground of external browser,
+return focus to article list.</li>
+<li>Fix bug in date parser.</li>
+<li>If there are no connection errors during refresh, then set the subscription&#8217;s
+last update date even if there is no data.  Could be http 304, for example.</li>
+<li>Added Korean localisation (thanks to Lee Seung Koo).</li>
+<li>Add AppleScript command for emptying trash.</li>
+<li>&#8220;Text contains&#8221; in smart folders now matches partial words.</li>
+</ul>
+
+<h2 id="2102104">2.1.0.2104</h2>
+
+<ul>
+<li>Update to Sparkle 1.1.</li>
+<li>Fix bug: preserved article is marked unread after folder reloaded.</li>
+<li>Fix bug: browser buttons were always enabled.</li>
+<li>Turn on manual sorting by default for new databases.</li>
+<li>When checking for new articles, include articles within 24 hours before last update,
+because feeds sometimes provide inaccurate dates.</li>
+<li>Assign new id to non-duplicate article with same id as existing article.</li>
+<li>Set our own last update date. Don&#8217;t rely on the feed.</li>
+<li>Ensure that the article guid is truly unique between feeds.
+This fixes a bug where the wrong article was selected.</li>
+<li>Change browser address bar image into button.</li>
+<li>Re-enable Tiger-only features and eliminate warnings in log.</li>
+<li>Fix bug: don&#8217;t rename when clicking on grayed-out folder.</li>
+<li>Show article list tab when clicking on folders list.</li>
+<li>Allow dragging of Trash folder.</li>
+<li>Don&#8217;t re-sort article list after changing article&#8217;s marked or read status.</li>
+<li>Truncate status bar text in the middle when it doesn&#8217;t fit.</li>
+<li>Fix bug: articles with same title but different links were treated as the same.</li>
+<li>Fix bug: Deleted articles could be marked as updated.</li>
+<li>Standardize browser user agent string.
+This prevents a crash with the Flash Player plugin.</li>
+<li>Green icon for articles with updated article text.</li>
+<li>Improve handling of images with relative URLs.</li>
+<li>Patch from Peter Hosey: open article URL by drag and drop from article list to browser.</li>
+<li>Prevent crash with broken folder sort order (probably from earlier beta version).</li>
+<li>Remove hover:after element in Perlucida style to prevent WebKit crash in 10.3.9.</li>
+<li>Fix bug with dragging and dropping folders when group folder was dragged into itself.</li>
+<li>Prevent crash when deleting folder while editing name.</li>
+<li>Switch everyone to manual folder sorting.</li>
+</ul>
+
+<h2 id="2102103">2.1.0.2103</h2>
+
+<ul>
+<li>Fix next unread behavior in sorted article list.</li>
+<li>Select a new subscription after dragging from an external source.</li>
+<li>Add Applescript support for retrieving html source of article pane.</li>
+<li>Fix bug: only use xml:base for relative urls.</li>
+<li>Always reload current folder after refresh in report layout, preserving currently selected article if necessary.</li>
+<li>Mark article unread when the article text has changed.</li>
+<li>Add &#8220;Get Info&#8221; to folder contextual menu.</li>
+<li>Return key in folders list opens home page.</li>
+<li>Changed wording of expired articles preference.</li>
+<li>Single-click folder to rename.</li>
+<li>Limit summary text to 150 characters.</li>
+<li>Add Folder submenu to main menu.</li>
+<li>Fix bug: multiple layouts receiving notifications.</li>
+<li>Fix bug: folders tree sort method wasn&#8217;t recovered properly from database after plist deletion.</li>
+<li>Extend copyright to all contributors.</li>
+</ul>
+
+<h2 id="2102102">2.1.0.2102</h2>
+
+<ul>
+<li>Fixed bug: folder attributes (e.g., unread count) not always written to database.</li>
+<li>Don&#8217;t reload current folder after refresh if preference is set to mark articles read automatically.</li>
+<li>Avoid leaking or crashing with URL connections.</li>
+<li>Move storage of preference for folder sort method from preferences file to database,
+so that it (and manual sort order) can survive deletion of preferences file.</li>
+<li>Enable reloading of web page that never loaded because of error.</li>
+<li>Fixed bug: When deleting multiple folders, the currently selected folder remained selected.</li>
+<li>Enable use of backward delete key.</li>
+<li>Removed multiple delete commands from main menu.</li>
+<li>Added rudimentary Applescript support for retrieving html source of current browser tab.</li>
+<li>Adjust refresh check timer after waking from sleep to account for time asleep. Wait at least 15 seconds
+before refreshing after wake to avoid connection errors.</li>
+<li>When updating existing articles during refresh, don&#8217;t change article flags.</li>
+<li>Fix bug: existing articles updated even when body hasn&#8217;t changed.</li>
+<li>Handle relative URLs in article pane.</li>
+<li>Automatic check for folder image only occurs once.</li>
+<li>Fix bugs: next sibling not set for new folder or for folder moved to first child of root node.</li>
+<li>Select new group folder after creating.</li>
+</ul>
+
+<h2 id="2102101">2.1.0.2101</h2>
+
+<ul>
+<li>Restored Mac OS 10.3.9 support.</li>
+</ul>
+
+<h2 id="2102100">2.1.0.2100</h2>
+
+<p>(Contributions from Jeffrey Johnson, Michael Ströck and David Kocher).
+- Added preference for automatically or manually sorting folders view.
+- Added &#8220;Increase text size&#8221; and &#8220;Decrease Text Size&#8221; for browser view.
+- Changed key combination for &#8220;Cancel Refreshing&#8221; to control-command-s to make command-&#8220;-&#8221; available for text size.
+- Added &#8220;Send Link&#8221; functionality for article view.
+- Add address bar and refresh, back and forward buttons at the top of the browser web pages.
+- Add -profile command line option to support custom profiles (needed for Portable Vienna).
+- Added &#8220;Refresh Folder Images&#8221; command.
+- Sort article list by multiple columns, saving the order in which columns were sorted.
+- Added &#8220;Summary&#8221; field which shows the first part of the description.
+- In condensed reading mode with the pane on the right, the headline fields can now be configured.
+- Added &#8220;Filter By&#8221; to allow articles to be filtered in the article list by all, unread or date.
+- Persist open tabs when Vienna exits and restore them when it restarts.
+- Handles HTTP 410 to mark a feed as unsubscribed.
+- Add button to Mark All Read the selected feeds.
+- Unread articles marked as bold.
+- Don&#8217;t select first article when switching folders.
+- Renaming folders now done by editing the name in the folder pane.
+- Changed modifier key for overriding default browser preference from shift to option.
+- Add Get Info command option and moved Validate command to the info panel.
+- New Layout menu: report, condensed and unified layouts.
+- Provide two new options for new articles notifications: bounce dock icon or no notification at all.
+- Searching with &#8216;contains&#8217; or &#8216;not contains&#8217; now matches complete words only.
+- Add Keyboard Shortcuts item to Help menu.
+- Change user agent string from Mozilla/Safari to Vienna.
+- Use Sparkle framework (http://andymatuschak.org/pages/sparkle) for version updates.</p>
+
+<h2 id="2042033">2.0.4.2033</h2>
+
+<ul>
+<li>Parse entity characters in RSS article links.</li>
+</ul>
+
+<h2 id="2032032">2.0.3.2032</h2>
+
+<ul>
+<li>Minor article cache tweak and bug fixes.</li>
+</ul>
+
+<h2 id="2032031">2.0.3.2031</h2>
+
+<ul>
+<li>Completed Japanese localisation.</li>
+<li>Support Local File subscriptions in New Subscription sheet.</li>
+<li>Bug fixes.</li>
+</ul>
+
+<h2 id="2022030">2.0.2.2030</h2>
+
+<ul>
+<li>Completed Spanish localisation.</li>
+</ul>
+
+<h2 id="2022029">2.0.2.2029</h2>
+
+<ul>
+<li>Fix database performance issue introduced in 2026.</li>
+</ul>
+
+<h2 id="2012028_201_release_build">2.0.1.2028 (2.0.1 Release Build)</h2>
+
+<ul>
+<li>Updated localisation.</li>
+</ul>
+
+<h2 id="2012027">2.0.1.2027</h2>
+
+<ul>
+<li>For feeds that have no title and one cannot be synthesised, we now set the title to (No Title).</li>
+<li>Made click on the Growl notification work again. It broke when we moved to 0.7.4.</li>
+<li>Correctly set focus on the web page in a new tab. (Code contributed by Jeffrey Johnson).</li>
+<li>Fix a build 2025 crashing bug.</li>
+<li>Several localisation updates.</li>
+</ul>
+
+<h2 id="2012026">2.0.1.2026</h2>
+
+<ul>
+<li>Universal binary build.</li>
+<li>Updated to Growl 0.7.4.</li>
+<li>No longer prompt if Vienna is exited while a connection is in progress.</li>
+<li>Better truncation of feed names in the folder list. (Code contributed by David Kocher).</li>
+<li>Handle HTML redirects in the feed for sources such as MSN Spaces.</li>
+<li>Save and restore the currently selected article when you exit and restart Vienna.</li>
+<li>Support use of the Shift key to open a link in the alternate browser. (Code contributed by Jeffrey Johnson).</li>
+<li>Added Japanese localisation. (Thanks to Daisuke).</li>
+<li>Added Spanish localisation. (Thanks to Carlos Morales).</li>
+<li>Shift+Spacebar scrolls up the article view or goes to the previously viewed message.</li>
+<li>Added four more built-in styles: Broadsheet Clipping, Perlucida, Prague and Prague-light.</li>
+</ul>
+
+<h2 id="2002025_20_release_build">2.0.0.2025 (2.0 Release Build)</h2>
+
+<ul>
+<li>Added Dutch localisation (Thanks to Martijn van Exel).</li>
+<li>Fix corrupted display of iframe on some articles due to encoding mismatch.</li>
+<li>Fix Mark All Read behaviour in smart folders which broke in 2024.</li>
+<li>Fix crash on closing tabs.</li>
+</ul>
+
+<h2 id="2002024">2.0.0.2024</h2>
+
+<ul>
+<li>Additional memory usage improvements.</li>
+</ul>
+
+<h2 id="2002023">2.0.0.2023</h2>
+
+<ul>
+<li>Incorporated a fix from Mark Evenson for the cursor.org RSS feed.</li>
+<li>Refresh keystrokes changed to Cmd+R/Shift+Cmd+R.</li>
+<li>Mark Read keystroke changed to Cmd+Shift+U (&#8216;u&#8217; single key added to complement).</li>
+<li>New Smart Folder keystroke changed to Cmd+Shift+F.</li>
+<li>Reload Page keystroke changed to Alt+R.</li>
+<li>Added Cmd+Alt+K to Mark All Subscriptions as Read.</li>
+<li>Made a few internal optimisations to try and reduce memory usage and database update frequency.</li>
+<li>Added French help file and some French localisation fixes.</li>
+<li>Other minor bug fixes.</li>
+</ul>
+
+<h2 id="2002022">2.0.0.2022</h2>
+
+<ul>
+<li>More feed parsing issues fixed.</li>
+<li>Improved General and Appearance icons contributed by Brandon Booth.</li>
+</ul>
+
+<h2 id="2002021">2.0.0.2021</h2>
+
+<ul>
+<li>Fixed a few left-over localisation issues.</li>
+<li>Parse out a subset of HTML tags from titles.</li>
+<li>Add a fix for unescaped &amp; characters in links which some feeds are prone to.</li>
+<li>Replaced Preference icons as the originals turned out to copyrighted to Nitram+Nunca.</li>
+</ul>
+
+<h2 id="2002020">2.0.0.2020</h2>
+
+<ul>
+<li>New &#8216;star&#8217; shaped unread count on the application icon.</li>
+<li>Disable Delete Article unless the article list has focus.</li>
+<li>Minor fit-and-finish polish to the UI and parsing code.</li>
+</ul>
+
+<h2 id="2002019">2.0.0.2019</h2>
+
+<ul>
+<li>New RSS feed icon.</li>
+<li>Fixed a few more feed parsing issues.</li>
+</ul>
+
+<h2 id="2002018">2.0.0.2018</h2>
+
+<ul>
+<li>Improved handling of feeds with invalid XML encoding so most of these are now accepted.</li>
+<li>Fix Growl integration to work in localised builds.</li>
+<li>Fix handling of folder icons from sites like FeedBurner.</li>
+<li>Finalised help file for 2.0 release.</li>
+</ul>
+
+<h2 id="2002017">2.0.0.2017</h2>
+
+<ul>
+<li>Fix localisation article scroll bar truncation.</li>
+<li>Clear download list should not remove items being downloaded.</li>
+<li>Fix handling of Javascript web pages.</li>
+<li>Add three more built-in styles: Tyger, Vienna Pride, EasySimple and Felix.</li>
+<li>Added Demo RSS feeds for new databases.</li>
+<li>Fix parsing of atom xml:base links.</li>
+<li>Added &#8220;current selection&#8221; Applescript method to return the current text selection.</li>
+<li>Don&#8217;t undo when doing &#8220;Mark All Subscriptions as Read&#8221;.</li>
+</ul>
+
+<h2 id="2002016">2.0.0.2016</h2>
+
+<ul>
+<li>Added Traditional Chinese localisation. (Thanks to Weizhong Yang).</li>
+<li>Accept HTTP 200 responses with no data as meaning 0 new articles rather than an error.</li>
+<li>Show count of unread on title bar. (Patch submitted by Jussi Hagman).</li>
+<li>Minor bug fixes.</li>
+</ul>
+
+<h2 id="2002015">2.0.0.2015</h2>
+
+<ul>
+<li>Improvements to universal date parsing to fix some mis-parsed article dates.</li>
+<li>Fixed OPML format in exported subscriptions to conform to the standard.</li>
+<li>A warning icon now appears next to the folder name in the folders list if an error
+occurred when the feed was last refreshed.</li>
+</ul>
+
+<h2 id="2002014">2.0.0.2014</h2>
+
+<ul>
+<li>Fix &#8220;Folder NOT xxx&#8221; implementation which wasn&#8217;t working right for group folders.</li>
+<li>Cmd+W closes the Download, Preference or Activity windows even when they are active.</li>
+<li>$FeedDescription$ added as a tag for styles. This expands to the feed description if available.</li>
+<li>Fixed bug where AppleScript &#8216;current article&#8217; on an article in a group returns a null reference.</li>
+<li>Search field now also searches in titles.</li>
+<li>Confirmation prompt added before emptying the trash folder.</li>
+<li>Download window now allows double-click to open a downloaded file.</li>
+<li>Added popup menu to download window.</li>
+</ul>
+
+<h2 id="2002013">2.0.0.2013</h2>
+
+<ul>
+<li>Resort the folder list when a folder is renamed.</li>
+<li>Cmd-click on a link in the web view opens the link in a new tab.</li>
+<li>Download SITX files as SITX files even if the server returns a MIME type of text.</li>
+</ul>
+
+<h2 id="2002012">2.0.0.2012</h2>
+
+<ul>
+<li>Fix bug which prevented a system from going to sleep if automatic refreshes are enabled.</li>
+<li>Stepping through article lists does not refresh the article pane until the steps complete.</li>
+<li>Completed all localisation fixes.</li>
+<li>Auto-expire now runs post-refresh in addition to at start up.</li>
+<li>Vienna now checks that it can create the database in the users home folder and prompts
+for an alternative location if not.</li>
+<li>Don&#8217;t scroll the current article after a refresh if it hasn&#8217;t been changed or expired.</li>
+</ul>
+
+<h2 id="2002011">2.0.0.2011</h2>
+
+<ul>
+<li>Added option to export subscriptions with groups or as a flat file.</li>
+<li>Refresh when the system awakes from sleep if the refresh frequency is not set to manual.</li>
+<li>Added German Localisation. (Thanks to Jan Kampling).</li>
+<li>Improved handling of invalid styles.</li>
+<li>Vienna can now download files. A new Downloads window has been added which tracks the file
+downloads. The downloads folder can now be configured via Preferences.</li>
+<li>Added &#8220;Mark All Subscriptions as Read&#8221; command. (Thanks to Yann Bizeul).</li>
+<li>Incorporated patches from Yann Bizeul and Adam Hammer.</li>
+<li>Close button on tabs now depress and highlight properly.</li>
+<li>New Preferences UI.</li>
+<li>Font selection in Preferences changed to use the standard OS font picker.</li>
+<li>Add an option to disable feed folder images in the folders list.</li>
+<li>Moved unread count on application icon to the top right corner to be consistent with most
+other Mac OSX applications.</li>
+<li>Support dragging URL strings from other applications into the folders pane.</li>
+<li>Support dropping script files (.scpt) on the application icon to install them to the Vienna
+script folder and add them to the Scripts menu.</li>
+</ul>
+
+<h2 id="2002010">2.0.0.2010</h2>
+
+<ul>
+<li>Added auto-expire support. Articles older than a given number of days can be automatically moved
+to the trash folder.</li>
+<li>Handle RDF:Sequence parsing for feeds such as http://www.kongisking.net. This ensures that
+feeds are properly organised by date in the absence of any date in the feed.</li>
+<li>Smart folder dates fields are now fixed strings representing a time range rather than an actual date.</li>
+<li>Added Italian Localisation. (Thanks to Marcello Teodori).</li>
+<li>Pre-build 2005 format databases no longer upgraded.</li>
+<li>Removed old format display style conversion code. Styles on the web site have been updated.</li>
+<li>Fixed bug where smart folder criteria was unintentionally extended when doing a filtered search.</li>
+<li>Changed a couple of default preferences. We no longer check for new articles on startup and the
+default layout is now to have the article pane at the bottom.</li>
+<li>Fixed growl notification handling not bringing the main window to the foreground.</li>
+<li>Added &#8220;Skip Folder&#8221; command to mark all articles in the current folder read and skip to the next
+folder with unread articles. The shortcut key for this is &#8216;S&#8217;.</li>
+</ul>
+
+<h2 id="2002009">2.0.0.2009</h2>
+
+<ul>
+<li>Fixed potential database corruption bug introduced in build 2007 when refreshing a feed that
+uses entity characters specified with hexadecimal notation.</li>
+<li>Cmd+W closes Preferences window if it is open, rather than the main window.</li>
+<li>The &#8220;About Vienna&#8221; window can now be closed with Esc or Cmd+W.</li>
+<li>Reduced height of tabs slightly.</li>
+<li>Holding down Cmd+Alt keys while clicking tab close button closes all tabs.</li>
+<li>Fixed close tab behaviour properly this time.</li>
+</ul>
+
+<h2 id="2002008_beta_2">2.0.0.2008 (BETA 2)</h2>
+
+<ul>
+<li>Added final Swedish localisation changes for beta 2.</li>
+<li>Fixed French localisation import error.</li>
+<li>Fix bug with importing OPML files.</li>
+<li>Added &#8216;group folder&#8217;, &#8216;smart folder&#8217; and &#8216;rss folder&#8217; attributes to folder class in scripting.</li>
+<li>Added Restore command to restore an article in the Trash Folder back to where it came from.</li>
+<li>Fixed UI update bug when a folder is deleted during a refresh.</li>
+<li>Exported files now have &#8220;.opml&#8221; extension added to them.</li>
+<li>Smart search folder operators are now limited to &#8220;is&#8221; and &#8220;is not&#8221; as &#8220;under&#8221; is now implied.</li>
+<li>Encode extended characters in HTML article text dragged from the article list view.</li>
+</ul>
+
+<h2 id="2002007">2.0.0.2007</h2>
+
+<ul>
+<li>You can now undo/redo Mark All Read, even across multiple folders.</li>
+<li>Article view split bar position is now properly persisted across sessions.</li>
+<li>Disabled proportional folder and article list split bar resizing when the main window is resized.</li>
+<li>Selecting multiple articles now shows multiple articles in the article pane.</li>
+<li>Fixed problem when parsing feeds from http://macintouch.com/rss.xml. Some servers report an
+error unless the User-agent field is specified in the HTTP header.</li>
+<li>Added built-in browser support. Web pages can now be opened in Vienna in separate tabs as an
+option. Next and Previous Tab commands added to the Window menu. Close Tab added to the File
+menu. Right-click popup menu allows links or pages to be opened externally.</li>
+<li>Added option in Preferences to open web pages in Vienna.</li>
+<li>Close Window command changed to Shift+Command+W when tabs are open for consistency with
+Camino and Safari.</li>
+<li>Fixed a bug that screwed up sorting by the read column.</li>
+<li>Improved printing of articles.</li>
+<li>Can undo moving folders in the folders list pane.</li>
+<li>Several improvements to AppleScript interface: new attributes and fixed some bugs.</li>
+<li>Added Cmd+U for next unread since Spacebar doesn&#8217;t work from the web view.</li>
+</ul>
+
+<h2 id="2002006">2.0.0.2006</h2>
+
+<ul>
+<li>Can now sort and double-click activity log items.</li>
+<li>Added option to set the minimum font size in the article display pane.</li>
+<li>Search field now searches article titles as well as the text.</li>
+<li>New application icon. (Thanks to Jasper Hauser - http://www.jasperhauser.nl/icon/).</li>
+<li>Added French localisation. (Thanks to Cyril Gautrias).</li>
+<li>Dropped Compact Database command from the File menu. This is now accessible through the
+scripting interface. Most people don&#8217;t actually need to compact the database now.</li>
+<li>Added &#8220;Validate Feed&#8221; command to the File menu.</li>
+</ul>
+
+<h2 id="2002005">2.0.0.2005</h2>
+
+<ul>
+<li>Updates to Swedish localisation.</li>
+<li>Fixed entity decoding bug that caused corrupted characters in the Der Spiegel feed.</li>
+<li>Fixed character set translation bug that caused some UTF8 characters to appear corrupted.</li>
+<li>Improvements to handling of article GUID/ID to eliminate duplicate articles and better
+track articles that have been modified. This change requires a database upgrade.</li>
+<li>Left/Right arrow keys now move between the folder list and the articles list.</li>
+<li>Added Trash folder. Delete Article now moves selected articles to the Trash folder. New
+Empty Trash command on the Vienna menu can be used to empty the trash folder. (Note: it
+is intentional that you can rename the Trash folder).</li>
+<li>Added Undo/Redo support for the following actions: marking articles read, marking articles
+flagged, renaming folders and deleting articles.</li>
+<li>Spacebar now moves to next unread article.</li>
+<li>Enter key now opens the current article in the default system browser. (&#8216;P&#8217; to open the
+current article in the article pane has been removed.)</li>
+<li>&lt; and > keys now move to previous and next article.</li>
+<li>Drag from the article list now provides HTML and string versions on the pasteboard.</li>
+<li>Copy now works on articles in the article list and folders in the folder list.</li>
+<li>Added an option to open links clicked in Vienna in the background in the default browser.</li>
+<li>New temporary application icon that is more &#8216;clickable&#8217; than the old one. A better icon
+is planned for later.</li>
+<li>Added &#8220;More Styles&#8230;&#8221; to end of Styles menu that opens the Vienna downloads web site in the
+default browser.</li>
+<li>Improved the UI refresh after drag and drop re-ordering of folders in the folder list.</li>
+</ul>
+
+<h2 id="2002004_refresh">2.0.0.2004 (Refresh)</h2>
+
+<ul>
+<li>Added support for automatically installing custom styles.</li>
+<li>Refresh button now toggles between starting and stopping a refresh.</li>
+<li>Remove the unread count from the application icon in the dock when closing Vienna.</li>
+<li>Fixed bug where authenticated feeds did not prompt for first time credentials.</li>
+</ul>
+
+<h2 id="2002004">2.0.0.2004</h2>
+
+<ul>
+<li>Add Scripts menu that displays all scripts under ~/Library/Scripts/Applications/Vienna. By
+default this is enabled under Mac OSX 10.3 and disabled under 10.4 since there is a system
+wide Scripts menu on the status bar that replicates this functionality.</li>
+<li>Rewrote the code that registers the default RSS reader. It wasn&#8217;t picking up all possible
+candidates. Now it shows all candidate applications and also adds a Select&#8230; option so the
+user can manually search for the application. This also fixes the bug where Vienna took over
+the feed handler from others without permission.</li>
+<li>Smart folders now support &#8216;any&#8217; in addition to the implied &#8216;all&#8217; condition. So you can now
+create folders which match any one or more combination of criteria.</li>
+<li>Clicking the dock icon now reopens the main window if it was previously closed.</li>
+<li>Added Swedish localisation (contributed by Christoffer Larsson).</li>
+<li>Several internal fixes for issues thrown up by Swedish localisation.</li>
+<li>View->Next Unread now goes to folders that have subscriptions with unread articles as well
+as to the subscriptions themselves. This causes Vienna to respect the closed state of group
+folders.</li>
+<li>Improved the logic by which folder images are retrieved to make this more reliable.</li>
+<li>New About Vienna window.</li>
+<li>The count of unread articles now show up as button in the folder list to the right of each
+subscription name.</li>
+<li>The Search field now searches immediately rather than wait for you to press Enter.</li>
+<li>Fixed bug that causes images not to render in feeds where embedded links to images are
+relative to the URL of the feed rather than absolute URLs.</li>
+<li>Add &#8216;Validate Feed&#8217; command.</li>
+</ul>
+
+<h2 id="2002003">2.0.0.2003</h2>
+
+<ul>
+<li>Add an option to mark the current article read after 1 second. This is now the new default.</li>
+<li>Fix import/export to convert characters such as &lt;, > and &amp; to and from their entity equivalents
+in URL fields as per XML specification.</li>
+<li>Add View->Article Page to display the original web page from which the article came. The short
+cut for this is &#8216;P&#8217;. The command toggles between the web page and the original article.</li>
+<li>Support content:encoding in RSS 2.0 feeds and use that to override description where available.
+(This fixes the parsing of sites such as http://feeds.feedburner.com/MajorNelson).</li>
+<li>In Atom feeds, where no explicit author is specified for an article, use the feed author if available.</li>
+<li>Mark All Read now works in smart folders.</li>
+<li>Add File->Close Window command to close the main Vienna window and Window->Main Window to reopen
+it again. While the main window is closed, all UI commands are disabled.</li>
+<li>Add &#8220;Refresh All Subscriptions&#8221; to the application dock menu. Other things will follow on the
+dock menu but this was the most common one that people requested.</li>
+<li>Trim title fields to the first non-blank line. Some feeds had titles with multiple lines and
+these cause display problems in the UI.</li>
+<li>When subscribing to a feed, we now check to see if there&#8217;s an active connection available and if
+so, we refresh the new feed immediately. If there&#8217;s no active connection then the refresh is
+deferred.</li>
+<li>New layout style when the article pane is to the right of the article list. In this layout, the
+articles are automatically displayed in summary style with four fixed columns. (Note that you
+cannot add or remove columns in this layout). When the article pane is at the bottom, the usual
+table layout appears. For simplicity I haven&#8217;t exposed any way to change layout independently
+of the position of the article pane. It&#8217;ll be interesting to see if anybody really wants the
+summary view when the article pane is below the article list.</li>
+</ul>
+
+<h2 id="2002002_beta_1">2.0.0.2002 (BETA 1)</h2>
+
+<ul>
+<li>Original beta 1 release.</li>
+</ul>

@@ -8,6 +8,10 @@ most recent build should be at the top of this file.
 
 Thanks!
 
+3.1.6 Release Candidate 3
+-------------------------
+- Fixed graphics issues on some dialog boxes on macOS Sierra
+
 3.1.6 Release Candidate 2
 -------------------------
 - New set of default feeds, thanks to Jesse Claven and Ricky Morse
