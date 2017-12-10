@@ -114,13 +114,21 @@
                                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="eG1-9A-QT6"/>
                                                                                 </imageView>
                                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9YN-89-uuK">
-                                                                                    <rect key="frame" x="20" y="0.0" width="223" height="17"/>
+                                                                                    <rect key="frame" x="20" y="0.0" width="201" height="17"/>
                                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="jkm-Os-POv">
                                                                                         <font key="font" metaFont="system"/>
                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
                                                                                 </textField>
+                                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QKO-B3-mFR">
+                                                                                    <rect key="frame" x="227" y="3" width="14" height="14"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="14" id="9Em-wR-b2a"/>
+                                                                                        <constraint firstAttribute="width" constant="14" id="o5T-UO-Zvg"/>
+                                                                                    </constraints>
+                                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="AH9-Xi-kqD"/>
+                                                                                </imageView>
                                                                                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="W0x-GO-5Lx">
                                                                                     <rect key="frame" x="249" y="1" width="16" height="16"/>
                                                                                 </progressIndicator>
@@ -129,8 +137,10 @@
                                                                                 <integer value="1000"/>
                                                                                 <integer value="1000"/>
                                                                                 <integer value="1000"/>
+                                                                                <integer value="1000"/>
                                                                             </visibilityPriorities>
                                                                             <customSpacing>
+                                                                                <real value="3.4028234663852886e+38"/>
                                                                                 <real value="3.4028234663852886e+38"/>
                                                                                 <real value="3.4028234663852886e+38"/>
                                                                                 <real value="3.4028234663852886e+38"/>
@@ -143,8 +153,10 @@
                                                                         <constraint firstItem="pIE-sj-4zj" firstAttribute="leading" secondItem="Ofe-Wq-3Ch" secondAttribute="leading" id="h4Z-5f-OgI"/>
                                                                     </constraints>
                                                                     <connections>
+                                                                        <outlet property="auxiliaryImageView" destination="QKO-B3-mFR" id="hfo-9b-eLL"/>
                                                                         <outlet property="imageView" destination="lcA-Q2-VTq" id="H3I-dZ-yGG"/>
                                                                         <outlet property="refreshProgressIndicator" destination="W0x-GO-5Lx" id="OSf-3q-cbQ"/>
+                                                                        <outlet property="stackView" destination="pIE-sj-4zj" id="6EU-AI-99q"/>
                                                                         <outlet property="textField" destination="9YN-89-uuK" id="NHI-Mr-MGJ"/>
                                                                     </connections>
                                                                 </tableCellView>

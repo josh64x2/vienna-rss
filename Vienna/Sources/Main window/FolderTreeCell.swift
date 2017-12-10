@@ -10,13 +10,17 @@ import Cocoa
 
 class FolderTreeCell: NSTableCellView {
     
-    @IBOutlet weak var refreshProgressIndicator: NSProgressIndicator!
+    @IBOutlet weak var refreshProgressIndicator: NSProgressIndicator?
+    @IBOutlet weak var auxiliaryImageView: NSImageView?
+    @IBOutlet weak var stackView: NSStackView?
+    
     @objc var inProgress = false {
         didSet {
             if (inProgress == true) {
-                refreshProgressIndicator.startAnimation(nil)
+                auxiliaryImageView?.image = nil
+                refreshProgressIndicator?.startAnimation(nil)
             } else {
-                refreshProgressIndicator.stopAnimation(nil)
+                refreshProgressIndicator?.stopAnimation(nil)
             }
         }
     }
