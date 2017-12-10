@@ -90,7 +90,6 @@
 -(void)initialiseFoldersTree
 {
 	NSTableColumn * tableColumn;
-//    ImageAndTextCell * imageAndTextCell;
 
 	// Our folders have images next to them.
 	tableColumn = [self.outlineView tableColumnWithIdentifier:@"folderColumns"];
@@ -986,26 +985,23 @@
             myInfo[NSFontAttributeName] = self.cellFont;
         }
         
-        // return [[NSAttributedString alloc] initWithString:node.nodeName attributes:myInfo];
-        
         // Use the auxiliary position of the feed item to show
         // the refresh icon if the feed is being refreshed, or an
         // error icon if the feed failed to refresh last time.
-        //        if (folder.isUpdating)
-        //        {
-        //            [realCell setAuxiliaryImage:nil];
-        //            [realCell setInProgress:YES];
-        //        }
+        if (folder.isUpdating) {
+        //  [realCell setAuxiliaryImage:nil];
+            folderTreeCell.inProgress = YES;
+        }
         //        else if (folder.isError)
         //        {
         //            realCell.auxiliaryImage = self.folderErrorImage;
         //            [realCell setInProgress:NO];
         //        }
-        //        else
-        //        {
-        //            [realCell setAuxiliaryImage:nil];
-        //            [realCell setInProgress:NO];
-        //        }
+                else
+                {
+                    //[realCell setAuxiliaryImage:nil];
+                    folderTreeCell.inProgress = NO;
+                }
         //
         //        if (folder.type == VNAFolderTypeSmart)  // Because if the search results contain unread articles we don't want the smart folder name to be bold.
         //        {
@@ -1030,8 +1026,6 @@
         Preferences * prefs = [Preferences standardPreferences];
         folderTreeCell.imageView.image = (prefs.showFolderImages ? folder.image : [folder standardImage]);
         folderTreeCell.textField.attributedStringValue = [[NSAttributedString alloc] initWithString:node.nodeName attributes:myInfo];
-
-        //[realCell setItem:item];
     }
     return folderTreeCell;
 }

@@ -9,11 +9,22 @@
 import Cocoa
 
 class FolderTreeCell: NSTableCellView {
-
+    
+    @IBOutlet weak var refreshProgressIndicator: NSProgressIndicator!
+    @objc var inProgress = false {
+        didSet {
+            if (inProgress == true) {
+                refreshProgressIndicator.startAnimation(nil)
+            } else {
+                refreshProgressIndicator.stopAnimation(nil)
+            }
+        }
+    }
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
         // Drawing code here.
     }
-    
+
 }
