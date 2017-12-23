@@ -991,7 +991,7 @@
         }
         else if (folder.isError)
         {
-            folderTreeCell.auxiliaryImageView.image = self.folderErrorImage;
+            folderTreeCell.didError = YES;
             folderTreeCell.inProgress = NO;
         }
         else

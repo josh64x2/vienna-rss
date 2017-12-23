@@ -18,9 +18,25 @@ class FolderTreeCell: NSTableCellView {
         didSet {
             if (inProgress == true) {
                 auxiliaryImageView?.image = nil
+                stackView?.views[2].isHidden = true
+                stackView?.views[3].isHidden = false
                 refreshProgressIndicator?.startAnimation(nil)
             } else {
                 refreshProgressIndicator?.stopAnimation(nil)
+                stackView?.views[3].isHidden = true
+            }
+        }
+    }
+    
+    @objc var didError = false {
+        didSet {
+            if (didError == true) {
+                auxiliaryImageView?.image = #imageLiteral(resourceName: "folderError.tiff")
+                stackView?.views[2].isHidden = false
+                
+            } else {
+                auxiliaryImageView?.image = nil
+                stackView?.views[2].isHidden = true
             }
         }
     }
@@ -30,5 +46,5 @@ class FolderTreeCell: NSTableCellView {
 
         // Drawing code here.
     }
-
+    
 }
