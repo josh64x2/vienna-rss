@@ -4,7 +4,6 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
-        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="Window Controller" customClass="MainWindowController" customModule="Vienna" customModuleProvider="target">
@@ -106,40 +105,47 @@
                                                                     <rect key="frame" x="1" y="0.0" width="285" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="pIE-sj-4zj">
+                                                                        <stackView orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="pIE-sj-4zj">
                                                                             <rect key="frame" x="8" y="0.0" width="269" height="17"/>
-                                                                            <subviews>
-                                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lcA-Q2-VTq">
+                                                                            <beginningViews>
+                                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lcA-Q2-VTq">
                                                                                     <rect key="frame" x="0.0" y="2" width="14" height="14"/>
                                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="eG1-9A-QT6"/>
                                                                                 </imageView>
-                                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9YN-89-uuK">
-                                                                                    <rect key="frame" x="20" y="0.0" width="205" height="17"/>
+                                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9YN-89-uuK">
+                                                                                    <rect key="frame" x="20" y="0.0" width="96" height="17"/>
                                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="jkm-Os-POv">
                                                                                         <font key="font" metaFont="system"/>
                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
                                                                                 </textField>
-                                                                                <imageView identifier="FolderAuxImageView" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QKO-B3-mFR">
-                                                                                    <rect key="frame" x="231" y="2" width="14" height="14"/>
-                                                                                    <constraints>
-                                                                                        <constraint firstAttribute="height" constant="14" id="9Em-wR-b2a"/>
-                                                                                        <constraint firstAttribute="width" constant="14" id="o5T-UO-Zvg"/>
-                                                                                    </constraints>
+                                                                            </beginningViews>
+                                                                            <endViews>
+                                                                                <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dWK-XN-Yum">
+                                                                                    <rect key="frame" x="197" y="0.0" width="40" height="17"/>
+                                                                                    <buttonCell key="cell" type="inline" title="1234" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="5P1-nD-3dP">
+                                                                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                                        <font key="font" metaFont="smallSystemBold"/>
+                                                                                    </buttonCell>
+                                                                                </button>
+                                                                                <imageView identifier="FolderAuxImageView" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QKO-B3-mFR">
+                                                                                    <rect key="frame" x="245" y="9" width="0.0" height="0.0"/>
                                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="AH9-Xi-kqD"/>
                                                                                 </imageView>
-                                                                                <progressIndicator identifier="FolderProgressIndicator" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="W0x-GO-5Lx">
+                                                                                <progressIndicator identifier="FolderProgressIndicator" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="W0x-GO-5Lx">
                                                                                     <rect key="frame" x="253" y="1" width="16" height="16"/>
                                                                                 </progressIndicator>
-                                                                            </subviews>
+                                                                            </endViews>
                                                                             <visibilityPriorities>
+                                                                                <integer value="1000"/>
                                                                                 <integer value="1000"/>
                                                                                 <integer value="1000"/>
                                                                                 <integer value="1000"/>
                                                                                 <integer value="1000"/>
                                                                             </visibilityPriorities>
                                                                             <customSpacing>
+                                                                                <real value="3.4028234663852886e+38"/>
                                                                                 <real value="3.4028234663852886e+38"/>
                                                                                 <real value="3.4028234663852886e+38"/>
                                                                                 <real value="3.4028234663852886e+38"/>
@@ -159,6 +165,7 @@
                                                                         <outlet property="refreshProgressIndicator" destination="W0x-GO-5Lx" id="OSf-3q-cbQ"/>
                                                                         <outlet property="stackView" destination="pIE-sj-4zj" id="6EU-AI-99q"/>
                                                                         <outlet property="textField" destination="9YN-89-uuK" id="NHI-Mr-MGJ"/>
+                                                                        <outlet property="unreadCountButton" destination="dWK-XN-Yum" id="RR0-5F-Tti"/>
                                                                     </connections>
                                                                 </tableCellView>
                                                             </prototypeCellViews>

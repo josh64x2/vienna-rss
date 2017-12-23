@@ -999,16 +999,15 @@
             folderTreeCell.auxiliaryImageView.image = nil;
             folderTreeCell.inProgress = NO;
         }
-        //
-        //        if (folder.type == VNAFolderTypeSmart)  // Because if the search results contain unread articles we don't want the smart folder name to be bold.
-        //        {
-        //            [realCell clearCount];
-        //        }
-        //        else if (folder.unreadCount)
-        //        {
-        //            [realCell setCount:folder.unreadCount];
-        //            [realCell setCountBackgroundColour:[NSColor colorForControlTint:[NSColor currentControlTint]]];
-        //        }
+        
+        // Because if the search results contain unread articles we don't want the smart folder name to be bold.
+        if (folder.type == VNAFolderTypeSmart) {
+            folderTreeCell.unreadCount = 0;
+        }
+        else if (folder.unreadCount) {
+            folderTreeCell.unreadCount = folder.unreadCount;
+            //[folderTreeCell.unreadCountButton.layer setBackgroundColor:[NSColor colorForControlTint:[NSColor currentControlTint]].CGColor];
+        }
         //        else if (folder.childUnreadCount && ![olv isItemExpanded:item])
         //        {
         //            [realCell setCount:folder.childUnreadCount];
