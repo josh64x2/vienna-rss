@@ -106,15 +106,15 @@
                                                                     <rect key="frame" x="1" y="0.0" width="285" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pIE-sj-4zj">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="265" height="17"/>
+                                                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="pIE-sj-4zj">
+                                                                            <rect key="frame" x="8" y="0.0" width="269" height="17"/>
                                                                             <subviews>
                                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lcA-Q2-VTq">
-                                                                                    <rect key="frame" x="0.0" y="3" width="14" height="14"/>
+                                                                                    <rect key="frame" x="0.0" y="2" width="14" height="14"/>
                                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="eG1-9A-QT6"/>
                                                                                 </imageView>
                                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9YN-89-uuK">
-                                                                                    <rect key="frame" x="20" y="0.0" width="201" height="17"/>
+                                                                                    <rect key="frame" x="20" y="0.0" width="205" height="17"/>
                                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="jkm-Os-POv">
                                                                                         <font key="font" metaFont="system"/>
                                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -122,7 +122,7 @@
                                                                                     </textFieldCell>
                                                                                 </textField>
                                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QKO-B3-mFR">
-                                                                                    <rect key="frame" x="227" y="3" width="14" height="14"/>
+                                                                                    <rect key="frame" x="231" y="2" width="14" height="14"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="14" id="9Em-wR-b2a"/>
                                                                                         <constraint firstAttribute="width" constant="14" id="o5T-UO-Zvg"/>
@@ -130,7 +130,7 @@
                                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="AH9-Xi-kqD"/>
                                                                                 </imageView>
                                                                                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="W0x-GO-5Lx">
-                                                                                    <rect key="frame" x="249" y="1" width="16" height="16"/>
+                                                                                    <rect key="frame" x="253" y="1" width="16" height="16"/>
                                                                                 </progressIndicator>
                                                                             </subviews>
                                                                             <visibilityPriorities>
@@ -148,9 +148,10 @@
                                                                         </stackView>
                                                                     </subviews>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="trailing" secondItem="pIE-sj-4zj" secondAttribute="trailing" constant="20" symbolic="YES" id="DDL-cS-V7s"/>
                                                                         <constraint firstItem="pIE-sj-4zj" firstAttribute="top" secondItem="Ofe-Wq-3Ch" secondAttribute="top" id="Lce-z5-2Lo"/>
-                                                                        <constraint firstItem="pIE-sj-4zj" firstAttribute="leading" secondItem="Ofe-Wq-3Ch" secondAttribute="leading" id="h4Z-5f-OgI"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="pIE-sj-4zj" secondAttribute="trailing" constant="8" id="Pmz-FE-DFq"/>
+                                                                        <constraint firstItem="pIE-sj-4zj" firstAttribute="leading" secondItem="Ofe-Wq-3Ch" secondAttribute="leading" constant="8" id="aKz-v3-hUT"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="pIE-sj-4zj" secondAttribute="bottom" id="hIC-ki-aPk"/>
                                                                     </constraints>
                                                                     <connections>
                                                                         <outlet property="auxiliaryImageView" destination="QKO-B3-mFR" id="hfo-9b-eLL"/>
@@ -687,7 +688,7 @@
                         <popUpButton key="view" verticalHuggingPriority="750" id="gOd-tT-XFQ">
                             <rect key="frame" x="0.0" y="14" width="41" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="StyleTemplate" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="lu2-BZ-Gxd" id="5CR-Qn-4pP">
+                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="lu2-BZ-Gxd" id="5CR-Qn-4pP">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
                                 <menu key="menu" id="mit-Vi-iR1">
@@ -926,7 +927,7 @@
                             </customSpacing>
                         </stackView>
                         <button horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="1291">
-                            <rect key="frame" x="389" y="-1" width="92" height="32"/>
+                            <rect key="frame" x="389" y="-1" width="92" height="43"/>
                             <buttonCell key="cell" type="push" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="1374">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
