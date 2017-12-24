@@ -2,61 +2,59 @@
 //  FolderTreeCell.swift
 //  Vienna
 //
-//  Created by Joshua Pore on 9/12/17.
-//  Copyright © 2017 uk.co.opencommunity. All rights reserved.
+//  Copyright 2017
+//
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//  https://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 //
 
 import Cocoa
 
-class FolderTreeCell: NSTableCellView {
-    
-    @IBOutlet weak var refreshProgressIndicator: NSProgressIndicator?
-    @IBOutlet weak var auxiliaryImageView: NSImageView?
-    @IBOutlet weak var stackView: NSStackView?
-    @IBOutlet weak var unreadCountButton: NSButton?
-    
+final class FolderTreeCell: NSTableCellView {
+
+    // MARK: Properties
+
+    @IBOutlet private weak var stackView: NSStackView!
+
+    // These outlets must be strong, as removing them from the stack view,
+    // removes them from the view hierarchy also.
+    @IBOutlet private var unreadCountButton: NSButton!
+    @IBOutlet private var progressIndicator: NSProgressIndicator!
+    @IBOutlet private var auxiliaryImageView: NSImageView!
+
     @objc var inProgress = false {
         didSet {
-            if (inProgress == true) {
-                auxiliaryImageView?.image = nil
-                stackView?.views[3].isHidden = true
-                stackView?.views[4].isHidden = false
-                refreshProgressIndicator?.startAnimation(nil)
+            if inProgress {
+                auxiliaryImageView.isHidden = true
+                progressIndicator.isHidden = false
+                progressIndicator.startAnimation(nil)
             } else {
-                refreshProgressIndicator?.stopAnimation(nil)
-                stackView?.views[4].isHidden = true
+                progressIndicator.stopAnimation(nil)
+                progressIndicator.isHidden = true
             }
         }
     }
-    
+
     @objc var didError = false {
         didSet {
-            if (didError == true) {
-                auxiliaryImageView?.image = #imageLiteral(resourceName: "folderError.tiff")
-                stackView?.views[3].isHidden = false
-                
-            } else {
-                auxiliaryImageView?.image = nil
-                stackView?.views[3].isHidden = true
-            }
+            auxiliaryImageView.isHidden = !didError
         }
     }
-    
+
     @objc var unreadCount = 0 {
         didSet {
-            unreadCountButton?.title = "\(unreadCount)"
-            if (unreadCount > 0) {
-                stackView?.views[2].isHidden = false
-            } else {
-                stackView?.views[2].isHidden = true
-            }
+            unreadCountButton.title = "\(unreadCount)"
+            unreadCountButton.isHidden = unreadCount <= 0
         }
     }
-    
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
 
-        // Drawing code here.
-    }
-    
 }

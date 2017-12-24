@@ -105,7 +105,7 @@
                                                                     <rect key="frame" x="1" y="1" width="285" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <stackView orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pIE-sj-4zj">
+                                                                        <stackView orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pIE-sj-4zj">
                                                                             <rect key="frame" x="0.0" y="0.0" width="285" height="17"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <beginningViews>
@@ -123,17 +123,16 @@
                                                                                 </textField>
                                                                             </beginningViews>
                                                                             <endViews>
-                                                                                <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dWK-XN-Yum">
-                                                                                    <rect key="frame" x="197" y="0.0" width="40" height="17"/>
-                                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                                    <buttonCell key="cell" type="inline" title="1234" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="5P1-nD-3dP">
+                                                                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dWK-XN-Yum">
+                                                                                    <rect key="frame" x="217" y="0.0" width="20" height="17"/>
+                                                                                    <buttonCell key="cell" type="inline" title="0" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="5P1-nD-3dP">
                                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                                         <font key="font" metaFont="smallSystemBold"/>
                                                                                     </buttonCell>
                                                                                 </button>
                                                                                 <imageView identifier="FolderAuxImageView" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QKO-B3-mFR">
-                                                                                    <rect key="frame" x="261" y="9" width="0.0" height="0.0"/>
-                                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="AH9-Xi-kqD"/>
+                                                                                    <rect key="frame" x="245" y="1" width="16" height="16"/>
+                                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="folderError" id="AH9-Xi-kqD"/>
                                                                                 </imageView>
                                                                                 <progressIndicator identifier="FolderProgressIndicator" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="W0x-GO-5Lx">
                                                                                     <rect key="frame" x="269" y="1" width="16" height="16"/>
@@ -158,7 +157,7 @@
                                                                     <connections>
                                                                         <outlet property="auxiliaryImageView" destination="QKO-B3-mFR" id="hfo-9b-eLL"/>
                                                                         <outlet property="imageView" destination="lcA-Q2-VTq" id="H3I-dZ-yGG"/>
-                                                                        <outlet property="refreshProgressIndicator" destination="W0x-GO-5Lx" id="OSf-3q-cbQ"/>
+                                                                        <outlet property="progressIndicator" destination="W0x-GO-5Lx" id="OSf-3q-cbQ"/>
                                                                         <outlet property="stackView" destination="pIE-sj-4zj" id="6EU-AI-99q"/>
                                                                         <outlet property="textField" destination="9YN-89-uuK" id="NHI-Mr-MGJ"/>
                                                                         <outlet property="unreadCountButton" destination="dWK-XN-Yum" id="RR0-5F-Tti"/>
@@ -466,7 +465,7 @@
                         <popUpButton key="view" verticalHuggingPriority="750" id="DDQ-PY-F2c">
                             <rect key="frame" x="0.0" y="14" width="41" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="pdk-MS-QME" id="xAh-aB-Ek3">
+                            <popUpButtonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NewFeedTemplate" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="pdk-MS-QME" id="xAh-aB-Ek3">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
                                 <menu key="menu" id="tQg-b5-Yiu">
@@ -930,7 +929,7 @@
                             </customSpacing>
                         </stackView>
                         <button horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" placeholderIntrinsicWidth="80" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="1291">
-                            <rect key="frame" x="389" y="-1" width="92" height="43"/>
+                            <rect key="frame" x="389" y="-1" width="92" height="32"/>
                             <buttonCell key="cell" type="push" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="1374">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -984,6 +983,7 @@
         <image name="StyleTemplate" width="15" height="15"/>
         <image name="SyncTemplate" width="19" height="12"/>
         <image name="filter-icon" width="16" height="16"/>
+        <image name="folderError" width="16" height="16"/>
         <image name="pressedCloseButton" width="12" height="13"/>
         <image name="smallCloseButton" width="12" height="13"/>
     </resources>

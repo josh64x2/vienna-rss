@@ -996,7 +996,7 @@
         }
         else
         {
-            folderTreeCell.auxiliaryImageView.image = nil;
+            folderTreeCell.didError = NO;
             folderTreeCell.inProgress = NO;
         }
         
