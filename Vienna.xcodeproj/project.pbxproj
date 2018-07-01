@@ -92,6 +92,7 @@
 		03B752421B74814B00FD3FDB /* RichXMLParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B752411B74814B00FD3FDB /* RichXMLParserTests.m */; };
 		03EFD5701B720AB0007EF284 /* ExportTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 03EFD56F1B720AB0007EF284 /* ExportTests.m */; };
 		03F33D961DF2A2F900B04FAF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03F33D951DF2A2F900B04FAF /* Images.xcassets */; };
+		03F6876B20E8DB60007EE45E /* FolderTreeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F6876A20E8DB60007EE45E /* FolderTreeCell.swift */; };
 		2FAA36402072F50B00169C8A /* MMTabBarView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FAA363F2072F50B00169C8A /* MMTabBarView.framework */; };
 		2FAA36422072F57500169C8A /* MMTabBarView.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 2FAA363F2072F50B00169C8A /* MMTabBarView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		34363ACA0C11C297002A1238 /* ClickableProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 34363AC80C11C297002A1238 /* ClickableProgressIndicator.m */; };
@@ -404,6 +405,7 @@
 		03B752411B74814B00FD3FDB /* RichXMLParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RichXMLParserTests.m; sourceTree = "<group>"; };
 		03EFD56F1B720AB0007EF284 /* ExportTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExportTests.m; sourceTree = "<group>"; };
 		03F33D951DF2A2F900B04FAF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		03F6876A20E8DB60007EE45E /* FolderTreeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderTreeCell.swift; sourceTree = "<group>"; };
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; };
 		2FAA363F2072F50B00169C8A /* MMTabBarView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMTabBarView.framework; path = Carthage/Build/Mac/MMTabBarView.framework; sourceTree = "<group>"; };
 		34363AC70C11C297002A1238 /* ClickableProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ClickableProgressIndicator.h; sourceTree = "<group>"; };
@@ -1544,6 +1546,7 @@
 		F6A7EA581F1CE60100BD4450 /* Folder list */ = {
 			isa = PBXGroup;
 			children = (
+				03F6876A20E8DB60007EE45E /* FolderTreeCell.swift */,
 				F628DFE21ED2698A00FACFD3 /* FilterView.swift */,
 				4350286B165DE9DF0018EDB7 /* FoldersTree.h */,
 				4350286C165DE9DF0018EDB7 /* FoldersTree.m */,
@@ -2326,6 +2329,7 @@
 				435028AA165DE9E00018EDB7 /* MessageListView.m in Sources */,
 				435028AB165DE9E00018EDB7 /* NewGroupFolder.m in Sources */,
 				F6A4E8481F040D58001C9191 /* PluginToolbarItemButton.swift in Sources */,
+				03F6876B20E8DB60007EE45E /* FolderTreeCell.swift in Sources */,
 				435028AC165DE9E00018EDB7 /* NewSubscription.m in Sources */,
 				03B7522A1B741AFD00FD3FDB /* FeedItem.m in Sources */,
 				F6EB26031E58D37100570B22 /* DirectoryMonitor.swift in Sources */,

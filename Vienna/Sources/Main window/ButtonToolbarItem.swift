@@ -67,9 +67,9 @@ class ButtonToolbarItem: NSToolbarItem {
             return
         }
 
-        if (responder as AnyObject).responds(to: #selector(validateToolbarItem(_:))) {
-            isEnabled = (responder as AnyObject).validateToolbarItem(self)
-        }
+//        if (responder as AnyObject).responds(to: #selector(.validate)) {
+//            isEnabled = (responder as AnyObject).validateToolbarItem(self)
+//        }
     }
 
 }
