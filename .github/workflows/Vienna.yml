@@ -1,0 +1,13 @@
+name: Vienna
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: xcodebuild -project Vienna.xcodeproj -scheme "Vienna" -configuration Development
