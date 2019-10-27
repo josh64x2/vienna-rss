@@ -1,13 +1,21 @@
 name: Vienna
 
-on: [push]
+on: pull_request
 
 jobs:
-  build:
-
+  test:
+    name: Test
     runs-on: macOS-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Build
-      run: xcodebuild -project Vienna.xcodeproj -scheme "Vienna" -configuration Development
+    - run: |
+        brew list
+        which xcpretty
+        which carthage
+        which swiftlint
+    - name: Set up Git repository
+      uses: actions/checkout@v1
+    - name: Build Xcode project
+      run: xcodebuild -project Vienna.xcodeproj -scheme Vienna build-for-testing | xcpretty
+    - name: Test Xcode project
+      run: xcodebuild -project Vienna.xcodeproj -scheme Vienna test | xcpretty
