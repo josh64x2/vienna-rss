@@ -9,10 +9,7 @@ jobs:
 
     steps:
     - run: |
-        brew list
-        which xcpretty
-        which carthage
-        which swiftlint
+        brew install swiftlint
     - name: Set up Git repository
       uses: actions/checkout@v1
     - name: Build Xcode project
