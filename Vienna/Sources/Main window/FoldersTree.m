@@ -31,6 +31,7 @@
 #import "Database.h"
 #import "TreeNode.h"
 #import "Folder.h"
+#import "FolderTreeCellView.h"
 #import "Vienna-Swift.h"
 
 @interface FoldersTree ()
@@ -893,143 +894,9 @@
 	return node.canHaveChildren;
 }
 
-/* numberOfChildrenOfItem
- * Returns the number of children belonging to the specified item
- */
--(NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item
-{
-	TreeNode * node = (TreeNode *)item;
-	if (node == nil)
-		node = self.rootNode;
-	return node.countOfChildren;
-}
 
-/* child
- * Returns the child at the specified offset of the item
- */
--(id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item
-{
-	TreeNode * node = (TreeNode *)item;
-	if (node == nil)
-		node = self.rootNode;
-	return [node childByIndex:index];
-}
 
-/* outlineView:tooltipForCell:rect:tableColumn:item:mouseLocation: [delegate]
- * For items that have counts, we show a tooltip that aggregates the counts.
- */
-- (NSString *)outlineView:(NSOutlineView *)outlineView toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)tableColumn item:(id)item mouseLocation:(NSPoint)mouseLocation
-{
-	TreeNode * node = (TreeNode *)item;
-	if (self.useToolTips && node != nil)
-	{
-		if (node.folder.nonPersistedFlags & VNAFolderFlagError)
-			return NSLocalizedString(@"An error occurred when this feed was last refreshed", nil);
-		NSInteger unreadCount;
-		if (node.folder.childUnreadCount) {
-		    unreadCount = node.folder.childUnreadCount;
-		} else {
-		    unreadCount = node.folder.unreadCount;
-		}
-		if (unreadCount) {
-			return [NSString stringWithFormat:NSLocalizedString(@"%d unread articles", nil), (int)unreadCount];
-		}
-	}
-	return nil;
-}
 
-/* objectValueForTableColumn
- * Returns the actual string that is displayed in the cell. Folders that have child folders with unread
- * articles show the aggregate unread article count.
- */
--(id)outlineView:(NSOutlineView *)olv objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
-{
-	TreeNode * node = (TreeNode *)item;
-	if (node == nil)
-		node = self.rootNode;
-
-	static NSDictionary * info = nil;
-	if (info == nil)
-	{
-		NSMutableParagraphStyle * style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-		style.lineBreakMode = NSLineBreakByTruncatingTail;
-		style.tighteningFactorForTruncation = 0.0;
-		style.alignment = NSTextAlignmentLeft;
-		info = @{NSParagraphStyleAttributeName: style};
-	}
-
-	Folder * folder = node.folder;
-    NSMutableDictionary * myInfo = [NSMutableDictionary dictionaryWithDictionary:info];
-    if (folder.isUnsubscribed) {
-        myInfo[NSForegroundColorAttributeName] = NSColor.secondaryLabelColor;
-    } else {
-		myInfo[NSForegroundColorAttributeName] = NSColor.labelColor;
-    }
-	// Set the font
-	if (folder.unreadCount ||  (folder.childUnreadCount && ![olv isItemExpanded:item]))
-		myInfo[NSFontAttributeName] = self.boldCellFont;
-	else
-		myInfo[NSFontAttributeName] = self.cellFont;
-	
-	return [[NSAttributedString alloc] initWithString:node.nodeName attributes:myInfo];
-}
-
-/* willDisplayCell
- * Hook before a cell is displayed to set the correct image for that cell. We use this to show the folder
- * in normal or bold face depending on whether or not the folder (or sub-folders) have unread articles. This
- * is also the place where we set the folder image.
- */
--(void)outlineView:(NSOutlineView *)olv willDisplayCell:(NSCell *)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item 
-{
-	if ([tableColumn.identifier isEqualToString:@"folderColumns"]) 
-	{
-		TreeNode * node = (TreeNode *)item;
-		Folder * folder = node.folder;
-		ImageAndTextCell * realCell = (ImageAndTextCell *)cell;
-
-		// Use the auxiliary position of the feed item to show
-		// the refresh icon if the feed is being refreshed, or an
-		// error icon if the feed failed to refresh last time.
-		if (folder.isUpdating)
-		{
-			[realCell setAuxiliaryImage:nil];
-			[realCell setInProgress:YES];
-		}
-		else if (folder.isError)
-		{
-			realCell.auxiliaryImage = self.folderErrorImage;
-			[realCell setInProgress:NO];
-		}
-		else
-		{
-			[realCell setAuxiliaryImage:nil];
-			[realCell setInProgress:NO];
-		}
-
-		if (folder.type == VNAFolderTypeSmart)  // Because if the search results contain unread articles we don't want the smart folder name to be bold.
-		{
-			[realCell clearCount];
-		}
-		else if (folder.unreadCount)
-		{
-			[realCell setCount:folder.unreadCount];
-		}
-		else if (folder.childUnreadCount && ![olv isItemExpanded:item])
-		{
-			[realCell setCount:folder.childUnreadCount];
-		}
-		else
-		{
-			[realCell clearCount];
-		}
-
-		// Only show folder images if the user prefers them.
-		Preferences * prefs = [Preferences standardPreferences];
-		realCell.image = (prefs.showFolderImages ? folder.image : [folder standardImage]);
-
-		[realCell setItem:item];
-	}
-}
 
 /* mainView
  * Return the main view of this class.
@@ -1104,44 +971,6 @@
 {
 	[self.controller.browser switchToPrimaryTab];
 	[self enableFoldersRenamingAfterDelay];
-}
-
-/* shouldEditTableColumn [delegate]
- * The editing of folder names will be handled by single clicks.
- */
--(BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item
-{
-	return NO;
-}
-
-/* setObjectValue [datasource]
- * Update the folder name when the user has finished editing it.
- */
--(void)outlineView:(NSOutlineView *)olv setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
-{
-	TreeNode * node = (TreeNode *)item;
-	NSString * newName = (NSString *)object;
-	Folder * folder = node.folder;
-	
-	// Remove the "☁️ " symbols on Open Reader feeds
-	if (folder.type == VNAFolderTypeOpenReader && [newName hasPrefix:@"☁️ "]) {
-		NSString *tmpName = [newName substringFromIndex:3];
-		newName = tmpName;
-	}
-	
-	if (![folder.name isEqualToString:newName])
-	{
-		Database * dbManager = [Database sharedManager];
-		if ([dbManager folderFromName:newName] != nil)
-			runOKAlertPanel(NSLocalizedString(@"Cannot rename folder", nil), NSLocalizedString(@"A folder with that name already exists", nil));
-		else
-        {
-            [dbManager setName:newName forFolder:folder.itemId];
-            if (folder.type == VNAFolderTypeOpenReader) {
-                [[OpenReader sharedManager] setFolderTitle:newName forFeed:folder.remoteId];
-            }
-        }
-	}
 }
 
 /* validateDrop
@@ -1431,147 +1260,7 @@
 	return YES;
 }
 
-/* acceptDrop
- * Accept a drop on or between nodes either from within the folder view or from outside.
- */
--(BOOL)outlineView:(NSOutlineView *)olv acceptDrop:(id <NSDraggingInfo>)info item:(id)targetItem childIndex:(NSInteger)child
-{ 
-	__block NSInteger childIndex = child;
-	NSPasteboard * pb = [info draggingPasteboard];
-	NSString * type = [pb availableTypeFromArray:@[MA_PBoardType_FolderList, MA_PBoardType_RSSSource, @"WebURLsWithTitlesPboardType", NSPasteboardTypeString]];
-	TreeNode * node = targetItem ? (TreeNode *)targetItem : self.rootNode;
 
-	NSInteger parentId = node.nodeId;
-	if ((childIndex == NSOutlineViewDropOnItemIndex) || (childIndex < 0))
-		childIndex = 0;
-
-	// Check the type
-	if ([type isEqualToString:NSPasteboardTypeString])
-	{
-		// This is possibly a URL that we'll handle as a potential feed subscription. It's
-		// not our call to make though.
-		NSInteger predecessorId = (childIndex > 0) ? [node childByIndex:(childIndex - 1)].nodeId : 0;
-		[APPCONTROLLER createNewSubscription:[pb stringForType:type] underFolder:parentId afterChild:predecessorId];
-		return YES;
-	}
-	if ([type isEqualToString:MA_PBoardType_FolderList])
-	{
-		Database * db = [Database sharedManager];
-		NSArray * arrayOfSources = [pb propertyListForType:type];
-		NSInteger count = arrayOfSources.count;
-		NSInteger index;
-		NSInteger predecessorId = (childIndex > 0) ? [node childByIndex:(childIndex - 1)].nodeId : 0;
-
-		// Create an NSArray of triples (folderId, newParentId, predecessorId) that will be passed to moveFolders
-		// to do the actual move.
-		NSMutableArray * array = [[NSMutableArray alloc] initWithCapacity:count * 3];
-		NSInteger trashFolderId = db.trashFolderId;
-		for (index = 0; index < count; ++index)
-		{
-			NSInteger folderId = [arrayOfSources[index] integerValue];
-			
-			// Don't allow the trash folder to move under a group folder, because the group folder could get deleted.
-			// Also, don't allow perverse moves.  We should probably do additional checking: not only whether the new parent
-			// is the folder itself but also whether the new parent is a subfolder.
-			if (((folderId == trashFolderId) && (node != self.rootNode)) || (folderId == parentId) || (folderId == predecessorId))
-				continue;
-			[array addObject:@(folderId)];
-			[array addObject:@(parentId)];
-			[array addObject:@(predecessorId)];
-			predecessorId = folderId;
-		}
-
-		// Do the move
-		BOOL result = [self moveFolders:array withGoogleSync:YES];
-		return result;
-	}
-	if ([type isEqualToString:MA_PBoardType_RSSSource])
-	{
-		Database * dbManager = [Database sharedManager];
-		NSArray * arrayOfSources = [pb propertyListForType:type];
-		NSInteger count = arrayOfSources.count;
-		NSInteger index;
-		
-		// This is an RSS drag using the protocol defined by Ranchero for NetNewsWire. See
-		// http://ranchero.com/netnewswire/rssclipboard.php for more details.
-		//
-		__block NSInteger folderToSelect = -1;
-		for (index = 0; index < count; ++index)
-		{
-			NSDictionary * sourceItem = arrayOfSources[index];
-			NSString * feedTitle = [sourceItem valueForKey:@"sourceName"];
-			NSString * feedHomePage = [sourceItem valueForKey:@"sourceHomeURL"];
-			NSString * feedURL = [sourceItem valueForKey:@"sourceRSSURL"];
-			NSString * feedDescription = [sourceItem valueForKey:@"sourceDescription"];
-
-			if ((feedURL != nil) && [dbManager folderFromFeedURL:feedURL] == nil)
-			{
-				NSInteger predecessorId = (childIndex > 0) ? [node childByIndex:(childIndex - 1)].nodeId : 0;
-				NSInteger folderId = [dbManager addRSSFolder:feedTitle underParent:parentId afterChild:predecessorId subscriptionURL:feedURL];
-                if (feedDescription != nil) {
-                    [dbManager setDescription:feedDescription forFolder:folderId];
-                }
-                if (feedHomePage != nil) {
-                    [dbManager setHomePage:feedHomePage forFolder:folderId];
-                }
-                if (folderId > 0) {
-					folderToSelect = folderId;
-                }
-				++childIndex;
-			}
-		}
-
-		// If parent was a group, expand it now
-		if (parentId != VNAFolderTypeRoot)
-			[self.outlineView expandItem:[self.rootNode nodeFromID:parentId]];
-		
-		// Select a new folder
-		if (folderToSelect > 0)
-			[self selectFolder:folderToSelect];
-		
-		return YES;
-	}
-	if ([type isEqualToString:@"WebURLsWithTitlesPboardType"])
-	{
-		Database * dbManager = [Database sharedManager];
-		NSArray * webURLsWithTitles = [pb propertyListForType:type];
-		NSArray * arrayOfURLs = webURLsWithTitles[0];
-		NSArray * arrayOfTitles = webURLsWithTitles[1];
-		NSInteger count = arrayOfURLs.count;
-		NSInteger index;
-		
-		__block NSInteger folderToSelect = -1;
-		for (index = 0; index < count; ++index)
-		{
-			NSString * feedTitle = arrayOfTitles[index];
-			NSString * feedURL = arrayOfURLs[index];
-			NSURL * draggedURL = [NSURL URLWithString:feedURL];
-			if ((draggedURL.scheme != nil) && [draggedURL.scheme isEqualToString:@"feed"])
-				feedURL = [NSString stringWithFormat:@"http:%@", draggedURL.resourceSpecifier];
-			
-			if ([dbManager folderFromFeedURL:feedURL] == nil)
-			{
-				NSInteger predecessorId = (childIndex > 0) ? [node childByIndex:(childIndex - 1)].nodeId : 0;
-				NSInteger newFolderId = [dbManager addRSSFolder:feedTitle underParent:parentId afterChild:predecessorId subscriptionURL:feedURL];
-                if (newFolderId > 0) {
-					folderToSelect = newFolderId;
-                }
-				++childIndex;
-			}
-		}
-		
-		// If parent was a group, expand it now
-		if (parentId != VNAFolderTypeRoot)
-			[self.outlineView expandItem:[self.rootNode nodeFromID:parentId]];
-		
-		// Select a new folder
-		if (folderToSelect > 0)
-			[self selectFolder:folderToSelect];
-		
-		return YES;
-	}
-	return NO; 
-}
 
 /* setSearch
  * Set string to filter nodes by name, description, url
@@ -1601,4 +1290,349 @@
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+// MARK: - NSOutlineViewDataSource
+
+/* acceptDrop
+ * Accept a drop on or between nodes either from within the folder view or from outside.
+ */
+-(BOOL)outlineView:(NSOutlineView *)olv acceptDrop:(id <NSDraggingInfo>)info item:(id)targetItem childIndex:(NSInteger)child
+{
+    __block NSInteger childIndex = child;
+    NSPasteboard * pb = [info draggingPasteboard];
+    NSString * type = [pb availableTypeFromArray:@[MA_PBoardType_FolderList, MA_PBoardType_RSSSource, @"WebURLsWithTitlesPboardType", NSPasteboardTypeString]];
+    TreeNode * node = targetItem ? (TreeNode *)targetItem : self.rootNode;
+
+    NSInteger parentId = node.nodeId;
+    if ((childIndex == NSOutlineViewDropOnItemIndex) || (childIndex < 0))
+        childIndex = 0;
+
+    // Check the type
+    if ([type isEqualToString:NSPasteboardTypeString])
+    {
+        // This is possibly a URL that we'll handle as a potential feed subscription. It's
+        // not our call to make though.
+        NSInteger predecessorId = (childIndex > 0) ? [node childByIndex:(childIndex - 1)].nodeId : 0;
+        [APPCONTROLLER createNewSubscription:[pb stringForType:type] underFolder:parentId afterChild:predecessorId];
+        return YES;
+    }
+    if ([type isEqualToString:MA_PBoardType_FolderList])
+    {
+        Database * db = [Database sharedManager];
+        NSArray * arrayOfSources = [pb propertyListForType:type];
+        NSInteger count = arrayOfSources.count;
+        NSInteger index;
+        NSInteger predecessorId = (childIndex > 0) ? [node childByIndex:(childIndex - 1)].nodeId : 0;
+
+        // Create an NSArray of triples (folderId, newParentId, predecessorId) that will be passed to moveFolders
+        // to do the actual move.
+        NSMutableArray * array = [[NSMutableArray alloc] initWithCapacity:count * 3];
+        NSInteger trashFolderId = db.trashFolderId;
+        for (index = 0; index < count; ++index)
+        {
+            NSInteger folderId = [arrayOfSources[index] integerValue];
+            
+            // Don't allow the trash folder to move under a group folder, because the group folder could get deleted.
+            // Also, don't allow perverse moves.  We should probably do additional checking: not only whether the new parent
+            // is the folder itself but also whether the new parent is a subfolder.
+            if (((folderId == trashFolderId) && (node != self.rootNode)) || (folderId == parentId) || (folderId == predecessorId))
+                continue;
+            [array addObject:@(folderId)];
+            [array addObject:@(parentId)];
+            [array addObject:@(predecessorId)];
+            predecessorId = folderId;
+        }
+
+        // Do the move
+        BOOL result = [self moveFolders:array withGoogleSync:YES];
+        return result;
+    }
+    if ([type isEqualToString:MA_PBoardType_RSSSource])
+    {
+        Database * dbManager = [Database sharedManager];
+        NSArray * arrayOfSources = [pb propertyListForType:type];
+        NSInteger count = arrayOfSources.count;
+        NSInteger index;
+        
+        // This is an RSS drag using the protocol defined by Ranchero for NetNewsWire. See
+        // http://ranchero.com/netnewswire/rssclipboard.php for more details.
+        //
+        __block NSInteger folderToSelect = -1;
+        for (index = 0; index < count; ++index)
+        {
+            NSDictionary * sourceItem = arrayOfSources[index];
+            NSString * feedTitle = [sourceItem valueForKey:@"sourceName"];
+            NSString * feedHomePage = [sourceItem valueForKey:@"sourceHomeURL"];
+            NSString * feedURL = [sourceItem valueForKey:@"sourceRSSURL"];
+            NSString * feedDescription = [sourceItem valueForKey:@"sourceDescription"];
+
+            if ((feedURL != nil) && [dbManager folderFromFeedURL:feedURL] == nil)
+            {
+                NSInteger predecessorId = (childIndex > 0) ? [node childByIndex:(childIndex - 1)].nodeId : 0;
+                NSInteger folderId = [dbManager addRSSFolder:feedTitle underParent:parentId afterChild:predecessorId subscriptionURL:feedURL];
+                if (feedDescription != nil) {
+                    [dbManager setDescription:feedDescription forFolder:folderId];
+                }
+                if (feedHomePage != nil) {
+                    [dbManager setHomePage:feedHomePage forFolder:folderId];
+                }
+                if (folderId > 0) {
+                    folderToSelect = folderId;
+                }
+                ++childIndex;
+            }
+        }
+
+        // If parent was a group, expand it now
+        if (parentId != VNAFolderTypeRoot)
+            [self.outlineView expandItem:[self.rootNode nodeFromID:parentId]];
+        
+        // Select a new folder
+        if (folderToSelect > 0)
+            [self selectFolder:folderToSelect];
+        
+        return YES;
+    }
+    if ([type isEqualToString:@"WebURLsWithTitlesPboardType"])
+    {
+        Database * dbManager = [Database sharedManager];
+        NSArray * webURLsWithTitles = [pb propertyListForType:type];
+        NSArray * arrayOfURLs = webURLsWithTitles[0];
+        NSArray * arrayOfTitles = webURLsWithTitles[1];
+        NSInteger count = arrayOfURLs.count;
+        NSInteger index;
+        
+        __block NSInteger folderToSelect = -1;
+        for (index = 0; index < count; ++index)
+        {
+            NSString * feedTitle = arrayOfTitles[index];
+            NSString * feedURL = arrayOfURLs[index];
+            NSURL * draggedURL = [NSURL URLWithString:feedURL];
+            if ((draggedURL.scheme != nil) && [draggedURL.scheme isEqualToString:@"feed"])
+                feedURL = [NSString stringWithFormat:@"http:%@", draggedURL.resourceSpecifier];
+            
+            if ([dbManager folderFromFeedURL:feedURL] == nil)
+            {
+                NSInteger predecessorId = (childIndex > 0) ? [node childByIndex:(childIndex - 1)].nodeId : 0;
+                NSInteger newFolderId = [dbManager addRSSFolder:feedTitle underParent:parentId afterChild:predecessorId subscriptionURL:feedURL];
+                if (newFolderId > 0) {
+                    folderToSelect = newFolderId;
+                }
+                ++childIndex;
+            }
+        }
+        
+        // If parent was a group, expand it now
+        if (parentId != VNAFolderTypeRoot)
+            [self.outlineView expandItem:[self.rootNode nodeFromID:parentId]];
+        
+        // Select a new folder
+        if (folderToSelect > 0)
+            [self selectFolder:folderToSelect];
+        
+        return YES;
+    }
+    return NO;
+}
+
+/* setObjectValue [datasource]
+ * Update the folder name when the user has finished editing it.
+ */
+-(void)outlineView:(NSOutlineView *)olv setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
+{
+    TreeNode * node = (TreeNode *)item;
+    NSString * newName = (NSString *)object;
+    Folder * folder = node.folder;
+    
+    // Remove the "☁️ " symbols on Open Reader feeds
+    if (folder.type == VNAFolderTypeOpenReader && [newName hasPrefix:@"☁️ "]) {
+        NSString *tmpName = [newName substringFromIndex:3];
+        newName = tmpName;
+    }
+    
+    if (![folder.name isEqualToString:newName])
+    {
+        Database * dbManager = [Database sharedManager];
+        if ([dbManager folderFromName:newName] != nil)
+            runOKAlertPanel(NSLocalizedString(@"Cannot rename folder", nil), NSLocalizedString(@"A folder with that name already exists", nil));
+        else
+        {
+            [dbManager setName:newName forFolder:folder.itemId];
+            if (folder.type == VNAFolderTypeOpenReader) {
+                [[OpenReader sharedManager] setFolderTitle:newName forFeed:folder.remoteId];
+            }
+        }
+    }
+}
+
+/* objectValueForTableColumn
+ * Returns the actual string that is displayed in the cell. Folders that have child folders with unread
+ * articles show the aggregate unread article count.
+ */
+//-(id)outlineView:(NSOutlineView *)olv objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
+//{
+//    TreeNode * node = (TreeNode *)item;
+//    if (node == nil)
+//        node = self.rootNode;
+//
+//    static NSDictionary * info = nil;
+//    if (info == nil)
+//    {
+//        NSMutableParagraphStyle * style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+//        style.lineBreakMode = NSLineBreakByTruncatingTail;
+//        style.tighteningFactorForTruncation = 0.0;
+//        style.alignment = NSTextAlignmentLeft;
+//        info = @{NSParagraphStyleAttributeName: style};
+//    }
+//
+//    Folder * folder = node.folder;
+//    NSMutableDictionary * myInfo = [NSMutableDictionary dictionaryWithDictionary:info];
+//    if (folder.isUnsubscribed) {
+//        myInfo[NSForegroundColorAttributeName] = NSColor.secondaryLabelColor;
+//    } else {
+//        myInfo[NSForegroundColorAttributeName] = NSColor.labelColor;
+//    }
+//    // Set the font
+//    if (folder.unreadCount ||  (folder.childUnreadCount && ![olv isItemExpanded:item]))
+//        myInfo[NSFontAttributeName] = self.boldCellFont;
+//    else
+//        myInfo[NSFontAttributeName] = self.cellFont;
+//
+//    return [[NSAttributedString alloc] initWithString:node.nodeName attributes:myInfo];
+//}
+
+-(NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
+    FolderTreeCellView *folderTreeCellView = nil;
+    if ([tableColumn.identifier isEqualToString:@"folderColumns"])
+    {
+        folderTreeCellView = [outlineView makeViewWithIdentifier:@"FolderTreeCell" owner:self];
+        TreeNode * node = (TreeNode *)item;
+        if (node == nil) {
+            node = self.rootNode;
+        }
+        
+        static NSDictionary * info = nil;
+        if (info == nil)
+        {
+            NSMutableParagraphStyle * style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+            style.lineBreakMode = NSLineBreakByTruncatingTail;
+            style.tighteningFactorForTruncation = 0.0;
+        style.alignment = NSTextAlignmentLeft;
+            info = @{NSParagraphStyleAttributeName: style};
+        }
+        
+        Folder * folder = node.folder;
+        NSMutableDictionary * myInfo = [NSMutableDictionary dictionaryWithDictionary:info];
+        if (folder.isUnsubscribed) {
+                myInfo[NSForegroundColorAttributeName] = NSColor.secondaryLabelColor;
+            } else {
+                myInfo[NSForegroundColorAttributeName] = NSColor.labelColor;
+        }
+        // Set the font
+        if (folder.unreadCount ||  (folder.childUnreadCount && ![outlineView isItemExpanded:item])) {
+            myInfo[NSFontAttributeName] = self.boldCellFont;
+        }
+        else {
+            myInfo[NSFontAttributeName] = self.cellFont;
+        }
+        
+        // Only show folder images if the user prefers them.
+        Preferences * prefs = [Preferences standardPreferences];
+        folderTreeCellView.imageView.image = (prefs.showFolderImages ? folder.image : [folder standardImage]);
+        folderTreeCellView.textField.attributedStringValue = [[NSAttributedString alloc] initWithString:node.nodeName attributes:myInfo];
+        
+        // Use the auxiliary position of the feed item to show
+        // the refresh icon if the feed is being refreshed, or an
+        // error icon if the feed failed to refresh last time.
+        if (folder.isUpdating) {
+            folderTreeCellView.inProgress = YES;
+        }
+        else if (folder.isError)
+        {
+            folderTreeCellView.didError = YES;
+            folderTreeCellView.inProgress = NO;
+        }
+        else
+        {
+            folderTreeCellView.didError = NO;
+            folderTreeCellView.inProgress = NO;
+        }
+        
+        // Because if the search results contain unread articles we don't want the smart folder name to be bold.
+        if (folder.type == VNAFolderTypeSmart) {
+            folderTreeCellView.unreadCount = 0;
+        } else {
+            folderTreeCellView.unreadCount = folder.unreadCount;
+        }
+        //        else if (folder.childUnreadCount && ![olv isItemExpanded:item])
+        //        {
+        //            [realCell setCount:folder.childUnreadCount];
+        //            [realCell setCountBackgroundColour:[NSColor colorForControlTint:[NSColor currentControlTint]]];
+        //        }
+        //        else
+        //        {
+        //            [realCell clearCount];
+        //        }
+        //
+
+    }
+    return folderTreeCellView;
+}
+
+/* numberOfChildrenOfItem
+ * Returns the number of children belonging to the specified item
+ */
+-(NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
+    TreeNode * node = (TreeNode *)item;
+    if (node == nil) {
+        node = self.rootNode;
+    }
+    return node.countOfChildren;
+}
+
+/* child
+ * Returns the child at the specified offset of the item
+ */
+-(id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
+    TreeNode * node = (TreeNode *)item;
+    if (node == nil) {
+        node = self.rootNode;
+    }
+    return [node childByIndex:index];
+}
+
+
+
+// MARK: - NSOutlineViewDelegate
+
+/* shouldEditTableColumn [delegate]
+ * The editing of folder names will be handled by single clicks.
+ */
+-(BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item {
+    return YES;
+}
+
+/* outlineView:tooltipForCell:rect:tableColumn:item:mouseLocation: [delegate]
+ * For items that have counts, we show a tooltip that aggregates the counts.
+ */
+- (NSString *)outlineView:(NSOutlineView *)outlineView toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)tableColumn item:(id)item mouseLocation:(NSPoint)mouseLocation {
+    TreeNode * node = (TreeNode *)item;
+    if (self.useToolTips && node != nil) {
+        if (node.folder.nonPersistedFlags & VNAFolderFlagError) {
+            return NSLocalizedString(@"An error occurred when this feed was last refreshed", nil);
+        }
+        NSInteger unreadCount;
+        if (node.folder.childUnreadCount) {
+            unreadCount = node.folder.childUnreadCount;
+        } else {
+            unreadCount = node.folder.unreadCount;
+        }
+        if (unreadCount) {
+            return [NSString stringWithFormat:NSLocalizedString(@"%d unread articles", nil), (int)unreadCount];
+        }
+    }
+    return nil;
+}
+
+
 @end

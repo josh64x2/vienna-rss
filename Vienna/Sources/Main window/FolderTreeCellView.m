@@ -76,11 +76,3 @@
 }
 
 @end
-
-@implementation NSStackView (VNA)
-
-- (void)attachView:(NSView *)view in:(NSStackViewGravity) gravity {
-    
-}
-
-@end
