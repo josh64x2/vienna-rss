@@ -51,6 +51,7 @@
 		034981411A20701600014F29 /* AdvancedPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 034981401A20701600014F29 /* AdvancedPreferencesViewController.m */; };
 		035B703A19E0E4AE00197334 /* Vienna_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 035B703919E0E4AE00197334 /* Vienna_Tests.m */; };
 		035B704219E0E4DC00197334 /* SubscriptionModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 035B704119E0E4DC00197334 /* SubscriptionModelTests.m */; };
+		0378753125E34743009AB1C9 /* FolderTreeCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0378753025E34743009AB1C9 /* FolderTreeCellView.m */; };
 		0379E2381A2082E600D58BFE /* AppearancePreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0379E2371A2082E600D58BFE /* AppearancePreferencesViewController.m */; };
 		0379E23B1A20831600D58BFE /* SyncingPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0379E23A1A20831600D58BFE /* SyncingPreferencesViewController.m */; };
 		0383DC551B71B44700A11950 /* CriteriaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0383DC541B71B44700A11950 /* CriteriaTests.m */; };
@@ -275,6 +276,8 @@
 		035B703919E0E4AE00197334 /* Vienna_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vienna_Tests.m; sourceTree = "<group>"; };
 		035B704119E0E4DC00197334 /* SubscriptionModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionModelTests.m; sourceTree = "<group>"; };
 		0377BDEB1D3A009B00960555 /* Vienna Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vienna Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		0378752F25E34743009AB1C9 /* FolderTreeCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FolderTreeCellView.h; sourceTree = "<group>"; };
+		0378753025E34743009AB1C9 /* FolderTreeCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FolderTreeCellView.m; sourceTree = "<group>"; };
 		0379E2361A2082E600D58BFE /* AppearancePreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppearancePreferencesViewController.h; sourceTree = "<group>"; };
 		0379E2371A2082E600D58BFE /* AppearancePreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppearancePreferencesViewController.m; sourceTree = "<group>"; };
 		0379E2391A20831600D58BFE /* SyncingPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncingPreferencesViewController.h; sourceTree = "<group>"; };
@@ -1314,6 +1317,8 @@
 				4350286E165DE9DF0018EDB7 /* FolderView.m */,
 				4350288B165DE9DF0018EDB7 /* TreeNode.h */,
 				4350288C165DE9DF0018EDB7 /* TreeNode.m */,
+				0378752F25E34743009AB1C9 /* FolderTreeCellView.h */,
+				0378753025E34743009AB1C9 /* FolderTreeCellView.m */,
 			);
 			name = "Folder list";
 			sourceTree = "<group>";
@@ -2045,6 +2050,7 @@
 				4350283E165DE7F60018EDB7 /* NSNotificationAdditions.m in Sources */,
 				43502895165DE9E00018EDB7 /* ActivityLog.m in Sources */,
 				43502896165DE9E00018EDB7 /* ActivityPanelController.m in Sources */,
+				0378753125E34743009AB1C9 /* FolderTreeCellView.m in Sources */,
 				2FE44CAD25B7995400554E82 /* NSApplication+AppController.swift in Sources */,
 				F6CE47131E7E3DCB0045EAD7 /* ActivityItem.m in Sources */,
 				2FC91DDD21850ADB00D7F223 /* Browser+WebUIDelegate.m in Sources */,
