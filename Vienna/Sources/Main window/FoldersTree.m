@@ -1435,72 +1435,6 @@
     return NO;
 }
 
-/* setObjectValue [datasource]
- * Update the folder name when the user has finished editing it.
- */
--(void)outlineView:(NSOutlineView *)olv setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
-{
-    TreeNode * node = (TreeNode *)item;
-    NSString * newName = (NSString *)object;
-    Folder * folder = node.folder;
-    
-    // Remove the "☁️ " symbols on Open Reader feeds
-    if (folder.type == VNAFolderTypeOpenReader && [newName hasPrefix:@"☁️ "]) {
-        NSString *tmpName = [newName substringFromIndex:3];
-        newName = tmpName;
-    }
-    
-    if (![folder.name isEqualToString:newName])
-    {
-        Database * dbManager = [Database sharedManager];
-        if ([dbManager folderFromName:newName] != nil)
-            runOKAlertPanel(NSLocalizedString(@"Cannot rename folder", nil), NSLocalizedString(@"A folder with that name already exists", nil));
-        else
-        {
-            [dbManager setName:newName forFolder:folder.itemId];
-            if (folder.type == VNAFolderTypeOpenReader) {
-                [[OpenReader sharedManager] setFolderTitle:newName forFeed:folder.remoteId];
-            }
-        }
-    }
-}
-
-/* objectValueForTableColumn
- * Returns the actual string that is displayed in the cell. Folders that have child folders with unread
- * articles show the aggregate unread article count.
- */
-//-(id)outlineView:(NSOutlineView *)olv objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item
-//{
-//    TreeNode * node = (TreeNode *)item;
-//    if (node == nil)
-//        node = self.rootNode;
-//
-//    static NSDictionary * info = nil;
-//    if (info == nil)
-//    {
-//        NSMutableParagraphStyle * style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-//        style.lineBreakMode = NSLineBreakByTruncatingTail;
-//        style.tighteningFactorForTruncation = 0.0;
-//        style.alignment = NSTextAlignmentLeft;
-//        info = @{NSParagraphStyleAttributeName: style};
-//    }
-//
-//    Folder * folder = node.folder;
-//    NSMutableDictionary * myInfo = [NSMutableDictionary dictionaryWithDictionary:info];
-//    if (folder.isUnsubscribed) {
-//        myInfo[NSForegroundColorAttributeName] = NSColor.secondaryLabelColor;
-//    } else {
-//        myInfo[NSForegroundColorAttributeName] = NSColor.labelColor;
-//    }
-//    // Set the font
-//    if (folder.unreadCount ||  (folder.childUnreadCount && ![olv isItemExpanded:item]))
-//        myInfo[NSFontAttributeName] = self.boldCellFont;
-//    else
-//        myInfo[NSFontAttributeName] = self.cellFont;
-//
-//    return [[NSAttributedString alloc] initWithString:node.nodeName attributes:myInfo];
-//}
-
 -(NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
     FolderTreeCellView *folderTreeCellView = nil;
     if ([tableColumn.identifier isEqualToString:@"folderColumns"])
@@ -1540,6 +1474,7 @@
         Preferences * prefs = [Preferences standardPreferences];
         folderTreeCellView.imageView.image = (prefs.showFolderImages ? folder.image : [folder standardImage]);
         folderTreeCellView.textField.attributedStringValue = [[NSAttributedString alloc] initWithString:node.nodeName attributes:myInfo];
+        folderTreeCellView.textField.delegate = self;
         
         // Use the auxiliary position of the feed item to show
         // the refresh icon if the feed is being refreshed, or an
@@ -1634,5 +1569,32 @@
     return nil;
 }
 
+// MARK: - NSTextFieldDelegate
+
+// Called when the user finishes editing a folder name
+- (void)controlTextDidEndEditing:(NSNotification *)obj {
+    TreeNode * node = (TreeNode *)[self.outlineView itemAtRow:self.outlineView.selectedRow];
+    NSTextField *textField = (NSTextField *)obj.object;
+    NSString * newName = textField.stringValue;
+    Folder * folder = node.folder;
+    
+    // Remove the "☁️ " symbols on Open Reader feeds
+    if (folder.type == VNAFolderTypeOpenReader && [newName hasPrefix:@"☁️ "]) {
+        NSString *tmpName = [newName substringFromIndex:3];
+        newName = tmpName;
+    }
+    
+    if (![folder.name isEqualToString:newName]) {
+        Database * dbManager = [Database sharedManager];
+        if ([dbManager folderFromName:newName] != nil) {
+            runOKAlertPanel(NSLocalizedString(@"Cannot rename folder", nil), NSLocalizedString(@"A folder with that name already exists", nil));
+        } else {
+            [dbManager setName:newName forFolder:folder.itemId];
+            if (folder.type == VNAFolderTypeOpenReader) {
+                [[OpenReader sharedManager] setFolderTitle:newName forFeed:folder.remoteId];
+            }
+        }
+    }
+}
 
 @end
