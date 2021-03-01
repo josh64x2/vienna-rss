@@ -22,7 +22,7 @@
 @interface FolderTreeCellView ()
 @property (weak, nonatomic) IBOutlet NSStackView *stackView;
 @property (strong, nonatomic) IBOutlet NSButton *unreadCountButton;
-@property (strong, nonatomic) IBOutlet NSImageView *auxiliaryImageview;
+@property (strong, nonatomic) IBOutlet NSImageView *errorImageView;
 @property (strong, nonatomic) IBOutlet NSProgressIndicator *progressIndicator;
 @end
 
@@ -38,7 +38,7 @@
     self = [super init];
     if (self) {
         _unreadCount = 0;
-        _didError = NO;
+        _showError = NO;
         _inProgress = NO;
     }
     return self;
@@ -47,7 +47,7 @@
 - (void)setInProgress:(BOOL)inProgress {
     _inProgress = inProgress;
     if (_inProgress) {
-        self.auxiliaryImageview.hidden = YES;
+        self.errorImageView.hidden = YES;
         self.progressIndicator.hidden = NO;
         [self.progressIndicator startAnimation:nil];
     } else {
@@ -56,12 +56,12 @@
     }
 }
 
-- (void)setDidError:(BOOL)didError {
-    _didError = didError;
-    if (_didError) {
-        self.auxiliaryImageview.hidden = NO;
+- (void)setShowError:(BOOL)showError {
+    _showError = showError;
+    if (_showError) {
+        self.errorImageView.hidden = NO;
     } else {
-        self.auxiliaryImageview.hidden = YES;
+        self.errorImageView.hidden = YES;
     }
 }
 

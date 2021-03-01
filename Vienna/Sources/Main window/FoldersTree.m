@@ -1484,12 +1484,12 @@
         }
         else if (folder.isError)
         {
-            folderTreeCellView.didError = YES;
+            folderTreeCellView.showError = YES;
             folderTreeCellView.inProgress = NO;
         }
         else
         {
-            folderTreeCellView.didError = NO;
+            folderTreeCellView.showError = NO;
             folderTreeCellView.inProgress = NO;
         }
         

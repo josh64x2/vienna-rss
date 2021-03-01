@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) BOOL inProgress;
 @property (nonatomic) NSInteger unreadCount;
-@property (nonatomic) BOOL didError;
+@property (nonatomic) BOOL showError;
 
 @end
 
