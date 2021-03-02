@@ -1435,10 +1435,10 @@
     return NO;
 }
 
--(NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
+- (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
     FolderTreeCellView *folderTreeCellView = nil;
-    if ([tableColumn.identifier isEqualToString:@"folderColumns"])
-    {
+    
+    if ([tableColumn.identifier isEqualToString:@"folderColumns"]) {
         folderTreeCellView = [outlineView makeViewWithIdentifier:@"FolderTreeCell" owner:self];
         TreeNode * node = (TreeNode *)item;
         if (node == nil) {
@@ -1446,21 +1446,20 @@
         }
         
         static NSDictionary * info = nil;
-        if (info == nil)
-        {
+        if (info == nil) {
             NSMutableParagraphStyle * style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
             style.lineBreakMode = NSLineBreakByTruncatingTail;
             style.tighteningFactorForTruncation = 0.0;
-        style.alignment = NSTextAlignmentLeft;
+            style.alignment = NSTextAlignmentLeft;
             info = @{NSParagraphStyleAttributeName: style};
         }
         
         Folder * folder = node.folder;
         NSMutableDictionary * myInfo = [NSMutableDictionary dictionaryWithDictionary:info];
         if (folder.isUnsubscribed) {
-                myInfo[NSForegroundColorAttributeName] = NSColor.secondaryLabelColor;
-            } else {
-                myInfo[NSForegroundColorAttributeName] = NSColor.labelColor;
+            myInfo[NSForegroundColorAttributeName] = NSColor.secondaryLabelColor;
+        } else {
+            myInfo[NSForegroundColorAttributeName] = NSColor.labelColor;
         }
         // Set the font
         if (folder.unreadCount ||  (folder.childUnreadCount && ![outlineView isItemExpanded:item])) {
@@ -1482,13 +1481,10 @@
         if (folder.isUpdating) {
             folderTreeCellView.inProgress = YES;
         }
-        else if (folder.isError)
-        {
+        else if (folder.isError) {
             folderTreeCellView.showError = YES;
             folderTreeCellView.inProgress = NO;
-        }
-        else
-        {
+        } else {
             folderTreeCellView.showError = NO;
             folderTreeCellView.inProgress = NO;
         }
@@ -1509,7 +1505,7 @@
         //            [realCell clearCount];
         //        }
         //
-
+        
     }
     return folderTreeCellView;
 }
