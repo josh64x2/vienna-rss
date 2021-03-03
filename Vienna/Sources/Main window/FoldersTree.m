@@ -1438,75 +1438,76 @@
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
     FolderTreeCellView *folderTreeCellView = nil;
     
-    if ([tableColumn.identifier isEqualToString:@"folderColumns"]) {
-        folderTreeCellView = [outlineView makeViewWithIdentifier:@"FolderTreeCell" owner:self];
-        TreeNode * node = (TreeNode *)item;
-        if (node == nil) {
-            node = self.rootNode;
-        }
-        
-        static NSDictionary * info = nil;
-        if (info == nil) {
-            NSMutableParagraphStyle * style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-            style.lineBreakMode = NSLineBreakByTruncatingTail;
-            style.tighteningFactorForTruncation = 0.0;
-            style.alignment = NSTextAlignmentLeft;
-            info = @{NSParagraphStyleAttributeName: style};
-        }
-        
-        Folder * folder = node.folder;
-        NSMutableDictionary * myInfo = [NSMutableDictionary dictionaryWithDictionary:info];
-        if (folder.isUnsubscribed) {
-            myInfo[NSForegroundColorAttributeName] = NSColor.secondaryLabelColor;
-        } else {
-            myInfo[NSForegroundColorAttributeName] = NSColor.labelColor;
-        }
-        // Set the font
-        if (folder.unreadCount ||  (folder.childUnreadCount && ![outlineView isItemExpanded:item])) {
-            myInfo[NSFontAttributeName] = self.boldCellFont;
-        }
-        else {
-            myInfo[NSFontAttributeName] = self.cellFont;
-        }
-        
-        // Only show folder images if the user prefers them.
-        Preferences * prefs = [Preferences standardPreferences];
-        folderTreeCellView.imageView.image = (prefs.showFolderImages ? folder.image : [folder standardImage]);
-        folderTreeCellView.textField.attributedStringValue = [[NSAttributedString alloc] initWithString:node.nodeName attributes:myInfo];
-        folderTreeCellView.textField.delegate = self;
-        
-        // Use the auxiliary position of the feed item to show
-        // the refresh icon if the feed is being refreshed, or an
-        // error icon if the feed failed to refresh last time.
-        if (folder.isUpdating) {
-            folderTreeCellView.inProgress = YES;
-        }
-        else if (folder.isError) {
-            folderTreeCellView.showError = YES;
-            folderTreeCellView.inProgress = NO;
-        } else {
-            folderTreeCellView.showError = NO;
-            folderTreeCellView.inProgress = NO;
-        }
-        
-        // Because if the search results contain unread articles we don't want the smart folder name to be bold.
-        if (folder.type == VNAFolderTypeSmart) {
-            folderTreeCellView.unreadCount = 0;
-        } else {
-            folderTreeCellView.unreadCount = folder.unreadCount;
-        }
-        //        else if (folder.childUnreadCount && ![olv isItemExpanded:item])
-        //        {
-        //            [realCell setCount:folder.childUnreadCount];
-        //            [realCell setCountBackgroundColour:[NSColor colorForControlTint:[NSColor currentControlTint]]];
-        //        }
-        //        else
-        //        {
-        //            [realCell clearCount];
-        //        }
-        //
-        
+    if (![tableColumn.identifier isEqualToString:@"folderColumns"]) {
+        return folderTreeCellView;
     }
+    
+    folderTreeCellView = [outlineView makeViewWithIdentifier:@"FolderTreeCell" owner:self];
+    TreeNode * node = (TreeNode *)item;
+    if (node == nil) {
+        node = self.rootNode;
+    }
+    
+    static NSDictionary * info = nil;
+    if (info == nil) {
+        NSMutableParagraphStyle * style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        style.lineBreakMode = NSLineBreakByTruncatingTail;
+        style.tighteningFactorForTruncation = 0.0;
+        style.alignment = NSTextAlignmentLeft;
+        info = @{NSParagraphStyleAttributeName: style};
+    }
+    
+    Folder * folder = node.folder;
+    NSMutableDictionary * myInfo = [NSMutableDictionary dictionaryWithDictionary:info];
+    if (folder.isUnsubscribed) {
+        myInfo[NSForegroundColorAttributeName] = NSColor.secondaryLabelColor;
+    } else {
+        myInfo[NSForegroundColorAttributeName] = NSColor.labelColor;
+    }
+    // Set the font
+    if (folder.unreadCount ||  (folder.childUnreadCount && ![outlineView isItemExpanded:item])) {
+        myInfo[NSFontAttributeName] = self.boldCellFont;
+    }
+    else {
+        myInfo[NSFontAttributeName] = self.cellFont;
+    }
+    
+    // Only show folder images if the user prefers them.
+    Preferences * prefs = [Preferences standardPreferences];
+    folderTreeCellView.imageView.image = (prefs.showFolderImages ? folder.image : [folder standardImage]);
+    folderTreeCellView.textField.attributedStringValue = [[NSAttributedString alloc] initWithString:node.nodeName attributes:myInfo];
+    folderTreeCellView.textField.delegate = self;
+    
+    // Use the auxiliary position of the feed item to show
+    // the refresh icon if the feed is being refreshed, or an
+    // error icon if the feed failed to refresh last time.
+    if (folder.isUpdating) {
+        folderTreeCellView.inProgress = YES;
+    }
+    else if (folder.isError) {
+        folderTreeCellView.showError = YES;
+        folderTreeCellView.inProgress = NO;
+    } else {
+        folderTreeCellView.showError = NO;
+        folderTreeCellView.inProgress = NO;
+    }
+    
+    // Because if the search results contain unread articles we don't want the smart folder name to be bold.
+    if (folder.type == VNAFolderTypeSmart) {
+        folderTreeCellView.unreadCount = 0;
+    } else {
+        folderTreeCellView.unreadCount = folder.unreadCount;
+    }
+    //        else if (folder.childUnreadCount && ![olv isItemExpanded:item])
+    //        {
+    //            [realCell setCount:folder.childUnreadCount];
+    //            [realCell setCountBackgroundColour:[NSColor colorForControlTint:[NSColor currentControlTint]]];
+    //        }
+    //        else
+    //        {
+    //            [realCell clearCount];
+    //        }
+    //
     return folderTreeCellView;
 }
 
