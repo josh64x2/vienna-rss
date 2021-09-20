@@ -13,4 +13,5 @@ jobs:
     - name: Build Xcode project
       run: xcodebuild -project Vienna.xcodeproj -scheme Vienna -configuration Development build-for-testing
     - name: Test Xcode project
+      timeout-minutes: 5
       run: xcodebuild -project Vienna.xcodeproj -scheme Vienna -configuration Development test
