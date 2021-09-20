@@ -11,6 +11,6 @@ jobs:
     - name: Set up Git repository
       uses: actions/checkout@v2
     - name: Build Xcode project
-      run: xcodebuild -project Vienna.xcodeproj -scheme Vienna -configuration Development build-for-testing | xcpretty && exit ${PIPESTATUS[0]}
+      run: xcodebuild -project Vienna.xcodeproj -scheme Vienna -configuration Development build-for-testing
     - name: Test Xcode project
-      run: xcodebuild -project Vienna.xcodeproj -scheme Vienna -configuration Development test | xcpretty && exit ${PIPESTATUS[0]}
+      run: xcodebuild -project Vienna.xcodeproj -scheme Vienna -configuration Development test
