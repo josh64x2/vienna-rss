@@ -144,6 +144,8 @@
 	<string>SparkleDSAPublicKey.pem</string>
 	<key>SUPublicEDKey</key>
 	<string>nPwwT+poO5Kmi1NZkE5OveKB8lvQVY20N22E8jgxLCg=</string>
+	<key>SUFeedURL</key>
+	<string>https://viennarss.github.io/sparkle-files/changelog.xml</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
